@@ -74,3 +74,11 @@ type Orderhistory struct {
 	Orderdetails   OrderPlacedhistory
 	Productdetails []Product
 }
+type Catergorylist struct {
+	CategoryName string
+	Url          string
+}
+
+type Datares struct {
+	Data []Catergorylist
+}
