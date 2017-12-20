@@ -55,6 +55,18 @@ func Fruits(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Orgin", "*")
 	w.Write(Senddata)
 }
+
+func Seafood(w http.ResponseWriter, r *http.Request) {
+	Data := Db.GetSeafood_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - RETRIVE PRODUCT DATA", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
 func SearchProduct(w http.ResponseWriter, r *http.Request) {
 	var Searchproduct Model.Search
 	err := json.NewDecoder(r.Body).Decode(&Searchproduct)

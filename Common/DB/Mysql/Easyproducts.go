@@ -53,6 +53,10 @@ func GetFruits() (Vegresponse []Model.Vegetables) {
 	return
 }
 
+func GetSeafood_DB() (Vegresponse []Model.Vegetables) {
+	Vegresponse = Getvegetables_DB("Seafood")
+	return
+}
 func Search_DB(searchstring string) (Vegarray []Model.Vegetables) {
 
 	var Array []string
