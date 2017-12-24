@@ -107,7 +107,7 @@ func EasyChangepassword(User1 Model.Changepass) (Userinfo string) {
 	fmt.Println(User1.Oldpassword)
 	if User1.Oldpassword == Getuser {
 
-		Queryupdate := "UPDATE  easylogin SET password=' " + User1.Newpassword + " '  where Loginid= '" + User1.Loginid + "'"
+		Queryupdate := "UPDATE  easylogin SET password='" + User1.Newpassword + "'where Loginid='" + User1.Loginid + "'"
 
 		row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
 		if err != nil {

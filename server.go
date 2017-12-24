@@ -31,13 +31,11 @@ func Serve() bool {
 
 	router := mux.NewRouter()
 
-	fs := http.FileServer(http.Dir("./rentmatics_theme/"))
-	//http.Handle("/", fs)
-	router.PathPrefix("/rentmatics_theme/").Handler(http.StripPrefix("/rentmatics_theme/", fs))
+	fs := http.FileServer(http.Dir("./web/"))
+	router.PathPrefix("/web/").Handler(http.StripPrefix("/web/", fs))
 
-	fs1 := http.FileServer(http.Dir("./Houseimage/"))
-	//http.Handle("/", fs)
-	router.PathPrefix("/Houseimage/").Handler(http.StripPrefix("/Houseimage/", fs1))
+	fs1 := http.FileServer(http.Dir("./Productimage/"))
+	router.PathPrefix("/Productimage/").Handler(http.StripPrefix("/Productimage/", fs1))
 
 	//Easy shopping Handlers
 	router.HandleFunc("/EasyshoppingRegister", Service.EasyRegister)
@@ -68,6 +66,10 @@ func Serve() bool {
 	router.HandleFunc("/Getallorder", Service.GetAllorder)
 	router.HandleFunc("/Addproduct", Service.Allproduct)
 	router.HandleFunc("/UpdateRate", Service.Editproduct)
+	router.HandleFunc("/Getsingledata", Service.GetSingleproduct)
+	//router.HandleFunc("/Getsingleorderdata", Service.Getsingleorderdata)
+
+	router.HandleFunc("/UpdateProductstatus", Service.Updatestatus)
 	router.HandleFunc("/Getordertracking", Service.Getordertracking)
 
 	//Search

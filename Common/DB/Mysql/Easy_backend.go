@@ -9,10 +9,10 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func Getuser_DB() (Userresponse []Model.UserbackendResponse) {
-	var Userresp Model.UserbackendResponse
+func Getuser_DB() (Userresponse []Model.Profile) {
+	var Userresp Model.Profile
 
-	rows, err := OpenConnection["Rentmatics"].Query("select uniqueid,username,Loginid,emailid,logintype from  easylogin")
+	rows, err := OpenConnection["Rentmatics"].Query("select userid,uniqueid,username,Loginid,phonenumber,emailid from  easylogin")
 	if err != nil {
 		log.Println("Error -DB: Get User", err)
 	}
@@ -20,6 +20,7 @@ func Getuser_DB() (Userresponse []Model.UserbackendResponse) {
 
 		rows.Scan(
 			&Userresp.Userid,
+			&Userresp.Uniueid,
 			&Userresp.Username,
 			&Userresp.Loginid,
 			&Userresp.Phonenumber,
@@ -80,7 +81,7 @@ func GetAllorder_DB() (Orderresult []Model.Orderdataresponse) {
 }
 
 func Addproduct_DB(Adddata Model.Addproduct) {
-	row, err := OpenConnection["Rentmatics"].Exec("insert into easyvegetables (Easyproduct,Type,Rate,weight ) values (?,?,?,?)", Adddata.Productname, Adddata.Categorylist, Adddata.Productrate, Adddata.Productweight)
+	row, err := OpenConnection["Rentmatics"].Exec("insert into easyvegetables (Easyproduct,Type,Rate1KG,Rate500gm,Rate250gm,display,pictureurl ) values (?,?,?,?,?,?,?)", Adddata.Productname, Adddata.Categorylist, Adddata.Productrate1kg, Adddata.Productrate500kg, Adddata.Productrate250gm, "show", Adddata.Pictureurl)
 	if err != nil {
 		log.Println("Error -DB: update Profile", err, row)
 	}
@@ -88,7 +89,17 @@ func Addproduct_DB(Adddata Model.Addproduct) {
 }
 
 func Updateproduct_DB(Editdata Model.Updateproduct) {
-	Queryupdate := "UPDATE easyvegetables SET Rate= " + fmt.Sprintf("%v", Editdata.Productrate) + "  where Easyproduct= '" + Editdata.Productname + "'"
+	Queryupdate := "UPDATE easyvegetables SET Easyproduct=' " + Editdata.Productname + " ' , Rate1KG= '" + fmt.Sprintf("%v", Editdata.Productrate1kg) + "' ,Rate500gm= '" + fmt.Sprintf("%v", Editdata.Productrate500gm) + "' ,Rate250gm= '" + fmt.Sprintf("%v", Editdata.Productrate250gm) + "'  where easyid= " + fmt.Sprintf("%v", Editdata.Productid)
+
+	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: update Profile", err, row)
+	}
+}
+
+func Updatestatus_DB(Data Model.Updatestatus) {
+
+	Queryupdate := "UPDATE easyvegetables SET display ='" + Data.Productstatus + "' where easyid= " + fmt.Sprintf("%v", Data.Productid)
 
 	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
 	if err != nil {

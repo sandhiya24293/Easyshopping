@@ -1,0 +1,456 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Gretong a Ecommerce Admin Panel Category Flat Bootstrap Responsive Web Template | Bags :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Gretong Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- Graph CSS -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- jQuery -->
+<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- lined-icons -->
+<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
+<script src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+          
+           $.ajax({
+               type: "GET",
+               url: "http://localhost:8085/Fruits",
+               contentType:"application/json; charset=utf-8",
+               
+         
+           success: function(responsee){
+           var searchout = JSON.parse(responsee);
+           var cardstring ="";
+  
+ console.log(searchout);
+  if( searchout != null  ){
+     var property =searchout.length +" Results Found ";
+    for (k=0;k<searchout.length;k++){
+     
+
+    cardstring=cardstring+Getjavascript(searchout[k].Vegid);
+
+
+  }
+
+  document.getElementById("listContainer").innerHTML=cardstring;
+
+
+
+       }
+
+
+
+for(j=0;j<searchout.length;j++){
+	var ID = searchout[j].Vegid;
+	
+ 
+ var Vegetable =searchout[j].Vegetable
+ var Type = searchout[j].Type;
+ var Rate = searchout[j].Rate;
+ var Weight =searchout[j].Weight;
+ if ( searchout[j].Display=="hide"){
+ 	
+ 	document.getElementById("showtab1"+ID).style.display = "none";
+ 	document.getElementById("showtab2"+ID).style.display = "inline";
+ }
+$("#userid"+ID).html(ID);
+$("#name"+ID).html(Vegetable);
+$("#type"+ID).html(Type);
+$("#weight"+ID).html(Weight);
+$("#rate"+ID).html(Rate);
+
+
+
+}
+}
+       });
+             
+         });
+
+
+
+ //For Slider
+ function Getjavascript(Dyid){
+ 
+  var rentimage = 
+  
+"<tr  >"+
+"<td id='userid"+Dyid+"'>@mdo</td>"+
+"<td id='name"+Dyid+"'>@mdo</td>"+
+"<td id='type"+Dyid+"'>@mdo</td>"+
+"<td id='rate"+Dyid+"'>@mdo</td>"+
+ "<td id='weight"+Dyid+"'>@mdo</td>"+
+ "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button></td>"+
+ "<td id='showtab2"+Dyid+"' style='margin-bottom:-200px;display:none;'><button  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%'>Show</button></td>"+
+"<td id='showtab1"+Dyid+"'><button type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
+
+"</tr>";
+
+
+ return rentimage;
+
+ }
+function Updaterate(Dyid){
+
+	$('#myModal').modal('show');
+	$("#showid").val(Dyid)
+
+	}
+
+
+	function Hide(Dyid){
+		var Updateproduct ={
+		"Productid": parseInt(Dyid),
+		"Productstatus":"hide"
+		
+	}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/UpdateProductstatus",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updateproduct),
+
+   success: function(){
+console.log("sucessfully updated")
+ window.location.reload(true);
+ }
+});
+	}
+	  function Show(Dyid){
+		var Updateproduct ={
+		"Productid": parseInt(Dyid),
+		"Productstatus":"show"
+		
+	}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/UpdateProductstatus",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updateproduct),
+
+   success: function(){
+console.log("sucessfully updated")
+ window.location.reload(true);
+ }
+});
+		
+
+	}
+
+
+
+
+
+function updateratefunc(){
+	var productid = document.getElementById("showid").value;
+	var updaterate = document.getElementById("getrate").value;
+	var Updateproduct ={
+		"Productid": parseInt(productid),
+		"Productrate": parseInt(updaterate)
+	}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/UpdateRate",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updateproduct),
+
+   success: function(){
+console.log("sucessfully updated")
+window.location.reload(true);
+ }
+});
+
+}
+
+
+function Addproduct(){
+	alert("inside");
+	var Categorylist = document.getElementById("category").value;
+	var Productname = document.getElementById("name").value;
+	var Productrate = document.getElementById("rate").value;
+	var Productweight = document.getElementById("weight").value;
+	var prodwg = Productweight + "KG"
+
+
+	var Add ={
+	 "Categorylist" :Categorylist,
+	 "Productname" :Productname,
+	 "Productrate" :parseInt(Productrate),
+	 "Productweight" :prodwg,
+
+	}
+	 $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/Addproduct",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Add),
+
+   success: function(){
+console.log("sucessfully updated")
+ }
+});
+
+
+}
+
+ </script>
+
+
+
+<style type="text/css">
+	tbody td{
+  padding: 30px;
+}
+table th{
+ background-color: black;
+ color: #fff;
+}
+
+tbody tr:nth-child(odd){
+  background-color: brown;
+  color: #fff;
+}
+tbody tr:nth-child(even){
+  background-color: brown;
+  color: #fff;
+}
+</style>
+<script>
+	function Showform(){
+		document.getElementById("showdiv").style.display = "inline"
+	}
+	function closediv(){
+		document.getElementById("showdiv").style.display = "none"
+
+	}
+</script>
+<!-- //lined-icons -->
+
+
+</head> 
+<body>
+   <div class="page-container">
+   <!--/content-inner-->
+	<div class="left-content">
+	   <div class="inner-content">
+		<!-- header-starts -->
+			<div class="header-section">
+			<!-- top_bg -->
+						<div class="top_bg">
+							
+								<div class="header_top">
+									<div class="top_right">
+										<ul>
+											<li><a href="contact.html">help</a></li>|
+											<li><a href="contact.html">Contact</a></li>|
+											<li><a href="checkout.html">Delivery information</a></li>
+										</ul>
+									</div>
+									<div class="top_left">
+										<h2><span></span> Call us : 032 2352 782</h2>
+									</div>
+										<div class="clearfix"> </div>
+								</div>
+							
+						</div>
+					<div class="clearfix"></div>
+				<!-- /top_bg -->
+				</div>
+				<div class="header_bg">
+						
+							<div class="header">
+								<div class="head-t">
+									<div class="logo" style="margin-right:-20px">
+										<a href="index.html">
+										<h1 style="color:brown;"><b>Easy E3 Shopping</b></h1> </a>
+									</div>
+										<!-- start header_right -->
+									<div class="header_right">
+										<div class="rgt-bottom">
+											<div class="create_btn">
+											<a href="javascript:Showform()" style="width:150px;height:50px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px"> + Add Product</a>
+										</div>
+											
+										
+										
+										
+							</div>
+						</div>
+					
+				</div>
+					<!-- //header-ends -->
+				
+				<!--content-->
+			<div class="content">
+			
+			<div>
+			<div class="registration_form" style="display:none" id="showdiv">
+		 <!-- Form -->
+			<form style="width:30%">
+
+
+					<div class="form-group">
+											
+											<div class="col-sm-8">
+											<select name="selector1" id="category" class="form-control1" style="border: 1px solid black;width:370px" >
+                                             <option selected="true" disabled="disabled">Product type</option>   
+												<option value="Veg">Vegetable</option>
+												<option value ="Leaves">Leaves</option>
+												<option value="Fruits">Fruits</option>
+												<option value ="NonVeg">Non Veg</option>
+												<option value="Seafood">Sea Food</option>
+											</select></div>
+										</div>
+				<div>
+					<label>
+						<input placeholder="Product name " type="text" tabindex="1" required="" autofocus="" id="name">
+					</label>
+				</div>
+												
+
+				
+				<div>
+					<label>
+						<input placeholder="Rate" type="text" tabindex="3" required="" id="rate">
+					</label>
+				</div>
+				<div>
+					<label>
+						<input placeholder="KG" type="text" tabindex="3" required="" id="weight">
+					</label>
+				</div>
+
+				<button type="submit"  class='btn btn-success' onclick="Addproduct()">Submit</button>
+				
+</form>
+<br>
+<button   class='btn btn-success' onclick="closediv()">Close</button>
+			<!-- /Form -->
+		</div>
+			</div>
+	<div class="content">
+				
+					<h2 style="color:black;">Product List</h2>
+					<table class="table" class="table table-inverse">
+  <thead>
+    <tr>
+      <th>Vegetable Id</th>
+      <th>Vegetable Name</th>
+      <th>Vegetable Type</th>
+      <th>vegetable Rate</th>
+      <th>Weight</th>
+      <th>Update Rate</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody id="listContainer">
+    
+    
+  </tbody>
+</table>
+
+
+				
+</div>
+		</div>
+</div>
+				<!--//content-inner-->
+			<!--/sidebar-menu-->
+				<div class="sidebar-menu">
+					<header class="logo1">
+						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
+					</header>
+						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+                       <div class="menu">
+									<ul id="menu" >
+										<li><a href="index.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
+										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>
+
+									
+
+									
+
+										 <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span> Easy Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+										   <ul id="menu-academico-sub" >
+										   <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
+										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
+											<li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
+											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
+											<li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
+										  </ul>
+										</li>
+
+
+										
+									<li id="menu-academico" ><a href="orders.html"><i class="fa fa-file-text-o"></i> <span>Order List</span></a></li>
+
+									<li id="menu-academico" ><a href="Track.html"><i class="lnr lnr-book"></i> <span>Update Track</span></a></li>
+									 
+							     
+								
+								</div>
+							  </div>
+							  <div class="clearfix"></div>	
+							</div>
+
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Update Product Rate</h3>
+        <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top:-30px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body">
+      <input  type="text" id="showid" style="display:none">
+     
+      
+        <h4>Enter Rate</h4>
+        <input type="text" id="getrate" >
+          
+      </div>
+      <div class="modal-footer">
+
+       <button type="button"   data-dismiss="modal"   onclick="updateratefunc()" style="margin-top:-30px;">
+          Update
+        </button>
+       
+    <!-- <a class="button btn btn-danger" data-dismiss="modal"   style="margin-left:3%;">Update Rate</a> -->
+
+      </div>
+   
+  </div>
+</div>
+</div>
+
+
+						
+<!--js -->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script src="js/bootstrap.min.js"></script>
+   <!-- /Bootstrap Core JavaScript -->
+  
+		   <script src="js/menu_jquery.js"></script>
+</body>
+</html>

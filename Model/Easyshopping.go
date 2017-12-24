@@ -41,7 +41,7 @@ type ProfileLoginid struct {
 }
 
 type Profile struct {
-	Userid      string
+	Userid      int
 	Uniueid     string
 	Username    string
 	Loginid     string

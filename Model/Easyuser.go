@@ -29,14 +29,23 @@ type Orderdataresponse struct {
 }
 
 type Addproduct struct {
-	Categorylist  string
-	Productname   string
-	Productrate   int
-	Productweight string
+	Categorylist     string
+	Productname      string
+	Productrate1kg   int
+	Productrate500kg int
+	Productrate250gm int
+	Pictureurl       string
 }
 type Updateproduct struct {
-	Productname string
-	Productrate int
+	Productid        int
+	Productname      string
+	Productrate1kg   int
+	Productrate500gm int
+	Productrate250gm int
+}
+type Updatestatus struct {
+	Productid     int
+	Productstatus string
 }
 
 type Gettrack struct {

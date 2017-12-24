@@ -24,10 +24,38 @@ func Getvegetables_DB(Data string) (Vegarray []Model.Vegetables) {
 			&Vegetabledata.Vegid,
 			&Vegetabledata.Vegetable,
 			&Vegetabledata.Type,
-			&Vegetabledata.Rate,
-			&Vegetabledata.Weight,
+			&Vegetabledata.Rate1kg,
+			&Vegetabledata.Rate500gm,
+			&Vegetabledata.Rate250gm,
+			&Vegetabledata.Display,
+			&Vegetabledata.Pictureurl,
 		)
 		Vegarray = append(Vegarray, Vegetabledata)
+
+	}
+
+	return
+}
+
+func GetSingleprod_DB(Productid int) (Responsedata Model.Vegetables) {
+
+	rows, err := OpenConnection["Rentmatics"].Query("select * from easyvegetables where easyid=?", Productid)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+
+			&Responsedata.Vegid,
+			&Responsedata.Vegetable,
+			&Responsedata.Type,
+			&Responsedata.Rate1kg,
+			&Responsedata.Rate500gm,
+			&Responsedata.Rate250gm,
+			&Responsedata.Display,
+			&Responsedata.Pictureurl,
+		)
 
 	}
 
@@ -103,8 +131,11 @@ func Search_DB(searchstring string) (Vegarray []Model.Vegetables) {
 				&Vegetabledata.Vegid,
 				&Vegetabledata.Vegetable,
 				&Vegetabledata.Type,
-				&Vegetabledata.Rate,
-				&Vegetabledata.Weight,
+				&Vegetabledata.Rate1kg,
+				&Vegetabledata.Rate500gm,
+				&Vegetabledata.Rate250gm,
+				&Vegetabledata.Display,
+				&Vegetabledata.Pictureurl,
 			)
 			Vegarray = append(Vegarray, Vegetabledata)
 

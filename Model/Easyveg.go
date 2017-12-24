@@ -1,11 +1,14 @@
 package Model
 
 type Vegetables struct {
-	Vegid     int
-	Vegetable string
-	Type      string
-	Rate      int
-	Weight    string
+	Vegid      int
+	Vegetable  string
+	Type       string
+	Rate1kg    int
+	Rate500gm  int
+	Rate250gm  int
+	Display    string
+	Pictureurl string
 }
 type ProductResponse struct {
 	Vegetables []Vegetables
