@@ -254,7 +254,7 @@ func Easyupdateprofile(LoginidAddress Model.UpdateProfile) string {
 
 	}
 
-	Queryupdate := "UPDATE  easylogin SET username=' " + LoginidAddress.Username + " ',emailid='" + LoginidAddress.Emailid + "',phonenumber='" + LoginidAddress.Phonenumber + "'  where Loginid= '" + LoginidAddress.Loginid + "'"
+	Queryupdate := "UPDATE  easylogin SET username='" + LoginidAddress.Username + "',emailid='" + LoginidAddress.Emailid + "',phonenumber='" + LoginidAddress.Phonenumber + "'where Loginid='" + LoginidAddress.Loginid + "'"
 
 	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
 	if err != nil {
