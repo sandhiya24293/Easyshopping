@@ -1,78 +1,34 @@
 <!DOCTYPE html>
-<html>
-<style>
-form {
-    border: 3px solid #f1f1f1;
-}
-body  {
-    background-image: url("images/images.jpg");
- 
-     background-repeat: no-repeat, repeat;
-      background-size: cover;
-}
+<html lang="en">
 
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
+    <head>
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap Login Form Template</title>
 
-button:hover {
-    opacity: 0.8;
-}
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/css/form-elements.css">
+        <link rel="stylesheet" href="assets/css/style.css">
 
-.cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-}
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-.imgcontainer {
-    text-align: center;
-    margin: 2px 0 12px 0;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-
-.container {
-    padding: 2px;
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw {
-       display: block;
-       float: none;
-    }
-    .cancelbtn {
-       width: 100%;
-    }
-}
-
-</style>
-<script src="js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript">
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="assets/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+        <script type="text/javascript">
    function Login(){
    	var User = document.getElementById("user").value;
    	var Pass = document.getElementById("pass").value;
@@ -113,33 +69,66 @@ var login ={
 
 
  </script>
-<body >
+
+    </head>
+
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1><strong>E3 Shopping</strong> Login </h1>
+                           
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>Login to our site</h3>
+                            		<p>Enter your username and password to log on:</p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-key"></i>
+                        		</div>
+                            </div>
+                            <div class="form-bottom">
+			                   
+                          <form action="" method="post" onsubmit="Login();return false;" class="login-form">
+			                    	<div class="form-group">
+			                    		<label class="sr-only" for="form-username">Username</label>
+			                        	<input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="user">
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="sr-only" for="form-password">Password</label>
+			                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="pass">
+			                        </div>
+			                        <button type="submit" class="btn">Sign in!</button>
+			                    </form>
+		                    </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
 
 
-
-<form action="" method="post" onsubmit="Login();return false;" style="margin-left:480px;width:500px;height:500px">
-<h2> <b style="margin-left:150px;color:white">E3 Admin Login</b> </h2>
-  <div class="imgcontainer" style="height:350px;width:350px;margin-left:60px;">
-    <img src="css/img_avatar2.png" alt="Avatar" class="avatar" style="margin-bottom:-40px" >
-  </div>
-  <br>
-  <br>
-  <br>
-
-
-  <div class="container" style="width:400px;margin-left:40px;margin-top:-240px">
- 
-    <input type="text" placeholder="Enter Username" id="user" required>
-
-
-    <input type="password" placeholder="Enter Password" id="pass" required>
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
         
-    <button type="submit">Login</button>
-    <input type="checkbox" checked="checked"> Remember me
-  </div>
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
 
- 
-</form>
+    </body>
 
-</body>
 </html>

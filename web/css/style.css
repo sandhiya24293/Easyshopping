@@ -1,3 +1,4 @@
+
 /*
 Author: W3layout
 Author URL: http://w3layouts.com
@@ -39,6 +40,13 @@ a {
   font-weight:400;
 }
 a:hover { transition: all 200ms ease-in-out; }
+.table-container
+{
+  width: 100%;
+  overflow-y: auto;
+  _overflow: auto;
+  margin: 0 0 1em;
+}
 
 .page-container {
   min-width: 1260px;
