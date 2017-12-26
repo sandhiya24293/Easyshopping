@@ -209,3 +209,40 @@ func GetSingleproduct(w http.ResponseWriter, r *http.Request) {
 	w.Write(Senddata)
 
 }
+func Changepassword_admin(w http.ResponseWriter, r *http.Request) {
+	var Changepass Model.Changepassword
+	err := json.NewDecoder(r.Body).Decode(&Changepass)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Response := Db.Changepassword_DB(Changepass)
+	Senddata, err := json.Marshal(Response)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+
+}
+
+func AdminLogin(w http.ResponseWriter, r *http.Request) {
+	var Admin Model.AdminLogin
+	err := json.NewDecoder(r.Body).Decode(&Admin)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Response := Db.Adminlogin_DB(Admin)
+	Senddata, err := json.Marshal(Response)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+
+}

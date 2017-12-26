@@ -84,6 +84,65 @@ func OrderTracking_DB(orderid int) (Trackingres Model.Trackingresponse) {
 	return
 
 }
+func GetTracking_DB() (Tracking []Model.Trackingresponses) {
+
+	var Trackingres Model.Trackingresponses
+
+	var Userid int
+
+	rows, err := OpenConnection["Rentmatics"].Query("select *  from  ordertracking WHERE status IN ('Order','Dispatched')")
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+			&Trackingres.Ordertrackingid,
+			&Trackingres.Orderid,
+			&Trackingres.Orderplacedid,
+			&Trackingres.Loginid,
+			&Trackingres.Status,
+		)
+
+		row1, err := OpenConnection["Rentmatics"].Query("select userid,Phonenumber  from  easylogin WHERE Loginid=?", Trackingres.Loginid)
+		if err != nil {
+			log.Println("Error -DB: Get User", err)
+		}
+		for row1.Next() {
+
+			row1.Scan(
+				&Userid,
+				&Trackingres.Phonenumber,
+			)
+		}
+		row2, err := OpenConnection["Rentmatics"].Query("select Adress  from  easyprofile WHERE easyuserid=?", Userid)
+		if err != nil {
+			log.Println("Error -DB: Get User", err)
+		}
+		for row2.Next() {
+
+			row2.Scan(
+				&Trackingres.Address,
+			)
+			Tracking = append(Tracking, Trackingres)
+		}
+
+	}
+
+	return
+
+}
+
+func GetTrackupdates_DB(Trackingres Model.Trackupdate) {
+
+	Queryupdate := "UPDATE ordertracking SET status='" + Trackingres.Orderstatus + "'where Ordertrackingid=" + fmt.Sprintf("%v", Trackingres.Orderid)
+
+	rows, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: Get User", err, rows)
+	}
+
+}
 
 func OrderHistory_DB(Login string) (Response []Model.Orderhistory) {
 	var historyresp Model.Orderhistory

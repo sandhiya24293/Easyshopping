@@ -25,127 +25,85 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- lined-icons -->
 <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
 <script src="js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript">
- $(document).ready(function(){
+    <script type="text/javascript">
+$(document).ready(function(){
           
-           $.ajax({
+       
+      $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/NonVeg",
+               url: "http://176.111.105.86:8085/Trackstatus",
                contentType:"application/json; charset=utf-8",
                
          
            success: function(responsee){
-           var searchout = JSON.parse(responsee);
-           var cardstring ="";
+           var searchout = JSON.parse(responsee);      
+              var cardstring ="";
+  
+
   if( searchout != null  ){
      var property =searchout.length +" Results Found ";
     for (k=0;k<searchout.length;k++){
-       cardstring=cardstring+Getjavascript(searchout[k].Vegid);
+    	cardstring=cardstring+Getjavascript(searchout[k].Ordertrackingid);
    }
-
-  document.getElementById("listContainer").innerHTML=cardstring;
- }
-
-
+  
+document.getElementById("listContainer").innerHTML=cardstring;
 
 for(j=0;j<searchout.length;j++){
- var ID = searchout[j].Vegid;
- var Vegetable =searchout[j].Vegetable
- var rate1 = searchout[j].Rate1kg;
- var rate2 = searchout[j].Rate500gm;
- var rate3 =searchout[j].Rate250gm;
- if ( searchout[j].Display=="hide"){
+
+  var ID = searchout[j].Ordertrackingid;
+  var Orderid =searchout[j].Orderid;
+ var Orderplacedid = searchout[j].Orderplacedid;
+ var Loginid = searchout[j].Loginid;
+ var Status =searchout[j].Status;
+ var Address =searchout[j].Address;
+ var Phonenumber =searchout[j].Phonenumber;
+ 
+
+  if ( searchout[j].Status=="Order"){
+	 	
  	
+ 	document.getElementById("showtab1"+ID).style.display = "inline";
+ 	document.getElementById("showtab2"+ID).style.display = "none";
+
+ }else{
  	document.getElementById("showtab1"+ID).style.display = "none";
  	document.getElementById("showtab2"+ID).style.display = "inline";
+
+
  }
-$("#name"+ID).html(Vegetable);
-$("#rate1"+ID).html(rate1);
-$("#rate2"+ID).html(rate2);
-$("#rate3"+ID).html(rate3);
+
+$("#Address"+ID).html(Address);
+$("#order"+ID).html(ID);
+$("#Orderid"+ID).html(Orderid);
+$("#Orderplacedid"+ID).html(Orderplacedid);
+$("#Loginid"+ID).html(Loginid);
+$("#Status"+ID).html(Status);
+$("#Phonenumber"+ID).html(Phonenumber);
 
 }
+
+
+}else{
+	document.getElementById("listContainer1").innerHTML="<div><b style='margin-left:40%;font-size:20px'>No orders yet !</b></div>";
+
 }
+}  
+
 });
-});
+   });
 
 
 
- //For Slider
- function Getjavascript(Dyid){
- 
-  var rentimage = 
-  
-"<tr  >"+
-
-"<td id='name"+Dyid+"'>@mdo</td>"+
-"<td id='rate1"+Dyid+"'>@mdo</td>"+
-"<td id='rate2"+Dyid+"'>@mdo</td>"+
- "<td id='rate3"+Dyid+"'>@mdo</td>"+
- "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button>"+
- "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>"+
-"<button id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
-
-"</tr>";
-
-
- return rentimage;
-
- }
-
-
-function Updaterate(Dyid){
-
-	$('#myModal').modal('show');
-	$("#showid").val(Dyid)
-
-	var sendid ={
-		 "Getproductid" :Dyid,
-	}
+function UpdateDispatched(Dyid){
+		var Updatestat = {
+	"Orderid" :parseInt(Dyid),
+	"Orderstatus" :"Dispatched"
+}
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Getsingledata",
+      url: "http://176.111.105.86:8085/updatetrackstatus",
       contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(sendid),
-
-   success: function(responsee){
-   	var searchout = JSON.parse(responsee);
-   	var product =searchout.Vegetable 
-   	var rate1 =searchout.Rate1kg 
-   	var rate2 =searchout.Rate500gm 
-   	var rate3 =searchout.Rate250gm 
-   	var picurl =searchout.Pictureurl 
-   	
-
- $("#names1").val(product);
-$("#rates1").val(rate1);
-$("#rates2").val(rate2);
-$("#rates3").val(rate3);
-
-
-
-console.log("sucessfully updated")
-
-
-
- }
-});
-		
-
-	}
-
-
-	function Hide(Dyid){
-		var Updateproduct ={
-		"Productid": parseInt(Dyid),
-		"Productstatus":"hide"
-		
-	}
-	  $.ajax({
-      type: "POST",
-      url: "http://176.111.105.86:8085/UpdateProductstatus",
-      contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Updateproduct),
+      data: JSON.stringify(Updatestat),
 
    success: function(){
 console.log("sucessfully updated")
@@ -154,96 +112,148 @@ console.log("sucessfully updated")
 });
 	                                                                                                               
 	}
-	  function Show(Dyid){
-		var Updateproduct ={
-		"Productid": parseInt(Dyid),
-		"Productstatus":"show"
-		
-	}
+
+function UpdateDelivered(Dyid){
+		var Updatestat = {
+	"Orderid" :parseInt(Dyid),
+	"Orderstatus" :"Delivered"
+}
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateProductstatus",
+      url: "http://l76.111.105.86:8085/updatetrackstatus",
       contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Updateproduct),
+      data: JSON.stringify(Updatestat),
 
    success: function(){
 console.log("sucessfully updated")
  window.location.reload(true);
  }
 });
-		
+	                                                                                                               
+	}
+
+ //For Slider
+ function Getjavascript(Dyid){
+ 
+  var rentimage = 
+  
+"<tr >"+
+"<td id='Orderplacedid"+Dyid+"'>@mdo</td>"+
+"<td id='Loginid"+Dyid+"' >@mdo</td>"+
+"<td id='Address"+Dyid+"'  style='display:block; word-wrap: break-word; width: 15em;'>@mdo</td> "+
+"<td id='Phonenumber"+Dyid+"'>@mdo</td>"+
+"<td id='Status"+Dyid+"'>@mdo</td>"+
+"<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched("+Dyid+",this)' >Update Dispatched</button>"+
+"<button type='submit' class='btn btn-success' onclick='return  UpdateDelivered("+Dyid+",this)' id='showtab2"+Dyid+"'>Update Delivered</button></td>"+
+"</tr>";
+
+return rentimage;
+
+ }
+  window.onload = function () {
+  	    $.ajax({
+               type: "GET",
+               url: "http://l76.111.105.86:8085/Getcount_service",
+               contentType:"application/json; charset=utf-8",
+               
+         
+           success: function(responsee){
+           var searchout = JSON.parse(responsee);
+           var usercount = searchout.Usercount;
+           var Productcount = searchout.Productcount;
+           var Ordercount = searchout.Ordercount;
+           var Instantcount = searchout.Instantcount;
+           $("#user").html(usercount)
+           $("#product").html(Productcount)
+           $("#order").html(Ordercount)
+           $("#Instantcount").html(Instantcount)
+           $.ajax({
+               type: "GET",
+               url: "http://176.111.105.86:8085/Getinstanstundelivered",
+               contentType:"application/json; charset=utf-8",
+               
+         
+           success: function(responsee){
+           var searchout = JSON.parse(responsee);
+           var cardstring ="";
+  
+
+  if( searchout != null  ){
+     var property =searchout.length +" Results Found ";
+    for (k=0;k<searchout.length;k++){
+    	cardstring=cardstring+Getjavascript1(searchout[k].Productid);
+   }
+  
+document.getElementById("listContainer2").innerHTML=cardstring;
+for(j=0;j<searchout.length;j++){
+var ID = searchout[j].Productid;
+  var Uniqueid =searchout[j].Uniqueid;
+ var Productname = searchout[j].Productname;
+ var Deliveryname = searchout[j].Deliveryname;
+ var Deliverynumber =searchout[j].Deliverynumber;
+ var Deliveryaddress =searchout[j].Deliveryaddress;
+ var Message =searchout[j].Message;
+ var Status =searchout[j].Status;
+ $("#Uniqueid"+ID).html(Uniqueid);
+$("#Productname"+ID).html(Productname);
+$("#Deliveryname"+ID).html(Deliveryname);
+$("#Deliveryaddress"+ID).html(Deliveryaddress);
+$("#Deliverynumber"+ID).html(Deliverynumber);
+$("#Status"+ID).html(Status);
+$("#Message"+ID).html(Message);
+
+}}else{
+	document.getElementById("listContainer3").innerHTML="<div><b style='margin-left:40%;font-size:20px'>No orders yet !</b></div>";
+
+}
+}
+});
+       }
+});
+
 }
 
-function updateratefunc(){
-	var productid = document.getElementById("showid").value;
-	var Updatename = document.getElementById("names1").value;
-	var updaterate1 = document.getElementById("rates1").value;
-	var updaterate2 = document.getElementById("rates2").value;
-	var updaterate3 = document.getElementById("rates3").value;
-	
-	
-	
-	
-	
-var Updateproduct ={
-		
-    "Productid":  parseInt(productid),
-	"Productname"   :Updatename,
-	"Productrate1kg"   :parseInt(updaterate1),
-	"Productrate500gm" :parseInt(updaterate2),
-	"Productrate250gm" :parseInt(updaterate3),
-	
-	
- 
+function UpdateDispatched(Dyid){
+		var Updatestat = {
+	"Easyid" :parseInt(Dyid),
+	"Status" :"Delivered"
 }
-	
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateRate",
+      url: "http://176.111.105.86:8085/Updateinstantdeliver",
       contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Updateproduct),
+      data: JSON.stringify(Updatestat),
 
    success: function(){
 console.log("sucessfully updated")
-window.location.reload(true);
+ window.location.reload(true);
  }
 });
-
-}
-
-
-function Addproduct(){
-	alert("inside");
-	var Categorylist = document.getElementById("category").value;
-	var Productname = document.getElementById("name").value;
-	var Productrate = document.getElementById("rate").value;
-	var Productweight = document.getElementById("weight").value;
-	var prodwg = Productweight + "KG"
-
-
-	var Add ={
-	 "Categorylist" :Categorylist,
-	 "Productname" :Productname,
-	 "Productrate" :parseInt(Productrate),
-	 "Productweight" :prodwg,
-
+	                                                                                                               
 	}
-	 $.ajax({
-      type: "POST",
-      url: "http://176.111.105.86:8085/Addproduct",
-      contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Add),
+	//For Slider
+ function Getjavascript1(Dyid){
+ 
+  var rentimage = 
+  
+"<tr>"+
+"<td id='Uniqueid"+Dyid+"'>@mdo</td>"+
+"<td id='Productname"+Dyid+"'>@mdo</td>"+
+"<td id='Deliveryname"+Dyid+"'>@mdo</td>"+
+"<td id='Deliverynumber"+Dyid+"'>@mdo</td>"+
+"<td id='Deliveryaddress"+Dyid+"' style='display:block; word-wrap: break-word; width: 10em;'>@mdo</td>"+
 
-   success: function(){
-console.log("sucessfully updated")
+"<td id='Message"+Dyid+"'>@mdo</td>"+
+"<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched("+Dyid+",this)' >Update Delivered</button>"+
+"<tr>";
+
+
+return rentimage;
+
  }
-});
 
-
-}
 
  </script>
-
 
 
 <style type="text/css">
@@ -265,7 +275,7 @@ tbody tr:nth-child(even){
 }
 </style>
 <script>
-		function Showform(){
+	function Showform(){
 		var x = document.getElementById("showdiv");
     if (x.style.display === "none") {
         x.style.display = "block";
@@ -274,6 +284,7 @@ tbody tr:nth-child(even){
     }
 		//document.getElementById("").style.display = "inline"
 	}
+	
 </script>
 <!-- //lined-icons -->
 
@@ -285,7 +296,7 @@ tbody tr:nth-child(even){
 	<div class="left-content">
 	   <div class="inner-content">
 		<!-- header-starts -->
-				<div class="header-section">
+			<div class="header-section">
 			<!-- top_bg -->
 						<div class="top_bg">
 							
@@ -333,16 +344,11 @@ tbody tr:nth-child(even){
 				
 				<!--content-->
 			<div class="content">
-			
-			
 			<div class="registration_form" style="display:none" id="showdiv">
 		 <!-- Form -->
-			    <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
-
-
+ <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
 <div>
-
-   	<div style="visibility:hidden">
+<div style="visibility:hidden">
 					<label>Product Name</label>
 				<input placeholder="Product name " type="text" tabindex="1" required="" autofocus="" name="getname"  class="validate" required>
 					
@@ -405,30 +411,124 @@ tbody tr:nth-child(even){
 			</div>
 	<div class="content">
 				
-					<h2 style="color:black;">Product List</h2>
-					<table class="table" class="table table-inverse">
-  <thead>
-    <tr>
-     
-      <th>Vegetable Name</th>
-      <th> Rate- 1KG</th>
-      <th> Rate- 500gms</th>
-      <th> Rate- 250gms </th>
-	  <th>Update Rate</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody id="listContainer">
-    
-    
-  </tbody>
-</table>
+					<div class="col-md-3 market-update-gd card  alert alert-success" style="width:280px;">
+				<div class="market-update-block clr-block-2">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-shopping-cart" aria-hidden="true" ></i>
+					</div>
+					<a href="userlist.html">
+					 <div class="col-md-8 market-update-left">
+					 <h4><b style="color:black">E3 User Count</b></h4>
+					<h3 style="color:black" id="user"></h3>
+					<p style="color:black">Happy Shopping </p>
+					
+				  </div>
+				  </a>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-3 market-update-gd card alert alert-warning" style="margin-left:8px;width:280px;">
+			
+				<div class="market-update-block clr-block-1">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-shopping-cart" aria-hidden="true" ></i>
+					</div>
+					<a href="orders.html">
+					<div class="col-md-8 market-update-left">
+					<h4><b style="color:black">Order count</b></h4>
+						<h3 id="order" style="color:black">1,250</h3>
+						<p style="color:black">Happy Shopping</p>
+					</div>
+					</a>
+				  <div class="clearfix"> </div>
+				</div>
+				</a>
+			</div>
+			<div class="col-md-3 market-update-gd card alert alert-danger" style="margin-left:8px;width:280px;">
+				<div class="market-update-block clr-block-3">
+					<div class="col-md-4 market-update-right">
+					<i class="fa fa-shopping-cart" aria-hidden="true" ></i>
+					</div>
+					<a href="vegetables.html">
+					<div class="col-md-8 market-update-left">
+						<h4><b style="color:black">Product List</b></h4>
+						<h3 style="color:black" id="product">1,500</h3>
+						<p style="color:black">Happy Shopping</p>
+					</div></a>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-3 market-update-gd card alert alert-info" style="margin-left:8px;width:280px;">
+				<div class="market-update-block clr-block-4">
+					<div class="col-md-4 market-update-right">
+						<i class="fa fa-shopping-cart" aria-hidden="true" ></i>
+					</div>
+					<a href="instant.html">
+					<div class="col-md-8 market-update-left">
+						<h4><b style="color:black">Instant Order</b></h4>
+						<h3 style="color:black" id="Instantcount">1,500</h3>
+						<p style="color:black">Happy Shopping</p>
+					</div></a>
+				  <div class="clearfix"> </div>
+				</div>
+			</div>
+		   <div class="clearfix"> </div>
+		</div>	
 
 
 				
 </div>
 		</div>
 </div>
+
+
+<div>
+<h2 style="text-align:center"><b>Today order</b></h2>
+	<table class="table" class="table table-inverse" style="width:1000px;margin-left:100px">
+  <thead >
+    <tr>
+    
+      <th>Bill Number</th>
+      <th>Loginid</th>
+        <th style="width:20px">Address</th>
+        <th>Phonenumber</th>
+      <th>Status</th>
+       <th>Update Status</th>
+
+      
+    </tr>
+  </thead>
+
+  <tbody id="listContainer">
+    
+    
+  </tbody>
+</table>
+<div id="listContainer1"></div>
+
+<h2 style="text-align:center"><b>Today Instant Order</b></h2>
+<table class="table" class="table table-inverse" style="width:1000px;margin-left:100px">
+  <thead >
+    <tr>
+    
+      <th>Order Number</th>
+      <th>Product Name</th>
+      <th>Pickuper Name</th>
+      <th>pickup Number</th>
+      <th>Pickup Address</th>
+      <th>Message</th>
+      <th> Update Status</th>
+
+      
+    </tr>
+  </thead>
+
+  <tbody id="listContainer2">
+    
+    
+  </tbody>
+</table>
+<div id="listContainer3"></div>
 				<!--//content-inner-->
 			<!--/sidebar-menu-->
 				<div class="sidebar-menu">
@@ -436,7 +536,7 @@ tbody tr:nth-child(even){
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
 					</header>
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-                      <div class="menu">
+                       <div class="menu">
 									<ul id="menu" >
 										<li><a href="home.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
 										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>
@@ -475,38 +575,43 @@ tbody tr:nth-child(even){
 <div class="modal fade" id="myModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background-color:black;color:white">
-        <h3 class="modal-title" id="exampleModalLabel"><b>Update Product Rate</b></h3>
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Update Product Rate</h3>
         <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top:-30px;">
           <span aria-hidden="true">&times;</span>
         </button>
 
       </div>
-      <div class="modal-body" style="background-color:brown;color:white">
+      <div class="modal-body">
       <label>
       <input  type="text" id="showid" style="display:none">
      
       <div id="listContainer1">
       </div>
-        <h4 ><b>Edit Product Name</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="names1" style="color:black">
-         <h4 ><b>Edit Rate 1KG</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates1" style="color:black">
-         <h4 ><b>Edit Rate 500GMS</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates2" style="color:black">
-         <h4 ><b>Edit Rate 250GMS</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates3" style="color:black">
+        <h4 >Edit Product Name<span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="names1">
+         <h4 >Edit Rate 1KG<span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates1">
+         <h4 >Edit Rate 500GMS<span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates2">
+         <h4 >Edit Rate 250GMS<span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates3">
          <br>
-         <br>
-         <button type="button"   data-dismiss="modal"  class='btn btn-success'  onclick="updateratefunc()">   Update
-        </button>
           
       </div>
-     
+      <div class="modal-footer">
+
+       <button type="button"   data-dismiss="modal"   onclick="updateratefunc()" style="margin-top:-30px;">
+          Update
+        </button>
+       
+    <!-- <a class="button btn btn-danger" data-dismiss="modal"   style="margin-left:3%;">Update Rate</a> -->
+
+      </div>
+   
   </div>
 </div>
 </div>
-
 
 <script>
 							var toggle = true;

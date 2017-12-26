@@ -52,91 +52,115 @@ tbody tr:nth-child(even){
    <!--pie-chart-->
    <script type="text/javascript">
 $(document).ready(function(){
-	var totalamt =""
-	 var params = location.search.substr(location.search.indexOf("?")+1);
-         params = params.split("&");
-     
-
-
-         temp = params[0].split("=");
-         if ( [temp[0]] == "Id" ) { 
-         	productid = temp[1]; 
-         }
-
-         temp1 = params[1].split("=");
-         if ( [temp1[0]] == "TA" ) { 
-         	totamt = temp1[1]; 
-         }
-
-       var Prod =
-       	{
-	"Getproduct":parseInt(productid)
-}
-
-       
-
           
            $.ajax({
-               type: "POST",
-               url: "http://176.111.105.86:8085/Getproductdata",
+               type: "GET",
+               url: "http://176.111.105.86:8085/Getinstanse",
                contentType:"application/json; charset=utf-8",
-               data: JSON.stringify(Prod),
                
          
-            success: function(responsee){
+           success: function(responsee){
            var searchout = JSON.parse(responsee);
-           console.log(searchout)
            var cardstring ="";
+  
+
   if( searchout != null  ){
      var property =searchout.length +" Results Found ";
     for (k=0;k<searchout.length;k++){
-       cardstring=cardstring+Getjavascript(searchout[k].Productid);
+    	cardstring=cardstring+Getjavascript(searchout[k].Productid);
    }
-
-  document.getElementById("listContainer").innerHTML=cardstring;
- }
-
-
+  
+document.getElementById("listContainer").innerHTML=cardstring;
 
 for(j=0;j<searchout.length;j++){
- var ID = searchout[j].Productid;
- var Productname = searchout[j].Productname
- var Productrate = searchout[j].Productrate;
- var Weight = searchout[j].Weight;
 
+  var ID = searchout[j].Productid;
+  var Uniqueid =searchout[j].Uniqueid;
+ var Productname = searchout[j].Productname;
+ var Deliveryname = searchout[j].Deliveryname;
+ var Deliverynumber =searchout[j].Deliverynumber;
+ var Deliveryaddress =searchout[j].Deliveryaddress;
+ var Message =searchout[j].Message;
+ var Status =searchout[j].Status;
  
+
+$("#Uniqueid"+ID).html(Uniqueid);
 $("#Productname"+ID).html(Productname);
-$("#Productrate"+ID).html(Productrate);
-$("#Weight"+ID).html(Weight);
-$("#ta").html(totamt);
-
+$("#Deliveryname"+ID).html(Deliveryname);
+$("#Deliveryaddress"+ID).html(Deliveryaddress);
+$("#Deliverynumber"+ID).html(Deliverynumber);
+$("#Status"+ID).html(Status);
+$("#Message"+ID).html(Message);
 
 }
+
+
+}else{
+	document.getElementById("listContainer1").innerHTML="<div><b style='margin-left:40%;font-size:20px'>No orders yet !</b></div>";
+
 }
-
-       });
-             
-         });
+}  });
+   });
 
 
-//For Slider
+ //For Slider
  function Getjavascript(Dyid){
  
   var rentimage = 
   
 "<tr>"+
-
+"<td id='Uniqueid"+Dyid+"'>@mdo</td>"+
 "<td id='Productname"+Dyid+"'>@mdo</td>"+
-"<td id='Productrate"+Dyid+"'>@mdo</td>"+
-"<td id='Weight"+Dyid+"'>@mdo</td>"+
- 
-"</tr>";
+"<td id='Deliveryname"+Dyid+"'>@mdo</td>"+
+"<td id='Deliverynumber"+Dyid+"'>@mdo</td>"+
+"<td id='Deliveryaddress"+Dyid+"' style='display:block; word-wrap: break-word; width: 10em;'>@mdo</td>"+
+
+"<td id='Message"+Dyid+"'>@mdo</td>"+
+"<td id='Status"+Dyid+"'>@mdo</td>"+
+"<tr>";
 
 
- return rentimage;
+return rentimage;
 
  }
 
+function UpdateDispatched(Dyid){
+		var Updatestat = {
+	"Orderid" :parseInt(Dyid),
+	"Orderstatus" :"Dispatched"
+}
+	  $.ajax({
+      type: "POST",
+      url: "http://176.111.105.86:8085/updatetrackstatus",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updatestat),
+
+   success: function(){
+console.log("sucessfully updated")
+ window.location.reload(true);
+ }
+});
+	                                                                                                               
+	}
+
+function UpdateDelivered(Dyid){
+		var Updatestat = {
+	"Orderid" :parseInt(Dyid),
+	"Orderstatus" :"Delivered"
+}
+	  $.ajax({
+      type: "POST",
+      url: "http://176.111.105.86:8085/updatetrackstatus",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updatestat),
+
+   success: function(){
+console.log("sucessfully updated")
+ window.location.reload(true);
+ }
+});
+	                                                                                                               
+	}
 
  </script>
 </head> 
@@ -146,7 +170,7 @@ $("#ta").html(totamt);
 	<div class="left-content">
 	   <div class="inner-content">
 		<!-- header-starts -->
-			<!-- header-starts -->
+		<!-- header-starts -->
 			<div class="header-section">
 			<!-- top_bg -->
 						<div class="top_bg">
@@ -174,13 +198,13 @@ $("#ta").html(totamt);
 							<div class="header">
 								<div class="head-t">
 									<div class="logo" style="margin-right:-20px">
-										<a href="index.html">
+										<a href="home.html">
 										<h1 style="color:brown;"><b> E3 Shopping</b></h1> </a>
 									</div>
 										<!-- start header_right -->
 									<div class="header_right">
 										<div class="rgt-bottom">
-											<div class="create_btn" >
+											<div class="create_btn">
 								<a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px;visibility:hidden" ><b> + Add Product</b></a>
 										</div>
 											
@@ -260,35 +284,39 @@ $("#ta").html(totamt);
 			<!-- /Form -->
 		</div>
 			</div>
-					<!-- //header-ends -->
 				<!--Content -->
 				<div class="content">
 				
-					<h2 style="color:black"><b>Product Details</b></h2>
-					<table class="table" class="table table-inverse" style="width:500px">
-  <thead>
+					<h2 style="color:black"><b>Instant order list</b></h2>
+
+					<table class="table" class="table table-inverse" >
+  <thead >
     <tr>
+    
+      <th>Order Number</th>
       <th>Product Name</th>
-      <th>Product Rate</th>
-      <th>Weight</th>
-     
+      <th>Pickuper Name</th>
+      <th>pickup Number</th>
+      <th>Pickup Address</th>
+      <th>Message</th>
+      <th>Status</th>
+
+      
     </tr>
   </thead>
 
-  <tbody id="listContainer" >
+  <tbody id="listContainer">
     
     
   </tbody>
-  
-
 </table>
-<h3 style="color:black"><b>Total Amount:<span id="ta"></span></b></h3	>
-
+<div id="listContainer1"></div>
 
 
 				</div>
 		
-					
+		
+		
 				<!--//content-inner-->
 			<!--/sidebar-menu-->
 				<div class="sidebar-menu">
@@ -296,7 +324,7 @@ $("#ta").html(totamt);
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
 					</header>
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-                            <div class="menu">
+                           <div class="menu">
 									<ul id="menu" >
 										<li><a href="home.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
 										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>

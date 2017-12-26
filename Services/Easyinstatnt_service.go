@@ -21,7 +21,52 @@ func Instantdeliveryform(w http.ResponseWriter, r *http.Request) {
 	randomno := randomInt(1234567, 7654321)
 	uniqueid := "E3INSTANCE" + strconv.Itoa(randomno)
 
-	Data := Db.Instance_DB(Instance,uniqueid)
+	Data := Db.Instance_DB(Instance, uniqueid)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+func Getinstanse(w http.ResponseWriter, r *http.Request) {
+
+	Data := Db.EasyInstance()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+func Getinstanstundelivered(w http.ResponseWriter, r *http.Request) {
+
+	Data := Db.Instantundelivered_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+func Updateinstantdeliver(w http.ResponseWriter, r *http.Request) {
+
+	var Up_instance Model.Updateinstant
+	err := json.NewDecoder(r.Body).Decode(&Up_instance)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Data := Db.Updateinstant_DB(Up_instance)
 	Senddata, err := json.Marshal(Data)
 	if err != nil {
 		log.Println("Error -  INSTATNT DELIVERY", err)

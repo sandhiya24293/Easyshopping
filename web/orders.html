@@ -8,7 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Gretong a Ecommerce Admin Panel Category Flat Bootstrap Responsive Web Template | Home :: w3layouts</title>
+<title>E3 Shopping</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Gretong Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -55,7 +55,7 @@ $(document).ready(function(){
           
            $.ajax({
                type: "GET",
-               url: "http://localhost:8085/Getallorder",
+               url: "http://176.111.105.86:8085/Getallorder",
                contentType:"application/json; charset=utf-8",
                
          
@@ -84,7 +84,7 @@ $("#login"+ID).html(Loginid);
 $("#tprod"+ID).html(Totalproduct);
 $("#tamt"+ID).html(Totalamount);
 $("#date"+ID).html(Datevar);
- url = 'Productdetails.html?Id=' + encodeURIComponent(ID);
+ url = 'Productdetails.html?Id=' + encodeURIComponent(ID) + "&TA=" + encodeURIComponent(Totalamount) ;
 document.getElementById("getUrl"+ ID).setAttribute("href",url);
 // $("#Emailid"+ID).html(Emailid);
 
@@ -105,8 +105,8 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 "<td id='tprod"+Dyid+"'>@mdo</td>"+
 "<td id='tamt"+Dyid+"'>@mdo</td>"+
  "<td id='date"+Dyid+"'>@mdo</td>"+
- "<td><a id='getUrl"+Dyid+"'>"+
- "</td>"+
+ "<td ><a style='color:white' id='getUrl"+Dyid+"'>"+
+ "View Details </a></td>"+
  "</tr>";
 
 
@@ -121,12 +121,13 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 	<div class="left-content">
 	   <div class="inner-content">
 		<!-- header-starts -->
+			<!-- header-starts -->
 			<div class="header-section">
 			<!-- top_bg -->
 						<div class="top_bg">
 							
 								<div class="header_top">
-									<div class="top_right">
+									<div class="top_right" style="visibility:hidden">
 										<ul>
 											<li><a href="contact.html">help</a></li>|
 											<li><a href="contact.html">Contact</a></li>|
@@ -134,7 +135,7 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 										</ul>
 									</div>
 									<div class="top_left">
-										<h2><span></span> Call us : 032 2352 782</h2>
+										<!-- <h2><span></span> Call us : 032 2352 782</h2> -->
 									</div>
 										<div class="clearfix"> </div>
 								</div>
@@ -147,71 +148,98 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 						
 							<div class="header">
 								<div class="head-t">
-									<div class="logo">
-										<a href="index.html">
-										<!-- <img src="images/logo.png" class="img-responsive" alt=""> -->
-										<h1 style="color:black">Easy E3 Shopping</h1>
-										 </a>
+									<div class="logo" style="margin-right:-20px">
+										<a href="home.html">
+										<h1 style="color:brown;"><b> E3 Shopping</b></h1> </a>
 									</div>
 										<!-- start header_right -->
-									<div class="header_right">
+									<div class="header_right" >
 										<div class="rgt-bottom">
-											<div class="log">
-												<div class="login">
-													<div id="loginContainer"><a id="loginButton" class=""><span>Login</span></a>
-														<div id="loginBox" style="display: none;">                
-															<form id="loginForm">
-																	<fieldset id="body">
-																		<fieldset>
-																			  <label for="email">Email Address</label>
-																			  <input type="text" name="email" id="email">
-																		</fieldset>
-																		<fieldset>
-																				<label for="password">Password</label>
-																				<input type="password" name="password" id="password">
-																		 </fieldset>
-																		<input type="submit" id="login" value="Sign in">
-																		<label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
-																	</fieldset>
-																<span><a href="#">Forgot your password?</a></span>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="reg">
-												<a href="register.html">REGISTER</a>
-											</div>
-										<div class="cart box_1">
-											<a href="checkout.html">
-												<h3> <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)<img src="images/bag.png" alt=""></h3>
-											</a>	
-											<p><a href="javascript:;" class="simpleCart_empty">(empty card)</a></p>
-											<div class="clearfix"> </div>
+											<div class="create_btn">
+								<a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px;visibility:hidden" ><b> + Add Product</b></a>
 										</div>
-										<div class="create_btn">
-											<a href="checkout.html">CHECKOUT</a>
-										</div>
-										<div class="clearfix"> </div>
-									</div>
-									<div class="search">
-										<form>
-											<input type="text" value="" placeholder="search...">
-											<input type="submit" value="">
-										</form>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="clearfix"> </div>
+											
+										
+										
+										
 							</div>
 						</div>
 					
 				</div>
 					<!-- //header-ends -->
+				
+				<!--content-->
+			<div class="content">
+			<div class="registration_form" style="display:none" id="showdiv">
+		 <!-- Form -->
+ <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
+<div>
+<div style="visibility:hidden">
+					<label>Product Name</label>
+				<input placeholder="Product name " type="text" tabindex="1" required="" autofocus="" name="getname"  class="validate" required>
+					
+				</div>
+						
+
+					
+						<div >
+								<label >Product Type(*)</label>
+											<select  name="category"  style="border: 1px solid black;width:400px;height:30px" >
+                                             <option selected="true" disabled="disabled" value="Veg">Product type</option>   
+												<option value="Veg">Vegetable</option>
+												<option value ="Leaves">Leaves</option>
+												<option value="Fruits">Fruits</option>
+												<option value ="NonVeg">Non Veg</option>
+												<option value="Seafood">Sea Food</option>
+											</select>
+										</div>									
+										
+				<div>
+					<label>Product Name(*)</label>
+						<input placeholder="Product Name" type="text" tabindex="3"  name="namevalue"   required="true" style="width:400px">
+		
+					
+				</div>
+									
+
+				
+				<div>
+					<label>Rate 1KG(*)	</label>
+						<input placeholder="Rate(1KG)" type="text" tabindex="3"  name="getrate1"   required="true" style="width:400px">
+				
+				</div>
+				<div>
+					<label> Rate 500 GM(*)</label>
+						<input placeholder="500GM" type="text" tabindex="3"  required="true" name="getrate2" style="width:400px">
+					
+				</div>
+				<div>
+					<label> Rate 500 GM(*)</label>
+						<input placeholder="250GM" type="text" tabindex="3" required="true" name="getrate3" style="width:400px">
+					
+				</div>
+				 <div class="file-field input-field">
+      <div>
+        <label>Upload product Image(*)</label>
+        <input type="file"  name="uploadfile" >
+      </div>
+     
+    </div>
+<button type="submit"  class='btn btn-success' >Submit</button>
+</div>
+
+				
+</form>
+
+
+			<!-- /Form -->
+		</div>
+			</div>
+					<!-- //header-ends -->
 				<!--Content -->
 				<div class="content">
 				
-					<h2 style="color:black">User list</h2>
+					<h2 style="color:black"><b>Orders list</b></h2>
 					<table class="table" class="table table-inverse">
   <thead>
     <tr>
@@ -235,82 +263,7 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 				</div>
 		
 						<!--//area-->
-		<div class="fo-top-di">
-			<div class="foot-top">
-				
-					<div class="col-md-6 s-c">
-						<li>
-							<div class="fooll">
-								<h1>follow us on</h1>
-							</div>
-						</li>
-						<li>
-							<div class="social-ic">
-								<ul>
-									<li><a href="#"><i class="facebok"> </i></a></li>
-									<li><a href="#"><i class="twiter"> </i></a></li>
-									<li><a href="#"><i class="goog"> </i></a></li>
-									<li><a href="#"><i class="be"> </i></a></li>
-										<div class="clearfix"></div>	
-								</ul>
-							</div>
-						</li>
-							<div class="clearfix"> </div>
-					</div>
-					<div class="col-md-6 s-c">
-						<div class="stay">
-									<div class="stay-left">
-										<form>
-											<input type="text" placeholder="Enter your email" required="">
-										</form>
-									</div>
-									<div class="btn-1">
-										<form>
-											<input type="submit" value="join">
-										</form>
-									</div>
-										<div class="clearfix"> </div>
-						</div>
-					</div>
-					<div class="clearfix"> </div>
-				
-			</div>
-			<div class="footer">
-					<div class="col-md-3 cust">
-						<h4>CUSTOMER CARE</h4>
-							<li><a href="contact.html">Help Center</a></li>
-							<li><a href="faq.html">FAQ</a></li>
-							<li><a href="details.html">How To Buy</a></li>
-							<li><a href="checkout.html">Delivery</a></li>
-					</div>
-					<div class="col-md-2 abt">
-						<h4>ABOUT US</h4>
-							<li><a href="products.html">Our Stories</a></li>
-							<li><a href="products.html">Press</a></li>
-							<li><a href="faq.html">Career</a></li>
-							<li><a href="contact.html">Contact</a></li>
-					</div>
-					<div class="col-md-2 myac">
-						<h4>MY ACCOUNT</h4>
-							<li><a href="register.html">Register</a></li>
-							<li><a href="checkout.html">My Cart</a></li>
-							<li><a href="checkout.html">Order History</a></li>
-							<li><a href="details.html">Payment</a></li>
-					</div>
-					<div class="col-md-5 our-st">
-						<div class="our-left">
-							<h4>OUR STORES</h4>
-						</div>
-						
-							<li><i class="add"> </i>Mark peter</li>
-							<li><i class="phone"> </i>012-586987</li>
-							<li><a href="mailto:info@example.com"><i class="mail"> </i>info@sitename.com </a></li>
-					</div>
-					<div class="clearfix"> </div>
-						<p>© 2016 Gretong. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-			</div>
-		</div>
-			</div>
+	
 			<!--content-->
 		</div>
 </div>
@@ -321,9 +274,9 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
 					</header>
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-                           <div class="menu">
+                       <div class="menu">
 									<ul id="menu" >
-										<li><a href="index.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
+										<li><a href="home.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
 										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>
 
 									
@@ -336,6 +289,7 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
 											<li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
 											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
+											<li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
 											
 										  </ul>
 										</li>
@@ -345,6 +299,9 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 									<li id="menu-academico" ><a href="orders.html"><i class="fa fa-file-text-o"></i> <span>Order List</span></a></li>
 
 									<li id="menu-academico" ><a href="Track.html"><i class="lnr lnr-book"></i> <span>Update Track</span></a></li>
+									<li id="menu-academico" ><a href="Instant.html"><i class="lnr lnr-book"></i> <span>Instant Orders</span></a></li>
+									<li id="menu-academico" ><a href="updateinstant.html"><i class="lnr lnr-book"></i> <span>Update Instant Orders</span></a></li>
+									<li id="menu-academico" ><a href="changepassword.html"><i class="lnr lnr-book"></i> <span>Change Password</span></a></li>
 									 
 							     
 								

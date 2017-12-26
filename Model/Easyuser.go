@@ -17,7 +17,7 @@ type Orderresponse struct {
 	Date         string
 }
 type Productdata struct {
-	Productid   string
+	Productid   int
 	Productname string
 	Productrate int
 	Weight      string
@@ -66,4 +66,25 @@ type Ordertrackdata struct {
 type Trackrespopnse struct {
 	Trackdata   Gettrack
 	Orderplaced Ordertrackdata
+}
+
+type Trackupdate struct {
+	Orderid     int
+	Orderstatus string
+}
+type Datacount struct {
+	Usercount    int
+	Productcount int
+	Ordercount   int
+	Instantcount int
+}
+
+type Changepassword struct {
+	Loginid string
+	Oldpass string
+	Newpass string
+}
+type AdminLogin struct {
+	User string
+	Pass string
 }

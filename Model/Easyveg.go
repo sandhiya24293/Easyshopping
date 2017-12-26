@@ -64,6 +64,15 @@ type Trackingresponse struct {
 	Loginid         string
 	Status          string
 }
+type Trackingresponses struct {
+	Ordertrackingid int
+	Orderid         int
+	Orderplacedid   string
+	Loginid         string
+	Status          string
+	Address         string
+	Phonenumber     string
+}
 
 type OrderPlacedhistory struct {
 	Orderid      string
@@ -80,6 +89,10 @@ type Orderhistory struct {
 type Catergorylist struct {
 	CategoryName string
 	Url          string
+}
+type Tracking struct {
+	Address string
+	Track   []Trackingresponse
 }
 
 type Datares struct {

@@ -52,7 +52,6 @@ func GetAllorder_DB() (Orderresult []Model.Orderdataresponse) {
 			&Orderdata.Totalamount,
 			&Orderdata.Date,
 		)
-
 		row, err := OpenConnection["Rentmatics"].Query("select Productid,Productname,productrate,weight from  productlist where orderplaceid =?", Orderdata.Orderid)
 		if err != nil {
 			log.Println("Error -DB: Get User", err)

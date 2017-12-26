@@ -1,337 +1,145 @@
-
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<head>
-<title>Gretong a Ecommerce Admin Panel Category Flat Bootstrap Responsive Web Template | Home :: w3layouts</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Gretong Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-<!-- Custom CSS -->
-<link href="css/style.css" rel='stylesheet' type='text/css' />
-<!-- Graph CSS -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
-<!-- jQuery -->
-<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
-<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<!-- lined-icons -->
-<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
-<style type="text/css">
-	tbody td{
-  padding: 30px;
+<style>
+form {
+    border: 3px solid #f1f1f1;
 }
-table th{
- background-color: black;
- color: #fff;
-}
-
-tbody tr:nth-child(odd){
-  background-color: brown;
-  color: #fff;
-}
-tbody tr:nth-child(even){
-  background-color: brown;
-  color: #fff;
-}
-</style>
-
-<!-- //lined-icons -->
-
-
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-<script src="js/jquery-1.10.2.min.js"></script>
-   <!--pie-chart-->
-   <script type="text/javascript">
-$(document).ready(function(){
-          
-           $.ajax({
-               type: "GET",
-               url: "http://localhost:8085/Getallorder",
-               contentType:"application/json; charset=utf-8",
-               
-         
-           success: function(responsee){
-           var searchout = JSON.parse(responsee);
-           var cardstring ="";
-  
-console.log(searchout[0].Orderdetails.Orderid)
-  if( searchout != null  ){
-     var property =searchout.length +" Results Found ";
-    for (k=0;k<searchout.length;k++){
-    	cardstring=cardstring+Getjavascript(searchout[k].Orderdetails.Orderid);
-   }
-  
-document.getElementById("listContainer").innerHTML=cardstring;
-for(j=0;j<searchout.length;j++){
-  var ID = searchout[j].Orderdetails.Orderid;
-  var Billnumber =searchout[j].Orderdetails.Billnumber
- var Loginid = searchout[j].Orderdetails.Loginid;
- var Totalproduct = searchout[j].Orderdetails.Totalproduct;
- var Totalamount =searchout[j].Orderdetails.Totalamount;
- var Datevar =searchout[j].Orderdetails.Date;
-$("#order"+ID).html(ID);
-$("#bill"+ID).html(Billnumber);
-$("#login"+ID).html(Loginid);
-$("#tprod"+ID).html(Totalproduct);
-$("#tamt"+ID).html(Totalamount);
-$("#date"+ID).html(Datevar);
- url = 'Productdetails.html?Id=' + encodeURIComponent(ID);
-document.getElementById("getUrl"+ ID).setAttribute("href",url);
-// $("#Emailid"+ID).html(Emailid);
-
-}
-}
-}  });
-   });
-
- //For Slider
- function Getjavascript(Dyid){
+body  {
+    background-image: url("images/images.jpg");
  
-  var rentimage = 
+     background-repeat: no-repeat, repeat;
+      background-size: cover;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 2px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 2px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+
+</style>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+   function Login(){
+   	var User = document.getElementById("user").value;
+   	var Pass = document.getElementById("pass").value;
+	
+
+	
+var login ={
+		
+    "User":User ,
+	"Pass"   :Pass,
+	
+	
+	 
+}
+	
+	  $.ajax({
+      type: "POST",
+      url: "http://176.111.105.86:8085/AdminLogin",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(login),
+
+   success: function(response){
+   
   
-"<tr>"+
-"<td id='order"+Dyid+"'>@mdo</td>"+
-"<td id='bill"+Dyid+"'>@mdo</td>"+
-"<td id='login"+Dyid+"'>@mdo</td>"+
-"<td id='tprod"+Dyid+"'>@mdo</td>"+
-"<td id='tamt"+Dyid+"'>@mdo</td>"+
- "<td id='date"+Dyid+"'>@mdo</td>"+
- "<td><a id='getUrl"+Dyid+"'>"+
- "</td>"+
- "</tr>";
+   	var searchout = JSON.parse(response);
+   	if(searchout == "Success"){
+   		window.location= "http://176.111.105.86:8085/web/home.html";
+   		
+   	}else{
+   		alert("Incorrect Username or password")
 
+   	}
 
- return rentimage;
 
  }
+});
+   }
+
+
  </script>
-</head> 
-<body>
-   <div class="page-container">
-  
-	<div class="left-content">
-	   <div class="inner-content">
-		<!-- header-starts -->
-			<div class="header-section">
-			<!-- top_bg -->
-						<div class="top_bg">
-							
-								<div class="header_top">
-									<div class="top_right">
-										<ul>
-											<li><a href="contact.html">help</a></li>|
-											<li><a href="contact.html">Contact</a></li>|
-											<li><a href="checkout.html">Delivery information</a></li>
-										</ul>
-									</div>
-									<div class="top_left">
-										<h2><span></span> Call us : 032 2352 782</h2>
-									</div>
-										<div class="clearfix"> </div>
-								</div>
-							
-						</div>
-					<div class="clearfix"></div>
-				<!-- /top_bg -->
-				</div>
-				<div class="header_bg">
-						
-							<div class="header">
-								<div class="head-t">
-									<div class="logo">
-										<a href="index.html">
-										<!-- <img src="images/logo.png" class="img-responsive" alt=""> -->
-										<h1 style="color:black"> E3 Shopping</h1>
-										 </a>
-									</div>
-										<!-- start header_right -->
-									<div class="header_right">
-										<div class="rgt-bottom">
-											
-										
-										<div class="create_btn">
-											<a href="checkout.html">CHECKOUT</a>
-										</div>
-										
-									</div>
-									
-								
-								</div>
-								
-							</div>
-						</div>
-					
-				</div>
-					<!-- //header-ends -->
-				<!--Content -->
-				<div class="content">
-				
-	<div class="card" style="width: 20rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <h4 class="card-title">Card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+<body >
+
+
+
+<form action="" method="post" onsubmit="Login();return false;" style="margin-left:480px;width:500px;height:500px">
+<h2> <b style="margin-left:150px;color:white">E3 Admin Login</b> </h2>
+  <div class="imgcontainer" style="height:350px;width:350px;margin-left:60px;">
+    <img src="css/img_avatar2.png" alt="Avatar" class="avatar" style="margin-bottom:-40px" >
   </div>
-</div>
+  <br>
+  <br>
+  <br>
 
 
-				</div>
-		
-						<!--//area-->
-		<div class="fo-top-di">
-			<div class="foot-top">
-				
-					<div class="col-md-6 s-c">
-						<li>
-							<div class="fooll">
-								<h1>follow us on</h1>
-							</div>
-						</li>
-						<li>
-							<div class="social-ic">
-								<ul>
-									<li><a href="#"><i class="facebok"> </i></a></li>
-									<li><a href="#"><i class="twiter"> </i></a></li>
-									<li><a href="#"><i class="goog"> </i></a></li>
-									<li><a href="#"><i class="be"> </i></a></li>
-										<div class="clearfix"></div>	
-								</ul>
-							</div>
-						</li>
-							<div class="clearfix"> </div>
-					</div>
-					<div class="col-md-6 s-c">
-						<div class="stay">
-									<div class="stay-left">
-										<form>
-											<input type="text" placeholder="Enter your email" required="">
-										</form>
-									</div>
-									<div class="btn-1">
-										<form>
-											<input type="submit" value="join">
-										</form>
-									</div>
-										<div class="clearfix"> </div>
-						</div>
-					</div>
-					<div class="clearfix"> </div>
-				
-			</div>
-			<div class="footer">
-					<div class="col-md-3 cust">
-						<h4>CUSTOMER CARE</h4>
-							<li><a href="contact.html">Help Center</a></li>
-							<li><a href="faq.html">FAQ</a></li>
-							<li><a href="details.html">How To Buy</a></li>
-							<li><a href="checkout.html">Delivery</a></li>
-					</div>
-					<div class="col-md-2 abt">
-						<h4>ABOUT US</h4>
-							<li><a href="products.html">Our Stories</a></li>
-							<li><a href="products.html">Press</a></li>
-							<li><a href="faq.html">Career</a></li>
-							<li><a href="contact.html">Contact</a></li>
-					</div>
-					<div class="col-md-2 myac">
-						<h4>MY ACCOUNT</h4>
-							<li><a href="register.html">Register</a></li>
-							<li><a href="checkout.html">My Cart</a></li>
-							<li><a href="checkout.html">Order History</a></li>
-							<li><a href="details.html">Payment</a></li>
-					</div>
-					<div class="col-md-5 our-st">
-						<div class="our-left">
-							<h4>OUR STORES</h4>
-						</div>
-						
-							<li><i class="add"> </i>Mark peter</li>
-							<li><i class="phone"> </i>012-586987</li>
-							<li><a href="mailto:info@example.com"><i class="mail"> </i>info@sitename.com </a></li>
-					</div>
-					<div class="clearfix"> </div>
-						<p>© 2016 Gretong. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-			</div>
-		</div>
-			</div>
-			<!--content-->
-		</div>
-</div>
-				<!--//content-inner-->
-			<!--/sidebar-menu-->
-				<div class="sidebar-menu">
-					<header class="logo1">
-						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
-					</header>
-						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-                           <div class="menu">
-									<ul id="menu" >
-										<li><a href="index.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
-										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>
-
-									
-
-									
-
-										 <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span> Easy Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
-										   <ul id="menu-academico-sub" >
-										   <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
-										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
-											<li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
-											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
-											
-										  </ul>
-										</li>
+  <div class="container" style="width:400px;margin-left:40px;margin-top:-240px">
+ 
+    <input type="text" placeholder="Enter Username" id="user" required>
 
 
-										
-									<li id="menu-academico" ><a href="orders.html"><i class="fa fa-file-text-o"></i> <span>Order List</span></a></li>
+    <input type="password" placeholder="Enter Password" id="pass" required>
+        
+    <button type="submit">Login</button>
+    <input type="checkbox" checked="checked"> Remember me
+  </div>
 
-									<li id="menu-academico" ><a href="Track.html"><i class="lnr lnr-book"></i> <span>Update Track</span></a></li>
-									 
-							     
-								
-								</div>
-							  </div>
-							  <div class="clearfix"></div>		
-							</div>
-							<script>
-							var toggle = true;
-										
-							$(".sidebar-icon").click(function() {                
-							  if (toggle)
-							  {
-								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
-								$("#menu span").css({"position":"absolute"});
-							  }
-							  else
-							  {
-								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-								setTimeout(function() {
-								  $("#menu span").css({"position":"relative"});
-								}, 400);
-							  }
-											
-											toggle = !toggle;
-										});
-							</script>
+ 
+</form>
 
-<script src="js/scripts.js"></script>
-<!-- Bootstrap Core JavaScript -->
-   <script src="js/bootstrap.min.js"></script>
-   <!-- /Bootstrap Core JavaScript -->
-   <!-- real-time -->
-	
-		   <script src="js/menu_jquery.js"></script>
 </body>
 </html>

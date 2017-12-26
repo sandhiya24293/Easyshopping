@@ -1,25 +1,90 @@
-
 package Mysql
 
 import (
 	Model "Easyshopping/Model"
 	_ "database/sql"
-     "log"
+	"fmt"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-    
+func Instance_DB(Instancedata Model.Easyinstance, Uniqueid string) string {
 
-func Instance_DB(Instancedata Model.Easyinstance , Uniqueid string) string {
-
-	
-
-	row, err := OpenConnection["Rentmatics"].Exec("insert into easydelivery (uniqueid,Productname,Dispactchername,Dispatcheraddess,Dispatchernumber,Deliveryaddress,Deliveryname,Deliverynumber,Message ) values (?,?,?,?,?,?,?,?,?)",Uniqueid,Instancedata.Productname,Instancedata.Dispactchername,Instancedata.Dispatchernumber,Instancedata.Dispatcheraddess,Instancedata.Deliveryaddress,Instancedata.Deliveryname,Instancedata.Deliverynumber,Instancedata.Message )
+	row, err := OpenConnection["Rentmatics"].Exec("insert into easydelivery (uniqueid,Productname,Dispactchername,Dispatcheraddess,Dispatchernumber,Deliveryaddress,Deliveryname,Deliverynumber,Message,Status ) values (?,?,?,?,?,?,?,?,?,?)", Uniqueid, Instancedata.Productname, Instancedata.Dispactchername, Instancedata.Dispatchernumber, Instancedata.Dispatcheraddess, Instancedata.Deliveryaddress, Instancedata.Deliveryname, Instancedata.Deliverynumber, Instancedata.Message, "Order")
 	if err != nil {
 		log.Println("Error -DB: update Profile", err, row)
 	}
 
 	return "Success"
 
+}
+func EasyInstance() (Easyresponse []Model.Easyinstances) {
+
+	var Data Model.Easyinstances
+	rows, err := OpenConnection["Rentmatics"].Query("Select * from  easydelivery")
+	if err != nil {
+		log.Println("Error -Db:Activity", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+			&Data.Productid,
+			&Data.Uniqueid,
+			&Data.Productname,
+			&Data.Dispactchername,
+			&Data.Dispatcheraddess,
+			&Data.Dispatchernumber,
+			&Data.Deliveryaddress,
+			&Data.Deliveryname,
+			&Data.Deliverynumber,
+			&Data.Message,
+			&Data.Status,
+		)
+		Easyresponse = append(Easyresponse, Data)
+
+	}
+
+	return
+
+}
+
+func Instantundelivered_DB() (Easyresponse []Model.Easyinstances) {
+
+	var Data Model.Easyinstances
+	rows, err := OpenConnection["Rentmatics"].Query("Select * from  easydelivery where Status =?", "Order")
+	if err != nil {
+		log.Println("Error -Db:Activity", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+			&Data.Productid,
+			&Data.Uniqueid,
+			&Data.Productname,
+			&Data.Dispactchername,
+			&Data.Dispatcheraddess,
+			&Data.Dispatchernumber,
+			&Data.Deliveryaddress,
+			&Data.Deliveryname,
+			&Data.Deliverynumber,
+			&Data.Message,
+			&Data.Status,
+		)
+		Easyresponse = append(Easyresponse, Data)
+
+	}
+
+	return
+
+}
+func Updateinstant_DB(Data Model.Updateinstant) string {
+
+	Queryupdate := "UPDATE easydelivery SET Status ='" + Data.Status + "' where easydeliveryid= " + fmt.Sprintf("%v", Data.Easyid)
+
+	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: update Profile", err, row)
+	}
+	return "success"
 }

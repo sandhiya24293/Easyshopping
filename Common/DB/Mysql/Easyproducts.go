@@ -145,3 +145,73 @@ func Search_DB(searchstring string) (Vegarray []Model.Vegetables) {
 
 	return Vegarray
 }
+
+func Getproduct_DB(Productid int) (Productlist []Model.Productdata) {
+	row, err := OpenConnection["Rentmatics"].Query("select Productid,Productname,productrate,weight from productlist where orderplaceid=?", Productid)
+	log.Println("err", err)
+
+	for row.Next() {
+		var Productlist1 Model.Productdata
+
+		row.Scan(
+			&Productlist1.Productid,
+			&Productlist1.Productname,
+			&Productlist1.Productrate,
+			&Productlist1.Weight)
+
+		Productlist = append(Productlist, Productlist1)
+	}
+
+	return Productlist
+
+}
+
+func Getcount_DB() (Data Model.Datacount) {
+
+	row, err := OpenConnection["Rentmatics"].Query("SELECT COUNT(*) as count FROM  easylogin")
+	log.Println("err", err)
+
+	for row.Next() {
+
+		row.Scan(
+			&Data.Usercount,
+		)
+
+	}
+	row1, err := OpenConnection["Rentmatics"].Query("SELECT COUNT(*) as count FROM  easyorderplaced")
+	log.Println("err", err)
+
+	for row1.Next() {
+
+		row1.Scan(
+			&Data.Ordercount,
+		)
+
+	}
+	row2, err := OpenConnection["Rentmatics"].Query("SELECT COUNT(*) as count FROM  easyvegetables")
+	log.Println("err", err)
+
+	for row2.Next() {
+
+		row2.Scan(
+
+			&Data.Productcount,
+		)
+
+	}
+
+	row3, err := OpenConnection["Rentmatics"].Query("SELECT COUNT(*) as count FROM  easydelivery")
+	log.Println("err", err)
+
+	for row3.Next() {
+
+		row3.Scan(
+
+			&Data.Instantcount,
+		)
+
+	}
+
+	return
+
+}

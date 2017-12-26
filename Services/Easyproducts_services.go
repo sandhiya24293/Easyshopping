@@ -122,6 +122,30 @@ func Ordertracking(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Orgin", "*")
 	w.Write(Senddata)
 }
+
+func Trackstatus(w http.ResponseWriter, r *http.Request) {
+
+	Data := Db.GetTracking_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - ORDER PLACED RESPONSE", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+func Updatetrackstatus(w http.ResponseWriter, r *http.Request) {
+	var Trackupdates Model.Trackupdate
+	err := json.NewDecoder(r.Body).Decode(&Trackupdates)
+	if err != nil {
+		log.Println("Error - ORDER HISTORY", err)
+	}
+
+	Db.GetTrackupdates_DB(Trackupdates)
+
+}
 func Orderhistory(w http.ResponseWriter, r *http.Request) {
 
 	var Orderid Model.ProfileLoginid
@@ -139,4 +163,40 @@ func Orderhistory(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Access-Control-Allow-Orgin", "*")
 	w.Write(Senddata)
+}
+
+type Productdataa struct {
+	Getproduct int
+}
+
+func Getproductdata(w http.ResponseWriter, r *http.Request) {
+
+	var Productdata Productdataa
+	err := json.NewDecoder(r.Body).Decode(&Productdata)
+	if err != nil {
+		log.Println("Error - ORDER HISTORY", err)
+	}
+
+	Data := Db.Getproduct_DB(Productdata.Getproduct)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - ORDER HISTORY RESPONSE", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+func Getcount_service(w http.ResponseWriter, r *http.Request) {
+
+	Data := Db.Getcount_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - ORDER HISTORY RESPONSE", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+
 }

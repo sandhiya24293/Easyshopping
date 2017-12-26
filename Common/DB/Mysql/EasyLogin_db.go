@@ -287,3 +287,63 @@ func Easyupdateprofile(LoginidAddress Model.UpdateProfile) string {
 	return "Success"
 
 }
+
+func Changepassword_DB(User1 Model.Changepassword) (Userinfo string) {
+	var Getuser string
+	rows, err := OpenConnection["Rentmatics"].Query("select password from easyadmin where Loginid=?", User1.Loginid)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+
+			&Getuser,
+		)
+
+	}
+	fmt.Println(Getuser)
+	fmt.Println(User1.Oldpass)
+	if User1.Oldpass == Getuser {
+
+		Queryupdate := "UPDATE  easyadmin SET password='" + User1.Newpass + "'where Loginid='" + User1.Loginid + "'"
+
+		row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+		if err != nil {
+			log.Println("Error -DB: update Profile", err, row)
+		}
+		return "success"
+
+	} else {
+
+		return "Failure"
+	}
+
+}
+
+func Adminlogin_DB(User1 Model.AdminLogin) string {
+
+	var Username string
+	var password string
+	rows, err := OpenConnection["Rentmatics"].Query("select Loginid,password from  easyadmin where Loginid=?", User1.User)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+			&Username,
+			&password,
+		)
+
+	}
+	if User1.Pass == password {
+
+		return "Success"
+
+	} else {
+
+		return "Failure"
+	}
+
+}

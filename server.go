@@ -58,8 +58,14 @@ func Serve() bool {
 	router.HandleFunc("/SearchProduct", Service.SearchProduct)
 	router.HandleFunc("/Orderplaced", Service.Orderplaced)
 	router.HandleFunc("/Ordertracking", Service.Ordertracking)
+	router.HandleFunc("/Trackstatus", Service.Trackstatus)
+	router.HandleFunc("/updatetrackstatus", Service.Updatetrackstatus)
+
 	router.HandleFunc("/Orderhistory", Service.Orderhistory)
 	router.HandleFunc("/Instantdeliveryform", Service.Instantdeliveryform)
+	router.HandleFunc("/Getinstanse", Service.Getinstanse)
+	router.HandleFunc("/Getinstanstundelivered", Service.Getinstanstundelivered)
+	router.HandleFunc("/Updateinstantdeliver", Service.Updateinstantdeliver)
 
 	//Backenddata
 	router.HandleFunc("/Getalluser", Service.Allusers)
@@ -67,10 +73,15 @@ func Serve() bool {
 	router.HandleFunc("/Addproduct", Service.Allproduct)
 	router.HandleFunc("/UpdateRate", Service.Editproduct)
 	router.HandleFunc("/Getsingledata", Service.GetSingleproduct)
+	router.HandleFunc("/Getproductdata", Service.Getproductdata)
 	//router.HandleFunc("/Getsingleorderdata", Service.Getsingleorderdata)
 
 	router.HandleFunc("/UpdateProductstatus", Service.Updatestatus)
 	router.HandleFunc("/Getordertracking", Service.Getordertracking)
+	router.HandleFunc("/Getcount_service", Service.Getcount_service)
+
+	router.HandleFunc("/Changepassword_admin", Service.Changepassword_admin)
+	router.HandleFunc("/AdminLogin", Service.AdminLogin)
 
 	//Search
 

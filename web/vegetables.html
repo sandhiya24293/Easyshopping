@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Gretong a Ecommerce Admin Panel Category Flat Bootstrap Responsive Web Template | Bags :: w3layouts</title>
+<title>E3 Shopping</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Gretong Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -30,7 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           
            $.ajax({
                type: "GET",
-               url: "http://localhost:8085/Vegtables",
+               url: "http://176.111.105.86:8085/Vegtables",
                contentType:"application/json; charset=utf-8",
                
          
@@ -82,9 +82,9 @@ $("#rate3"+ID).html(rate3);
 "<td id='rate1"+Dyid+"'>@mdo</td>"+
 "<td id='rate2"+Dyid+"'>@mdo</td>"+
  "<td id='rate3"+Dyid+"'>@mdo</td>"+
- "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button></td>"+
- "<td id='showtab2"+Dyid+"' style='margin-bottom:-200px;display:none;'><button  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%'>Show</button></td>"+
-"<td id='showtab1"+Dyid+"'><button type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
+ "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button>"+
+ "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>"+
+"<button id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
 
 "</tr>";
 
@@ -104,7 +104,7 @@ function Updaterate(Dyid){
 	}
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/Getsingledata",
+      url: "http://176.111.105.86:8085/Getsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
@@ -143,7 +143,7 @@ console.log("sucessfully updated")
 	}
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateProductstatus",
+      url: "http://176.111.105.86:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -162,7 +162,7 @@ console.log("sucessfully updated")
 	}
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateProductstatus",
+      url: "http://176.111.105.86:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -199,7 +199,7 @@ var Updateproduct ={
 	
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateRate",
+      url: "http://176.111.105.86:8085/UpdateRate",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -230,7 +230,7 @@ function Addproduct(){
 	}
 	 $.ajax({
       type: "POST",
-      url: "http://localhost:8085/Addproduct",
+      url: "http://176.111.105.86:8085/Addproduct",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Add),
 
@@ -265,12 +265,14 @@ tbody tr:nth-child(even){
 }
 </style>
 <script>
-	function Showform(){
-		document.getElementById("showdiv").style.display = "inline"
-	}
-	function closediv(){
-		document.getElementById("showdiv").style.display = "none"
-
+		function Showform(){
+		var x = document.getElementById("showdiv");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+		//document.getElementById("").style.display = "inline"
 	}
 </script>
 <!-- //lined-icons -->
@@ -283,12 +285,12 @@ tbody tr:nth-child(even){
 	<div class="left-content">
 	   <div class="inner-content">
 		<!-- header-starts -->
-			<div class="header-section">
+				<div class="header-section">
 			<!-- top_bg -->
 						<div class="top_bg">
 							
 								<div class="header_top">
-									<div class="top_right">
+									<div class="top_right" style="visibility:hidden">
 										<ul>
 											<li><a href="contact.html">help</a></li>|
 											<li><a href="contact.html">Contact</a></li>|
@@ -296,7 +298,7 @@ tbody tr:nth-child(even){
 										</ul>
 									</div>
 									<div class="top_left">
-										<h2><span></span> Call us : 032 2352 782</h2>
+										<!-- <h2><span></span> Call us : 032 2352 782</h2> -->
 									</div>
 										<div class="clearfix"> </div>
 								</div>
@@ -310,14 +312,14 @@ tbody tr:nth-child(even){
 							<div class="header">
 								<div class="head-t">
 									<div class="logo" style="margin-right:-20px">
-										<a href="index.html">
-										<h1 style="color:brown;"><b>Easy E3 Shopping</b></h1> </a>
+										<a href="home.html">
+										<h1 style="color:brown;"><b> E3 Shopping</b></h1> </a>
 									</div>
 										<!-- start header_right -->
 									<div class="header_right">
 										<div class="rgt-bottom">
 											<div class="create_btn">
-											<a href="javascript:Showform()" style="width:150px;height:50px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px"> + Add Product</a>
+								<a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px" ><b> + Add Product</b></a>
 										</div>
 											
 										
@@ -335,7 +337,7 @@ tbody tr:nth-child(even){
 			
 			<div class="registration_form" style="display:none" id="showdiv">
 		 <!-- Form -->
-			    <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
+			    <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
 
 
 <div>
@@ -434,9 +436,9 @@ tbody tr:nth-child(even){
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
 					</header>
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-                       <div class="menu">
+                      <div class="menu">
 									<ul id="menu" >
-										<li><a href="index.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
+										<li><a href="home.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
 										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>
 
 									
@@ -459,6 +461,9 @@ tbody tr:nth-child(even){
 									<li id="menu-academico" ><a href="orders.html"><i class="fa fa-file-text-o"></i> <span>Order List</span></a></li>
 
 									<li id="menu-academico" ><a href="Track.html"><i class="lnr lnr-book"></i> <span>Update Track</span></a></li>
+									<li id="menu-academico" ><a href="Instant.html"><i class="lnr lnr-book"></i> <span>Instant Orders</span></a></li>
+									<li id="menu-academico" ><a href="updateinstant.html"><i class="lnr lnr-book"></i> <span>Update Instant Orders</span></a></li>
+									<li id="menu-academico" ><a href="changepassword.html"><i class="lnr lnr-book"></i> <span>Change Password</span></a></li>
 									 
 							     
 								
@@ -470,43 +475,58 @@ tbody tr:nth-child(even){
 <div class="modal fade" id="myModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Update Product Rate</h3>
+      <div class="modal-header" style="background-color:black;color:white">
+        <h3 class="modal-title" id="exampleModalLabel"><b>Update Product Rate</b></h3>
         <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top:-30px;">
           <span aria-hidden="true">&times;</span>
         </button>
 
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="background-color:brown;color:white">
       <label>
       <input  type="text" id="showid" style="display:none">
      
       <div id="listContainer1">
       </div>
-        <h4 >Edit Product Name<span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="names1">
-         <h4 >Edit Rate 1KG<span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates1">
-         <h4 >Edit Rate 500GMS<span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates2">
-         <h4 >Edit Rate 250GMS<span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates3">
+        <h4 ><b>Edit Product Name</b><span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="names1" style="color:black">
+         <h4 ><b>Edit Rate 1KG</b><span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates1" style="color:black">
+         <h4 ><b>Edit Rate 500GMS</b><span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates2" style="color:black">
+         <h4 ><b>Edit Rate 250GMS</b><span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates3" style="color:black">
          <br>
+         <br>
+         <button type="button"   data-dismiss="modal"  class='btn btn-success'  onclick="updateratefunc()">   Update
+        </button>
           
       </div>
-      <div class="modal-footer">
-
-       <button type="button"   data-dismiss="modal"   onclick="updateratefunc()" style="margin-top:-30px;">
-          Update
-        </button>
-       
-    <!-- <a class="button btn btn-danger" data-dismiss="modal"   style="margin-left:3%;">Update Rate</a> -->
-
-      </div>
-   
+     
   </div>
 </div>
 </div>
+
+<script>
+							var toggle = true;
+										
+							$(".sidebar-icon").click(function() {                
+							  if (toggle)
+							  {
+								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+								$("#menu span").css({"position":"absolute"});
+							  }
+							  else
+							  {
+								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+								setTimeout(function() {
+								  $("#menu span").css({"position":"relative"});
+								}, 400);
+							  }
+											
+											toggle = !toggle;
+										});
+							</script>
 
 
 						
