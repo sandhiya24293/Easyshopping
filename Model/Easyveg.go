@@ -1,5 +1,8 @@
 package Model
 
+type Senddata struct {
+	Data []Vegetables
+}
 type Vegetables struct {
 	Vegid      int
 	Vegetable  string

@@ -10,8 +10,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func Getvegetables_DB(Data string) (Vegarray []Model.Vegetables) {
-
+func Getvegetables_DB(Data string) (Data1 Model.Senddata) {
+	var Vegarray []Model.Vegetables
 	var Vegetabledata Model.Vegetables
 	rows, err := OpenConnection["Rentmatics"].Query("select * from easyvegetables where Type=?", Data)
 	if err != nil {
@@ -31,7 +31,7 @@ func Getvegetables_DB(Data string) (Vegarray []Model.Vegetables) {
 			&Vegetabledata.Pictureurl,
 		)
 		Vegarray = append(Vegarray, Vegetabledata)
-
+		Data1.Data = Vegarray
 	}
 
 	return
@@ -62,31 +62,31 @@ func GetSingleprod_DB(Productid int) (Responsedata Model.Vegetables) {
 	return
 }
 
-func Getveg() (Vegresponse []Model.Vegetables) {
+func Getveg() (Vegresponse Model.Senddata) {
 	Vegresponse = Getvegetables_DB("Veg")
 	return
 }
-func GetLeaves() (Vegresponse []Model.Vegetables) {
+func GetLeaves() (Vegresponse Model.Senddata) {
 	Vegresponse = Getvegetables_DB("Leaves")
 	return
 }
 
-func GetNonveg() (Vegresponse []Model.Vegetables) {
+func GetNonveg() (Vegresponse Model.Senddata) {
 	Vegresponse = Getvegetables_DB("NonVeg")
 	return
 }
 
-func GetFruits() (Vegresponse []Model.Vegetables) {
+func GetFruits() (Vegresponse Model.Senddata) {
 	Vegresponse = Getvegetables_DB("Fruits")
 	return
 }
 
-func GetSeafood_DB() (Vegresponse []Model.Vegetables) {
+func GetSeafood_DB() (Vegresponse Model.Senddata) {
 	Vegresponse = Getvegetables_DB("Seafood")
 	return
 }
-func Search_DB(searchstring string) (Vegarray []Model.Vegetables) {
-
+func Search_DB(searchstring string) (Data1 Model.Senddata) {
+	var Vegarray []Model.Vegetables
 	var Array []string
 	var Product string
 	var Productall []string
@@ -140,10 +140,10 @@ func Search_DB(searchstring string) (Vegarray []Model.Vegetables) {
 			Vegarray = append(Vegarray, Vegetabledata)
 
 		}
-
+		Data1.Data = Vegarray
 	}
 
-	return Vegarray
+	return Data1
 }
 
 func Getproduct_DB(Productid int) (Productlist []Model.Productdata) {
