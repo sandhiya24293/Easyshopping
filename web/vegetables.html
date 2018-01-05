@@ -337,36 +337,39 @@ tbody tr:nth-child(even){
 			<div class="content">
 			
 			
-			<div class="registration_form" style="display:none" id="showdiv">
+			<div style="display:none;" id="showdiv">
 		 <!-- Form -->
-			    <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
+			    <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"   novalidate>
 
 
-<div>
+<div >
 
-   	<div style="visibility:hidden">
-					<label>Product Name</label>
+   	<div style="visibility:hidden;">
+					<label >Product Name</label>
 				<input placeholder="Product name " type="text" tabindex="1" required="" autofocus="" name="getname"  class="validate" required>
 					
 				</div>
-						
+				<br>
+				<br>
 
-					
-						<div >
+                       <div >
 								<label >Product Type(*)</label>
 											<select  name="category"  style="border: 1px solid black;width:400px;height:30px" >
-                                             <option selected="true" disabled="disabled" value="Veg">Product type</option>   
+                                             <option selected="true" disabled="disabled" value="Veg"></option>   
 												<option value="Veg">Vegetable</option>
 												<option value ="Leaves">Leaves</option>
 												<option value="Fruits">Fruits</option>
 												<option value ="NonVeg">Non Veg</option>
 												<option value="Seafood">Sea Food</option>
 											</select>
-										</div>									
+										</div>	
+
+
+
 										
 				<div>
 					<label>Product Name(*)</label>
-						<input placeholder="Product Name" type="text" tabindex="3"  name="namevalue"   required="true" style="width:400px">
+						<input  type="text" tabindex="3"  name="namevalue"   required="true" style="width:400px">
 		
 					
 				</div>
@@ -375,17 +378,17 @@ tbody tr:nth-child(even){
 				
 				<div>
 					<label>Rate 1KG(*)	</label>
-						<input placeholder="Rate(1KG)" type="text" tabindex="3"  name="getrate1"   required="true" style="width:400px">
+						<input  type="text" tabindex="3"  name="getrate1"   required="true" style="width:400px">
 				
 				</div>
 				<div>
 					<label> Rate 500 GM(*)</label>
-						<input placeholder="500GM" type="text" tabindex="3"  required="true" name="getrate2" style="width:400px">
+						<input  type="text" tabindex="3"  required="true" name="getrate2" style="width:400px">
 					
 				</div>
 				<div>
 					<label> Rate 500 GM(*)</label>
-						<input placeholder="250GM" type="text" tabindex="3" required="true" name="getrate3" style="width:400px">
+						<input  type="text" tabindex="3" required="true" name="getrate3" style="width:400px">
 					
 				</div>
 				 <div class="file-field input-field">
@@ -393,9 +396,10 @@ tbody tr:nth-child(even){
         <label>Upload product Image(*)</label>
         <input type="file"  name="uploadfile" >
       </div>
+      <br>
      
     </div>
-<button type="submit"  class='btn btn-success' >Submit</button>
+<button type="submit"  class='btn btn-success'>Submit</button>
 </div>
 
 				

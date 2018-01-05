@@ -139,7 +139,7 @@ func SendVegetable(w http.ResponseWriter, r *http.Request) {
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
-			Data1.Url = "http://176.111.105.86:8085/Vegetables"
+			Data1.Url = "http://176.111.105.86:8085/Vegtables"
 		} else if i == 1 {
 			Data1.Url = "http://176.111.105.86:8085/Leaves"
 		} else {
@@ -162,6 +162,7 @@ func SendVegetable(w http.ResponseWriter, r *http.Request) {
 
 func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 	var Response []Model.Catergorylist
+	var Datasend Model.Datares
 
 	var Data1 Model.Catergorylist
 
@@ -177,7 +178,8 @@ func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 		Response = append(Response, Data1)
 
 	}
-	Senddata, err := json.Marshal(Response)
+	Datasend.Data = Response
+	Senddata, err := json.Marshal(Datasend)
 	if err != nil {
 		log.Println("Error -  INSTATNT DELIVERY", err)
 	}

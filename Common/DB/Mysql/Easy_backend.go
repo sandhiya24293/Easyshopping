@@ -88,7 +88,7 @@ func Addproduct_DB(Adddata Model.Addproduct) {
 }
 
 func Updateproduct_DB(Editdata Model.Updateproduct) {
-	Queryupdate := "UPDATE easyvegetables SET Easyproduct=' " + Editdata.Productname + " ' , Rate1KG= '" + fmt.Sprintf("%v", Editdata.Productrate1kg) + "' ,Rate500gm= '" + fmt.Sprintf("%v", Editdata.Productrate500gm) + "' ,Rate250gm= '" + fmt.Sprintf("%v", Editdata.Productrate250gm) + "'  where easyid= " + fmt.Sprintf("%v", Editdata.Productid)
+	Queryupdate := "UPDATE easyvegetables SET Easyproduct='" + Editdata.Productname + "' , Rate1KG= '" + fmt.Sprintf("%v", Editdata.Productrate1kg) + "' ,Rate500gm= '" + fmt.Sprintf("%v", Editdata.Productrate500gm) + "' ,Rate250gm= '" + fmt.Sprintf("%v", Editdata.Productrate250gm) + "'  where easyid= " + fmt.Sprintf("%v", Editdata.Productid)
 
 	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
 	if err != nil {
