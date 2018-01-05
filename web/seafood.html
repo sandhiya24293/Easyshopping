@@ -36,11 +36,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
          
            success: function(responsee){
            var searchout = JSON.parse(responsee);
+           
            var cardstring ="";
-  if( searchout != null  ){
-     var property =searchout.length +" Results Found ";
-    for (k=0;k<searchout.length;k++){
-       cardstring=cardstring+Getjavascript(searchout[k].Vegid);
+  if( searchout.Data != null  ){
+
+     var property =searchout.Data.length +" Results Found ";
+    for (k=0;k<searchout.Data.length;k++){
+       cardstring=cardstring+Getjavascript(searchout.Data[k].Vegid);
    }
 
   document.getElementById("listContainer").innerHTML=cardstring;
@@ -48,13 +50,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 
-for(j=0;j<searchout.length;j++){
- var ID = searchout[j].Vegid;
- var Vegetable =searchout[j].Vegetable
- var rate1 = searchout[j].Rate1kg;
- var rate2 = searchout[j].Rate500gm;
- var rate3 =searchout[j].Rate250gm;
- if ( searchout[j].Display=="hide"){
+for(j=0;j<searchout.Data.length;j++){
+ var ID = searchout.Data[j].Vegid;
+ var Vegetable =searchout.Data[j].Vegetable
+ var rate1 = searchout.Data[j].Rate1kg;
+ var rate2 = searchout.Data[j].Rate500gm;
+ var rate3 =searchout.Data[j].Rate250gm;
+ if ( searchout.Data[j].Display=="hide"){
   
   document.getElementById("showtab1"+ID).style.display = "none";
   document.getElementById("showtab2"+ID).style.display = "inline";
@@ -404,15 +406,14 @@ tbody tr:nth-child(even){
     </div>
       </div>
   <div class="content">
-        
-          <h2 style="color:black;visibility:hidden">Product List</h2>
-              <div class="table-container">
+                <div class="table-container">
       
+          <h2 style="color:black;visibility:hidden">Product List</h2>
           <table class="table" class="table table-inverse">
   <thead>
     <tr>
      
-      <th>Vegetable Name</th>
+      <th>Seafood Name</th>
       <th> Rate- 1KG</th>
       <th> Rate- 500gms</th>
       <th> Rate- 250gms </th>
@@ -426,6 +427,7 @@ tbody tr:nth-child(even){
   </tbody>
 </table>
 </div>
+
 
         
 </div>
@@ -463,7 +465,7 @@ tbody tr:nth-child(even){
                   <li id="menu-academico" ><a href="orders.html"><i class="fa fa-file-text-o"></i> <span>Order List</span></a></li>
 
                   <li id="menu-academico" ><a href="Track.html"><i class="lnr lnr-book"></i> <span>Update Track</span></a></li>
-              <li id="menu-academico" ><a href="instant.html"><i class="lnr lnr-book"></i> <span>Instant Orders</span></a></li>
+                  <li id="menu-academico" ><a href="instant.html"><i class="lnr lnr-book"></i> <span>Instant Orders</span></a></li>
                   <li id="menu-academico" ><a href="updateinstant.html"><i class="lnr lnr-book"></i> <span>Update Instant Orders</span></a></li>
                   <li id="menu-academico" ><a href="Changepassword.html"><i class="lnr lnr-book"></i> <span>Change Password</span></a></li>
                    
@@ -510,7 +512,6 @@ tbody tr:nth-child(even){
 </div>
 </div>
 
-
 <script>
               var toggle = true;
                     
@@ -531,6 +532,8 @@ tbody tr:nth-child(even){
                       toggle = !toggle;
                     });
               </script>
+
+
             
 <!--js -->
 <script src="js/jquery.nicescroll.js"></script>
