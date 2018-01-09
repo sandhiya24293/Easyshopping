@@ -75,7 +75,12 @@ func LoginUser(User1 Model.EasyLogin) (Userinfo Model.UserResponse) {
 		)
 
 	}
-	if User1.Password == Getuser.Password {
+
+	if User1.Loginid == "" || User1.Password == "" {
+		Userinfo.Status = "Failure"
+		return
+
+	} else if User1.Password == Getuser.Password {
 
 		Userinfo.Username = Getuser.Username
 		Userinfo.Loginid = Getuser.Loginid
