@@ -58,6 +58,7 @@ func Serve() bool {
 	router.HandleFunc("/SearchProduct", Service.SearchProduct)
 	router.HandleFunc("/Orderplaced", Service.Orderplaced)
 	router.HandleFunc("/Ordertracking", Service.Ordertracking)
+	router.HandleFunc("/OrderCancel", Service.Ordercancel)
 	router.HandleFunc("/Trackstatus", Service.Trackstatus)
 	router.HandleFunc("/updatetrackstatus", Service.Updatetrackstatus)
 

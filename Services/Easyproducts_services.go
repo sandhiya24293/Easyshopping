@@ -123,6 +123,24 @@ func Ordertracking(w http.ResponseWriter, r *http.Request) {
 	w.Write(Senddata)
 }
 
+func Ordercancel(w http.ResponseWriter, r *http.Request) {
+	var Track Model.Ordercancel
+	err := json.NewDecoder(r.Body).Decode(&Track)
+	if err != nil {
+		log.Println("Error - ORDER TRACKING", err)
+	}
+
+	Data := Db.OrderCancel_DB(Track)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - ORDER PLACED RESPONSE", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
 func Trackstatus(w http.ResponseWriter, r *http.Request) {
 
 	Data := Db.GetTracking_DB()

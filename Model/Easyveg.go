@@ -101,3 +101,8 @@ type Tracking struct {
 type Datares struct {
 	Data []Catergorylist
 }
+
+type Ordercancel struct {
+	Loginid string
+	Orderid int
+}

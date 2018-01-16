@@ -84,6 +84,23 @@ func OrderTracking_DB(orderid int) (Trackingres Model.Trackingresponse) {
 	return
 
 }
+
+func OrderCancel_DB(cancelorder Model.Ordercancel) string {
+	Orderstatus := "Cancelled"
+	Queryupdate := "UPDATE ordertracking SET status='" + Orderstatus + "'where orderid=" + fmt.Sprintf("%v", cancelorder.Orderid)
+
+	rows, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: Get User", err, rows)
+
+		return "invalid orderid"
+	} else {
+		return "Success"
+
+	}
+
+}
+
 func GetTracking_DB() (Tracking []Model.Trackingresponses) {
 
 	var Trackingres Model.Trackingresponses
