@@ -50,7 +50,7 @@ type Placeorderresponse struct {
 }
 
 type Ordertrack struct {
-	Orderid int
+	Loginid string
 }
 
 type Ordertrackresponse struct {

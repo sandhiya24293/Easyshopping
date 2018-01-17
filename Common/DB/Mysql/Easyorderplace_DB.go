@@ -47,7 +47,7 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 	if err != nil {
 		log.Println("Error -DB: User", err, row1)
 	}
-	fmt.Println("Orderid", Orderid)
+
 	row2, err := OpenConnection["Rentmatics"].Query("select Orderid,Billid  from  easyorderplaced where Orderid=?", Orderid)
 	if err != nil {
 		log.Println("Error -DB: Get User", err, row2)
@@ -64,9 +64,11 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 	return Orderres
 }
 
-func OrderTracking_DB(orderid int) (Trackingres Model.Trackingresponse) {
+func OrderTracking_DB(loginid string) (Trackingres1 []Model.Trackingresponse) {
+	var Trackingres Model.Trackingresponse
+	Querystring := "SELECT * FROM ordertracking WHERE status IN ('Dispatched', 'Order') && loginid ='" + loginid + "'"
 
-	rows, err := OpenConnection["Rentmatics"].Query("select *  from  ordertracking where orderid=?", orderid)
+	rows, err := OpenConnection["Rentmatics"].Query(Querystring)
 	if err != nil {
 		log.Println("Error -DB: Get User", err)
 	}
@@ -79,12 +81,13 @@ func OrderTracking_DB(orderid int) (Trackingres Model.Trackingresponse) {
 			&Trackingres.Loginid,
 			&Trackingres.Status,
 		)
+		Trackingres1 = append(Trackingres1, Trackingres)
 
 	}
+
 	return
 
 }
-
 func OrderCancel_DB(cancelorder Model.Ordercancel) string {
 	Orderstatus := "Cancelled"
 	Queryupdate := "UPDATE ordertracking SET status='" + Orderstatus + "'where orderid=" + fmt.Sprintf("%v", cancelorder.Orderid)

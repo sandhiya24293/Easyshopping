@@ -27,7 +27,7 @@ func InsertnewUser(Userdata Model.EasyRegister, randomno string) (Userinfo Model
 		if err != nil {
 			log.Println("Error -DB: User", err, row)
 		}
-		rows, err := OpenConnection["Rentmatics"].Query("select username,Loginid from easylogin where Loginid=?", Userdata.Loginid)
+		rows, err := OpenConnection["Rentmatics"].Query("select username,Loginid,phonenumber from easylogin where Loginid=?", Userdata.Loginid)
 		if err != nil {
 			log.Println("Error -DB: User", err)
 		}
@@ -37,6 +37,7 @@ func InsertnewUser(Userdata Model.EasyRegister, randomno string) (Userinfo Model
 
 				&Userinfo.Username,
 				&Userinfo.Loginid,
+				&Userinfo.Phonenumber,
 			)
 
 		}
@@ -44,12 +45,13 @@ func InsertnewUser(Userdata Model.EasyRegister, randomno string) (Userinfo Model
 		return Userinfo
 	} else {
 
-		rows, _ := OpenConnection["Rentmatics"].Query("select username,Loginid from easylogin where Loginid=?", Userdata.Loginid)
+		rows, _ := OpenConnection["Rentmatics"].Query("select username,Loginid,phonenumber from easylogin where Loginid=?", Userdata.Loginid)
 		for rows.Next() {
 
 			rows.Scan(
 				&Userinfo.Username,
 				&Userinfo.Loginid,
+				&Userinfo.Phonenumber,
 			)
 
 		}
@@ -62,7 +64,7 @@ func InsertnewUser(Userdata Model.EasyRegister, randomno string) (Userinfo Model
 
 func LoginUser(User1 Model.EasyLogin) (Userinfo Model.UserResponse) {
 	var Getuser Model.Easyloginverify
-	rows, err := OpenConnection["Rentmatics"].Query("select username,Loginid,password from  easylogin where Loginid=?", User1.Loginid)
+	rows, err := OpenConnection["Rentmatics"].Query("select username,Loginid,password,phonenumber from  easylogin where Loginid=?", User1.Loginid)
 	if err != nil {
 		log.Println("Error -DB: Get User", err)
 	}
@@ -72,6 +74,7 @@ func LoginUser(User1 Model.EasyLogin) (Userinfo Model.UserResponse) {
 			&Getuser.Username,
 			&Getuser.Loginid,
 			&Getuser.Password,
+			&Getuser.Phonenumber,
 		)
 
 	}
@@ -84,6 +87,7 @@ func LoginUser(User1 Model.EasyLogin) (Userinfo Model.UserResponse) {
 
 		Userinfo.Username = Getuser.Username
 		Userinfo.Loginid = Getuser.Loginid
+		Userinfo.Phonenumber = Getuser.Phonenumber
 		Userinfo.Status = "Success"
 		return
 

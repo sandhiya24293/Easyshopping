@@ -56,6 +56,17 @@ func Fruits(w http.ResponseWriter, r *http.Request) {
 	w.Write(Senddata)
 }
 
+func Turkey(w http.ResponseWriter, r *http.Request) {
+	Data := Db.GetTurkey()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - RETRIVE PRODUCT DATA", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
 func Seafood(w http.ResponseWriter, r *http.Request) {
 	Data := Db.GetSeafood_DB()
 	Senddata, err := json.Marshal(Data)
@@ -112,7 +123,7 @@ func Ordertracking(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error - ORDER TRACKING", err)
 	}
 
-	Data := Db.OrderTracking_DB(Track.Orderid)
+	Data := Db.OrderTracking_DB(Track.Loginid)
 	Senddata, err := json.Marshal(Data)
 	if err != nil {
 		log.Println("Error - ORDER PLACED RESPONSE", err)

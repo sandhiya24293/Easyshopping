@@ -81,6 +81,11 @@ func GetFruits() (Vegresponse Model.Senddata) {
 	return
 }
 
+func GetTurkey() (Vegresponse Model.Senddata) {
+	Vegresponse = Getvegetables_DB("Turkey")
+	return
+}
+
 func GetSeafood_DB() (Vegresponse Model.Senddata) {
 	Vegresponse = Getvegetables_DB("Seafood")
 	return

@@ -52,6 +52,7 @@ func Serve() bool {
 	router.HandleFunc("/Seafood", Service.Seafood)
 	router.HandleFunc("/Leaves", Service.Leaves)
 	router.HandleFunc("/Fruits", Service.Fruits)
+	router.HandleFunc("/Turkey", Service.Turkey)
 	router.HandleFunc("/SendVegetable", Service.SendVegetable)
 	router.HandleFunc("/SendNonVeg", Service.SendNonVeg)
 
@@ -65,6 +66,7 @@ func Serve() bool {
 	router.HandleFunc("/Orderhistory", Service.Orderhistory)
 	router.HandleFunc("/Instantdeliveryform", Service.Instantdeliveryform)
 	router.HandleFunc("/Getinstanse", Service.Getinstanse)
+	//router.HandleFunc("/GetTrackinstant", Service.GetTrackinstanse)
 	router.HandleFunc("/Getinstanstundelivered", Service.Getinstanstundelivered)
 	router.HandleFunc("/Updateinstantdeliver", Service.Updateinstantdeliver)
 
@@ -83,6 +85,16 @@ func Serve() bool {
 
 	router.HandleFunc("/Changepassword_admin", Service.Changepassword_admin)
 	router.HandleFunc("/AdminLogin", Service.AdminLogin)
+
+	//Food Instance
+	router.HandleFunc("/Foodinsert", Service.Foodinsert)
+	router.HandleFunc("/Trackfooddeliver", Service.Trackfooddeliver)
+	router.HandleFunc("/Cancelfooddelivery", Service.Cancelfooddelivery)
+	router.HandleFunc("/gethistory", Service.Fooddelieryhistory)
+
+	//backendside
+	router.HandleFunc("/updatefooddelivered", Service.Updatefooddelivery)
+	router.HandleFunc("/Getundelivered", Service.Getundelivered)
 
 	//Search
 

@@ -9,9 +9,10 @@ type EasyRegister struct {
 	Logintype   string
 }
 type UserResponse struct {
-	Username string
-	Loginid  string
-	Status   string
+	Username    string
+	Loginid     string
+	Phonenumber string
+	Status      string
 }
 type APIError struct {
 	Error struct {
@@ -26,9 +27,10 @@ type EasyLogin struct {
 }
 
 type Easyloginverify struct {
-	Username string
-	Loginid  string
-	Password string
+	Username    string
+	Loginid     string
+	Password    string
+	Phonenumber string
 }
 type Changepass struct {
 	Loginid     string

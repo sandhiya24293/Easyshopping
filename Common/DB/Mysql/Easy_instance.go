@@ -11,7 +11,7 @@ import (
 
 func Instance_DB(Instancedata Model.Easyinstance, Uniqueid string) string {
 
-	row, err := OpenConnection["Rentmatics"].Exec("insert into easydelivery (uniqueid,Productname,Dispactchername,Dispatcheraddess,Dispatchernumber,Deliveryaddress,Deliveryname,Deliverynumber,Message,Status ) values (?,?,?,?,?,?,?,?,?,?)", Uniqueid, Instancedata.Productname, Instancedata.Dispactchername, Instancedata.Dispatchernumber, Instancedata.Dispatcheraddess, Instancedata.Deliveryaddress, Instancedata.Deliveryname, Instancedata.Deliverynumber, Instancedata.Message, "Order")
+	row, err := OpenConnection["Rentmatics"].Exec("insert into easydelivery (uniqueid,Productname,Deliveryaddress,Deliveryname,Deliverynumber,Message,Status,loginid ) values (?,?,?,?,?,?,?,?)", Uniqueid, Instancedata.Productname, Instancedata.Deliveryaddress, Instancedata.Deliveryname, Instancedata.Deliverynumber, Instancedata.Message, "Order", Instancedata.Loginid)
 	if err != nil {
 		log.Println("Error -DB: update Profile", err, row)
 	}
@@ -30,16 +30,14 @@ func EasyInstance() (Easyresponse []Model.Easyinstances) {
 
 		rows.Scan(
 			&Data.Productid,
-			&Data.Uniqueid,
 			&Data.Productname,
-			&Data.Dispactchername,
-			&Data.Dispatcheraddess,
-			&Data.Dispatchernumber,
+			&Data.Uniqueid,
 			&Data.Deliveryaddress,
 			&Data.Deliveryname,
 			&Data.Deliverynumber,
 			&Data.Message,
 			&Data.Status,
+			&Data.Loginid,
 		)
 		Easyresponse = append(Easyresponse, Data)
 
@@ -60,16 +58,15 @@ func Instantundelivered_DB() (Easyresponse []Model.Easyinstances) {
 
 		rows.Scan(
 			&Data.Productid,
-			&Data.Uniqueid,
 			&Data.Productname,
-			&Data.Dispactchername,
-			&Data.Dispatcheraddess,
-			&Data.Dispatchernumber,
+			&Data.Uniqueid,
+
 			&Data.Deliveryaddress,
 			&Data.Deliveryname,
 			&Data.Deliverynumber,
 			&Data.Message,
 			&Data.Status,
+			&Data.Loginid,
 		)
 		Easyresponse = append(Easyresponse, Data)
 

@@ -45,6 +45,27 @@ func Getinstanse(w http.ResponseWriter, r *http.Request) {
 	w.Write(Senddata)
 }
 
+type Trackinstant struct {
+	Loginid string
+}
+
+//func GetTrackinstanse(w http.ResponseWriter, r *http.Request) {
+//	var Trackinstant Trackinstant
+//	err := json.NewDecoder(r.Body).Decode(&Trackinstant)
+//	if err != nil {
+//		log.Println("Error - INSTATNT DELIVERY", err)
+//	}
+
+//	Data := Db.Gettrackinginstance(Trackinstant.Loginid)
+//	Senddata, err := json.Marshal(Data)
+//	if err != nil {
+//		log.Println("Error -  INSTATNT DELIVERY", err)
+//	}
+
+//	w.WriteHeader(http.StatusOK)
+//	w.Header().Set("Access-Control-Allow-Orgin", "*")
+//	w.Write(Senddata)
+//}
 func Getinstanstundelivered(w http.ResponseWriter, r *http.Request) {
 
 	Data := Db.Instantundelivered_DB()
