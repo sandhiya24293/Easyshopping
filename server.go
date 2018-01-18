@@ -66,7 +66,7 @@ func Serve() bool {
 	router.HandleFunc("/Orderhistory", Service.Orderhistory)
 	router.HandleFunc("/Instantdeliveryform", Service.Instantdeliveryform)
 	router.HandleFunc("/Getinstanse", Service.Getinstanse)
-	//router.HandleFunc("/GetTrackinstant", Service.GetTrackinstanse)
+	router.HandleFunc("/GetTrackinstant", Service.GetTrackinstanse)
 	router.HandleFunc("/Getinstanstundelivered", Service.Getinstanstundelivered)
 	router.HandleFunc("/Updateinstantdeliver", Service.Updateinstantdeliver)
 

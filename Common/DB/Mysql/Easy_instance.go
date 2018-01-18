@@ -85,3 +85,31 @@ func Updateinstant_DB(Data Model.Updateinstant) string {
 	}
 	return "success"
 }
+
+func Gettrackinginstance(loginid string) (Easyresponse []Model.Easyinstances) {
+
+	var Data Model.Easyinstances
+	rows, err := OpenConnection["Rentmatics"].Query("Select * from  easydelivery where loginid =?", loginid)
+	if err != nil {
+		log.Println("Error -Db:Activity", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+			&Data.Productid,
+			&Data.Productname,
+			&Data.Uniqueid,
+			&Data.Deliveryaddress,
+			&Data.Deliveryname,
+			&Data.Deliverynumber,
+			&Data.Message,
+			&Data.Status,
+			&Data.Loginid,
+		)
+		Easyresponse = append(Easyresponse, Data)
+
+	}
+
+	return
+
+}
