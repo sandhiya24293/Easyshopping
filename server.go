@@ -56,6 +56,8 @@ func Serve() bool {
 	router.HandleFunc("/SendVegetable", Service.SendVegetable)
 	router.HandleFunc("/SendNonVeg", Service.SendNonVeg)
 
+	//Vegetables
+
 	router.HandleFunc("/SearchProduct", Service.SearchProduct)
 	router.HandleFunc("/Orderplaced", Service.Orderplaced)
 	router.HandleFunc("/Ordertracking", Service.Ordertracking)
@@ -95,6 +97,14 @@ func Serve() bool {
 	//backendside
 	router.HandleFunc("/updatefooddelivered", Service.Updatefooddelivery)
 	router.HandleFunc("/Getundelivered", Service.Getundelivered)
+
+	//Food Deliver
+	//Own Food
+	router.HandleFunc("/GetOwnfooddeliver", Service.Getfooddeliver)
+	router.HandleFunc("/Ownfooddeliver", Service.Ownfooddeliver)
+	router.HandleFunc("/Orderowndeliver", Service.Orderowndeliver)
+	router.HandleFunc("/TrackOwnfooddeliver", Service.TrackOwnfooddeliver)
+	router.HandleFunc("/CancelOwnFooddeliver", Service.CancelOwnFooddeliver)
 
 	//Search
 

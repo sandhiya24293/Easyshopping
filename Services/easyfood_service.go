@@ -27,19 +27,6 @@ func Foodinsert(w http.ResponseWriter, r *http.Request) {
 	w.Write(Senddata)
 }
 
-//func Getinstanse(w http.ResponseWriter, r *http.Request) {
-
-//	Data := Db.EasyInstance()
-//	Senddata, err := json.Marshal(Data)
-//	if err != nil {
-//		log.Println("Error -  INSTATNT DELIVERY", err)
-//	}
-
-//	w.WriteHeader(http.StatusOK)
-//	w.Header().Set("Access-Control-Allow-Orgin", "*")
-//	w.Write(Senddata)
-//}
-
 type Foodinstant struct {
 	Loginid string
 }
@@ -125,6 +112,93 @@ func Updatefooddelivery(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Data := Db.UpdateDelivered_DB(Orderid.Orderid)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+//Ownfood Services
+
+func Ownfooddeliver(w http.ResponseWriter, r *http.Request) {
+	var Ownfoo Model.Ownfood
+	err := json.NewDecoder(r.Body).Decode(&Ownfoo)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Data := Db.FoodOwn_DB(Ownfoo)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+func Getfooddeliver(w http.ResponseWriter, r *http.Request) {
+
+	Data := Db.GetFood_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+func Orderowndeliver(w http.ResponseWriter, r *http.Request) {
+	var Owner Model.Ownorderplaced
+	err := json.NewDecoder(r.Body).Decode(&Owner)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Data := Db.Orderfooddeliver_DB(Owner)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+func TrackOwnfooddeliver(w http.ResponseWriter, r *http.Request) {
+	var Trackinstant Foodinstant
+	err := json.NewDecoder(r.Body).Decode(&Trackinstant)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Data := Db.TrackOwnfood_DB(Trackinstant.Loginid)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
+func CancelOwnFooddeliver(w http.ResponseWriter, r *http.Request) {
+	var Orderid Foodorderid
+	err := json.NewDecoder(r.Body).Decode(&Orderid)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Data := Db.CancelOwnFooddeliver_DB(Orderid.Orderid)
 	Senddata, err := json.Marshal(Data)
 	if err != nil {
 		log.Println("Error -  INSTATNT DELIVERY", err)
