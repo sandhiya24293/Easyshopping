@@ -199,7 +199,7 @@ func Getundelivered() (Response []Model.Foodtrackreesponse) {
 
 func FoodOwn_DB(Instancedata Model.Ownfood) string {
 
-	row, err := OpenConnection["Rentmatics"].Exec("insert into owndeliver (dishname,Rate,platecount,status) values (?,?,?,?)", Instancedata.Dishname, Instancedata.Rate, Instancedata.Platecount, "show")
+	row, err := OpenConnection["Rentmatics"].Exec("insert into owndeliver (dishname,Rate,platecount,image,status) values (?,?,?,?,?)", Instancedata.Dishname, Instancedata.Rate, Instancedata.Platecount, Instancedata.Image, "show")
 	if err != nil {
 		log.Println("Error -DB: User", err, row)
 	}
@@ -222,6 +222,7 @@ func GetFood_DB() (Foodres []Model.Responseownfood) {
 			&Data.Dishname,
 			&Data.Rate,
 			&Data.Platecount,
+			&Data.Image,
 			&Data.Status,
 		)
 		Foodres = append(Foodres, Data)

@@ -12,12 +12,14 @@ type Ownfood struct {
 	Dishname   string
 	Rate       int
 	Platecount int
+	Image      string
 }
 type Responseownfood struct {
 	ID         int
 	Dishname   string
 	Rate       int
 	Platecount int
+	Image      string
 	Status     string
 }
 
