@@ -88,6 +88,58 @@ func OrderTracking_DB(loginid string) (Trackingres1 []Model.Trackingresponse) {
 	return
 
 }
+
+func OrderTrackingadmin_DB(orderid int) (Trackingres1 Model.ResponseOrderplaced) {
+	var easyorderid int
+	getrow, err := OpenConnection["Rentmatics"].Query("select orderid from ordertracking where Ordertrackingid=?", orderid)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for getrow.Next() {
+
+		getrow.Scan(
+			&easyorderid,
+		)
+	}
+
+	rows, err := OpenConnection["Rentmatics"].Query("select Billid,Phonenumber,Totalproducts,TotalAmount,Date from easyorderplaced where Orderid=?", easyorderid)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+			&Trackingres1.Billid,
+			&Trackingres1.Phonenumber,
+			&Trackingres1.Totalproduct,
+			&Trackingres1.TotalAmount,
+			&Trackingres1.Date,
+		)
+		row, err := OpenConnection["Rentmatics"].Query("select Productid,Productname,productrate,weight from productlist where orderplaceid=?", orderid)
+		fmt.Println("err", err)
+		var Productlist []Model.Product1
+
+		for row.Next() {
+			var Productlist1 Model.Product1
+
+			row.Scan(
+				&Productlist1.Id,
+				&Productlist1.Product,
+				&Productlist1.Rate,
+				&Productlist1.Weight)
+
+			Productlist = append(Productlist, Productlist1)
+		}
+
+		Trackingres1.Products = Productlist
+
+		return
+
+	}
+
+	return
+
+}
 func OrderCancel_DB(cancelorder Model.Ordercancel) string {
 	Orderstatus := "Cancelled"
 	Queryupdate := "UPDATE ordertracking SET status='" + Orderstatus + "'where orderid=" + fmt.Sprintf("%v", cancelorder.Orderid)
@@ -154,6 +206,7 @@ func GetTracking_DB() (Tracking []Model.Trackingresponses) {
 }
 
 func GetTrackupdates_DB(Trackingres Model.Trackupdate) {
+	fmt.Println(Trackingres.Orderstatus, Trackingres.Orderid)
 
 	Queryupdate := "UPDATE ordertracking SET status='" + Trackingres.Orderstatus + "'where Ordertrackingid=" + fmt.Sprintf("%v", Trackingres.Orderid)
 

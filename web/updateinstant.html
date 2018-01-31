@@ -55,7 +55,7 @@ $(document).ready(function(){
           
            $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Getinstanstundelivered",
+               url: "http://localhost:8085/Getinstanstundelivered",
                contentType:"application/json; charset=utf-8",
                
          
@@ -103,7 +103,7 @@ function UpdateDispatched(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Updateinstantdeliver",
+      url: "http://localhost:8085/Updateinstantdeliver",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -194,7 +194,7 @@ return rentimage;
 			<div class="content">
 			<div class="registration_form" style="display:none" id="showdiv">
 		 <!-- Form -->
- <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
+ <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
 <div>
 <div style="visibility:hidden">
 					<label>Product Name</label>

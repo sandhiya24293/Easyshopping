@@ -56,7 +56,7 @@ $(document).ready(function(){
           
            $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Getalluser",
+               url: "http://localhost:8085/Getalluser",
                contentType:"application/json; charset=utf-8",
                
          
@@ -189,7 +189,7 @@ $("#Emailid"+ID).html(Emailid);
 			<div class="content">
 			<div class="registration_form" style="display:none" id="showdiv">
 		 <!-- Form -->
- <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
+ <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
 <div>
 <div style="visibility:hidden">
 					<label>Product Name</label>

@@ -30,7 +30,9 @@ type Ownorderplaced struct {
 	Noofitems   int
 	Date        string
 }
-
+type SendOwnfood struct {
+	Data []Responseownfood
+}
 type ResOwnorderplaced struct {
 	Id          int
 	Loginid     string
@@ -40,11 +42,33 @@ type ResOwnorderplaced struct {
 	Status      string
 }
 
+type Ownfood1 struct {
+	Id         int
+	Dishname   string
+	Rate       int
+	Platecount int
+	Image      string
+}
 type ResOwnorderplacedAll struct {
-	Res  ResOwnorderplaced
-	Food []Ownfood
+	Res         ResOwnorderplaced
+	Emailid     string
+	Phonenumber string
+	Food        []Ownfood
+}
+type ResOwnorderplacedAll1 struct {
+	Res         ResOwnorderplaced
+	Emailid     string
+	Phonenumber string
+	Address     string
+
+	Food []Ownfood1
 }
 type Foodcount struct {
+	Foodname string
+	Quantity int
+}
+type Foodcount1 struct {
+	Foodid   int
 	Foodname string
 	Quantity int
 }
@@ -65,4 +89,9 @@ type Foodtrack struct {
 type Foodtrackreesponse struct {
 	Details     Foodtrack
 	Fooddetails []Foodcount
+}
+
+type Foodtrackreesponse1 struct {
+	Details     Foodtrack
+	Fooddetails []Foodcount1
 }

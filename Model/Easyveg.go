@@ -29,10 +29,25 @@ type Product struct {
 	Weight  string
 }
 
+type Product1 struct {
+	Id      int
+	Product string
+	Rate    int
+	Weight  string
+}
 type Orderplaced struct {
 	Noofproducts int
 	Loginid      string
 	Products     []Product
+	TotalAmount  int
+	Date         string
+}
+
+type ResponseOrderplaced struct {
+	Billid       string
+	Phonenumber  string
+	Totalproduct string
+	Products     []Product1
 	TotalAmount  int
 	Date         string
 }
@@ -51,6 +66,9 @@ type Placeorderresponse struct {
 
 type Ordertrack struct {
 	Loginid string
+}
+type Ordertrackid struct {
+	Orderid int
 }
 
 type Ordertrackresponse struct {

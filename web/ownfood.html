@@ -51,68 +51,102 @@ tbody tr:nth-child(even){
 <script src="js/jquery-1.10.2.min.js"></script>
    <!--pie-chart-->
    <script type="text/javascript">
-$(document).ready(function(){
-          
-           $.ajax({
-               type: "GET",
-               url: "http://localhost:8085/Getallorder",
-               contentType:"application/json; charset=utf-8",
-               
-         
-           success: function(responsee){
-           var searchout = JSON.parse(responsee);
-           var cardstring ="";
-  
-console.log(searchout[0].Orderdetails.Orderid)
-  if( searchout != null  ){
-     var property =searchout.length +" Results Found ";
-    for (k=0;k<searchout.length;k++){
-    	cardstring=cardstring+Getjavascript(searchout[k].Orderdetails.Orderid);
+     window.onload = function () {
+
+
+    var url = document.location.href,
+    url1 = decodeURIComponent(url)
+    var orderid =""
+
+   
+  var params = location.search.substr(location.search.indexOf("?")+1);
+         params = params.split("&");
+      for (var i=0; i<params.length; i++)
+       {
+
+         temp = params[i].split("=");
+         if ( [temp[0]] == "Id" ) { orderid = temp[1]; }
+       } 
+       
+	var Updatestat = {
+	"Orderid" :parseInt(orderid)
+	
+}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/Getownsinglefood",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updatestat),
+
+   success: function(responsee){
+   
+
+  var searchout = JSON.parse(responsee);  
+  var Loginid =   searchout.Res.Loginid;
+  var Email =   searchout.Emailid;
+  var Phonenumber =   searchout.Phonenumber;
+  var TotalAmount = searchout.Res.TotalAmount
+  var Address =   searchout.Address
+  var Noofitems = searchout.Res.Noofitems
+  var Status = searchout.Res.Status
+  var Date1  = searchout.Res.Date
+$("#Loginid").html(Loginid);
+$("#Email").html(Email);
+$("#Phonenumber").html(Phonenumber);
+$("#TotalAmount").html(TotalAmount);
+$("#Noofitems").html(Noofitems);
+$("#Status").html(Status);
+$("#Date1").html(Date1);
+$("#Address").html(Address);
+
+
+
+
+var cardstring3="";
+  for (k=0;k<searchout.Food.length;k++){
+    	cardstring3=cardstring3+Getjavascript(searchout.Food[k].Id);
    }
-  
-document.getElementById("listContainer").innerHTML=cardstring;
-for(j=0;j<searchout.length;j++){
-  var ID = searchout[j].Orderdetails.Orderid;
-  var Billnumber =searchout[j].Orderdetails.Billnumber
- var Loginid = searchout[j].Orderdetails.Loginid;
- var Totalproduct = searchout[j].Orderdetails.Totalproduct;
- var Totalamount =searchout[j].Orderdetails.Totalamount;
- var Datevar =searchout[j].Orderdetails.Date;
-$("#order"+ID).html(ID);
-$("#bill"+ID).html(Billnumber);
-$("#login"+ID).html(Loginid);
-$("#tprod"+ID).html(Totalproduct);
-$("#tamt"+ID).html(Totalamount);
-$("#date"+ID).html(Datevar);
- url = 'productdetails.html?Id=' + encodeURIComponent(ID) + "&TA=" + encodeURIComponent(Totalamount) ;
-document.getElementById("getUrl"+ ID).setAttribute("href",url);
-// $("#Emailid"+ID).html(Emailid);
 
-}
-}
-}  });
-   });
 
- //For Slider
- function Getjavascript(Dyid){
+document.getElementById("listContainer").innerHTML=cardstring3;
+for(j=0;j<searchout.Food.length;j++){
+	
+var ID = searchout.Food[j].Id
+var Product = searchout.Food[j].Dishname;
+var Rate = searchout.Food[j].Rate;
+var Platecount = searchout.Food[j].Platecount;
  
-  var rentimage = 
-  
-"<tr>"+
-"<td id='order"+Dyid+"'>@mdo</td>"+
-"<td id='bill"+Dyid+"'>@mdo</td>"+
-"<td id='login"+Dyid+"'>@mdo</td>"+
-"<td id='tprod"+Dyid+"'>@mdo</td>"+
-"<td id='tamt"+Dyid+"'>@mdo</td>"+
- "<td id='date"+Dyid+"'>@mdo</td>"+
- "<td ><a style='color:white' id='getUrl"+Dyid+"'>"+
- "View Details </a></td>"+
- "</tr>";
+$("#Product"+ID).html(Product);
+$("#Rate"+ID).html(Rate);
+$("#Platecount"+ID).html(Platecount);
+
+}
 
 
- return rentimage;
 
  }
+});
+}
+
+//For Slider
+ function Getjavascript(Dyid){
+
+  var rentimage = 
+ "<tr>"+
+
+"<td id='Product"+Dyid+"'>@mdo</td>"+
+"<td id='Rate"+Dyid+"' style='width: 10em;'>@mdo</td>"+
+
+"<td id='Platecount"+Dyid+"' style='width: 10em;'>@mdo</td>"+
+
+
+"</tr>";
+
+return rentimage;
+
+ }
+
+
  </script>
 </head> 
 <body>
@@ -121,7 +155,7 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 	<div class="left-content">
 	   <div class="inner-content">
 		<!-- header-starts -->
-			<!-- header-starts -->
+		<!-- header-starts -->
 			<div class="header-section">
 			<!-- top_bg -->
 						<div class="top_bg">
@@ -153,7 +187,7 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 										<h1 style="color:brown;"><b> E3 Shopping</b></h1> </a>
 									</div>
 										<!-- start header_right -->
-									<div class="header_right" >
+									<div class="header_right">
 										<div class="rgt-bottom">
 											<div class="create_btn">
 								<a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px;visibility:hidden" ><b> + Add Product</b></a>
@@ -235,23 +269,68 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 			<!-- /Form -->
 		</div>
 			</div>
-					<!-- //header-ends -->
 				<!--Content -->
 				<div class="content">
-						<div class="table-container">
-			
+				<h2 style="color:black;visibility:hidden">User list</h2>
+			<div class="col-md-6">
+							<div class="panel panel-widget">
+								<div class="validation-grids widget-shadow" data-example-id="basic-forms"> 
+									<div class="input-info">
+										<h3>ORDER DETAILS:</h3>
+									</div> 
+								
+									<div >
 				
-					<h2 style="color:black;visibility:hidden"><b>Orders list</b></h2>
-					<table class="table" class="table table-inverse">
-  <thead>
+			<form data-toggle="validator" novalidate="true">
+											<div class="form-group valid-form">
+												<div>LOGINID<span style="margin-left:120px;" id="Loginid"></span></div>
+											</div>
+
+
+											
+											
+
+											<div class="form-group">
+											<div>EMAIL <span style="margin-left:130px;" id="Email"></span></div>
+											
+											  
+											</div>
+											<div class="form-group">
+											<div>PHONE NUMBER <span style="margin-left:60px;" id="Phonenumber"></span></div>
+											
+											  
+											</div>
+											<div class="form-group">
+											<div>ADDRESS <span style="margin-left:60px;" id="Address"></span></div>
+											
+											  
+											</div>
+											<div class="form-group">
+											<div>TOTALAMOUNT <span style="margin-left:70px;" id="TotalAmount"></span></div>
+					                          </div>
+
+					                          <div class="form-group">
+											<div>NO OF ITEMS <span style="margin-left:90px;" id="Noofitems"></span></div>
+					                          </div>
+
+
+											<div class="form-group">
+											<div>STATUS <span style="margin-left:124px;" id="Status"></span></div>
+											 
+                                             </div>
+
+											
+										
+<table class="table" class="table table-inverse" >
+  <thead >
     <tr>
-      <th>Order ID  </th>
-      <th>Billnumber</th>
-      <th>Loginid</th>
-      <th>Totalproduct</th>
-      <th>Totalamount</th>
-      <th>Date</th>
-      <th>View Products</th>
+    
+      <th>Dish name</th>
+      <th>Rate</th>
+      <th>Plate Count</th>
+       
+
+      
     </tr>
   </thead>
 
@@ -260,16 +339,24 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
     
   </tbody>
 </table>
-</div>
+										
+											
+											
+										
+										</form>
+									</div>
+								</div>
+							</div>
+						
+							
+							</div>
+						</div>
 
 
 				</div>
 		
-						<!--//area-->
-	
-			<!--content-->
-		</div>
-</div>
+		
+		
 				<!--//content-inner-->
 			<!--/sidebar-menu-->
 				<div class="sidebar-menu">
@@ -277,11 +364,16 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
 					</header>
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-                       <div class="menu">
+                           <div class="menu">
 									<ul id="menu" >
 										<li><a href="home.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
 										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>
-                                          <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span> Easy Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+
+									
+
+									
+
+										 <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span> Easy Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 										   <ul id="menu-academico-sub" >
 										   <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
 										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
@@ -300,7 +392,6 @@ document.getElementById("getUrl"+ ID).setAttribute("href",url);
 									<li id="menu-academico" ><a href="instant.html"><i class="lnr lnr-book"></i> <span>Instant Orders</span></a></li>
 									<li id="menu-academico" ><a href="updateinstant.html"><i class="lnr lnr-book"></i> <span>Update Instant Orders</span></a></li>
 									<li id="menu-academico" ><a href="Changepassword.html"><i class="lnr lnr-book"></i> <span>Change Password</span></a></li>
-									 
 									 
 							     
 								

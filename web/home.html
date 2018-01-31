@@ -31,7 +31,7 @@ $(document).ready(function(){
        
       $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Trackstatus",
+               url: "http://localhost:8085/Trackstatus",
                contentType:"application/json; charset=utf-8",
                
          
@@ -79,6 +79,8 @@ $("#Orderplacedid"+ID).html(Orderplacedid);
 $("#Loginid"+ID).html(Loginid);
 $("#Status"+ID).html(Status);
 $("#Phonenumber"+ID).html(Phonenumber);
+ var url = 'orderdetails.html?Id=' + encodeURIComponent(ID);
+document.getElementById("getUrl"+ ID).setAttribute("href",url);
 
 }
 
@@ -95,13 +97,14 @@ $("#Phonenumber"+ID).html(Phonenumber);
 
 
 function UpdateDispatched(Dyid){
+
 		var Updatestat = {
 	"Orderid" :parseInt(Dyid),
 	"Orderstatus" :"Dispatched"
 }
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/updatetrackstatus",
+      url: "http://localhost:8085/updatetrackstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -120,7 +123,7 @@ function UpdateDelivered(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/updatetrackstatus",
+      url: "http://localhost:8085/updatetrackstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -129,22 +132,78 @@ console.log("sucessfully updated")
  window.location.reload(true);
  }
 });
-	                                                                                                               
+	}
+
+
+function UpdateDispatched1(Dyid){
+		var Updatestat = {
+	"Easyid" :parseInt(Dyid),
+	"Status" :"Delivered"
+}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/Updateinstantdeliver",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updatestat),
+
+   success: function(){
+console.log("sucessfully updated")
+ window.location.reload(true);
+ }
+});
+	}
+
+
+function UpdateDispatched3(Dyid){
+		var Updatestat = {
+	"Orderid" :parseInt(Dyid)
+	
+}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/updateownfoodstatus",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updatestat),
+
+   success: function(){
+console.log("sucessfully updated")
+ window.location.reload(true);
+ }
+});
+	}
+
+
+	
+function UpdateDispatched2(Dyid){
+		var Updatestat = {
+	"Orderid" :parseInt(Dyid)
+	
+}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/updatefooddelivered",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updatestat),
+
+   success: function(){
+console.log("sucessfully updated")
+ window.location.reload(true);
+ }
+});
 	}
 
  //For Slider
  function Getjavascript(Dyid){
  
   var rentimage = 
-  
-"<tr >"+
+"<tr>"+
 "<td id='Orderplacedid"+Dyid+"'>@mdo</td>"+
-"<td id='Loginid"+Dyid+"' >@mdo</td>"+
+"<td id='Loginid"+Dyid+"' style='width: 10em;'>@mdo</td>"+
 "<td id='Address"+Dyid+"'  style='display:block; word-wrap: break-word; width: 15em;'>@mdo</td> "+
 "<td id='Phonenumber"+Dyid+"'>@mdo</td>"+
-"<td id='Status"+Dyid+"'>@mdo</td>"+
+"<td ><a  id='getUrl"+Dyid+"' style='color:white'>View Order</a></td>"+
 "<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched("+Dyid+",this)' >Update Dispatched</button>"+
-"<button type='submit' class='btn btn-success' onclick='return  UpdateDelivered("+Dyid+",this)' id='showtab2"+Dyid+"'>Update Delivered</button></td>"+
+"<button type='submit' class='btn btn-success'  onclick='return  UpdateDelivered("+Dyid+",this)' id='showtab2"+Dyid+"'>Update Delivered</button></td>"+
 "</tr>";
 
 return rentimage;
@@ -153,7 +212,7 @@ return rentimage;
   window.onload = function () {
   	    $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Getcount_service",
+               url: "http://localhost:8085/Getcount_service",
                contentType:"application/json; charset=utf-8",
                
          
@@ -167,72 +226,183 @@ return rentimage;
            $("#product").html(Productcount)
            $("#order").html(Ordercount)
            $("#Instantcount").html(Instantcount)
+
+
            $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Getinstanstundelivered",
+               url: "http://localhost:8085/Getinstanstundelivered",
                contentType:"application/json; charset=utf-8",
                
          
            success: function(responsee){
-           var searchout = JSON.parse(responsee);
-           var cardstring ="";
+           var searchout1 = JSON.parse(responsee);
+           var cardstring1 ="";
   
 
-  if( searchout != null  ){
-     var property =searchout.length +" Results Found ";
-    for (k=0;k<searchout.length;k++){
-    	cardstring=cardstring+Getjavascript1(searchout[k].Productid);
+  if( searchout1 != null  ){
+     var property =searchout1.length +" Results Found ";
+    for (k=0;k<searchout1.length;k++){
+    	cardstring1=cardstring1+Getjavascript1(searchout1[k].Productid);
    }
   
-document.getElementById("listContainer2").innerHTML=cardstring;
-for(j=0;j<searchout.length;j++){
-var ID = searchout[j].Productid;
-  var Uniqueid =searchout[j].Uniqueid;
- var Productname = searchout[j].Productname;
- var Deliveryname = searchout[j].Deliveryname;
- var Deliverynumber =searchout[j].Deliverynumber;
- var Deliveryaddress =searchout[j].Deliveryaddress;
- var Message =searchout[j].Message;
- var Status =searchout[j].Status;
- $("#Uniqueid"+ID).html(Uniqueid);
+document.getElementById("listContainer2").innerHTML=cardstring1;
+for(j=0;j<searchout1.length;j++){
+var ID = searchout1[j].Productid;
+  var Uniqueid =searchout1[j].Uniqueid;
+ var Productname = searchout1[j].Productname;
+ var Deliveryname = searchout1[j].Deliveryname;
+ var Deliverynumber =searchout1[j].Deliverynumber;
+ var Deliveryaddress =searchout1[j].Deliveryaddress;
+ var Message =searchout1[j].Message;
+ var Status =searchout1[j].Status;
+$("#Uniqueid"+ID).html(Uniqueid);
 $("#Productname"+ID).html(Productname);
 $("#Deliveryname"+ID).html(Deliveryname);
 $("#Deliveryaddress"+ID).html(Deliveryaddress);
 $("#Deliverynumber"+ID).html(Deliverynumber);
-$("#Status"+ID).html(Status);
 $("#Message"+ID).html(Message);
 
-}}else{
+}}
+else{
 	document.getElementById("listContainer3").innerHTML="<div><b style='margin-left:40%;font-size:20px'>No orders yet !</b></div>";
 
 }
 }
 });
+ $.ajax({
+               type: "GET",
+               url: "http://localhost:8085/Getundelivered",
+               contentType:"application/json; charset=utf-8",
+               
+         
+           success: function(responsee){
+           var searchout = JSON.parse(responsee);
+           var cardstring2 ="";
+  
+
+  if( searchout != null  ){
+     var property =searchout.length +" Results Found ";
+    for (k=0;k<searchout.length;k++){
+    	cardstring2=cardstring2+Getjavascript2(searchout[k].Details.Foodid);
+   }
+
+  
+document.getElementById("foodContainer").innerHTML=cardstring2;
+
+for(j=0;j<searchout.length;j++){
+	
+var ID = searchout[j].Details.Foodid;
+ var Hotelname =searchout[j].Details.Hotelname;
+ var Address = searchout[j].Details.Address;
+ var Mobilenumber = searchout[j].Details.Mobilenumber;
+
+ $("#Hotelname"+ID).html(Hotelname);
+$("#Addresss"+ID).html(Address);
+$("#Mobilenumberr"+ID).html(Mobilenumber);
+ var url = 'food.html?Id=' + encodeURIComponent(ID);
+document.getElementById("getUrl2"+ ID).setAttribute("href",url);
+
+
+}
+}else{
+	document.getElementById("foodContainer1").innerHTML="<div><b style='margin-left:40%;font-size:20px'>No orders yet !</b></div>";
+
+}
+}
+});
+ $.ajax({
+               type: "GET",
+               url: "http://localhost:8085/Getownundeliverfood",
+               contentType:"application/json; charset=utf-8",
+               
+         
+           success: function(responsee){
+           var searchout = JSON.parse(responsee);
+           var cardstring4 ="";
+  
+
+  if( searchout != null  ){
+     var property =searchout.length +" Results Found ";
+    for (k=0;k<searchout.length;k++){
+
+    	cardstring4=cardstring4+Getjavascript3(searchout[k].Res.Id);
+   }
+
+  
+document.getElementById("foodContainer2").innerHTML=cardstring4;
+
+for(j=0;j<searchout.length;j++){
+	
+var ID = searchout[j].Res.Id;
+ var TotalAmount =searchout[j].Res.TotalAmount;
+ var Noofitems = searchout[j].Res.Noofitems;
+ var Emailid = searchout[j].Emailid;
+ var Phonenumber = searchout[j].Phonenumber;
+ var Date1 = searchout[j].Res.Date;
+
+ var Status = searchout[j].Res.Status;
+ var Loginid = searchout[j].Res.Loginid;
+$("#Loginids"+ID).html(Loginid);
+$("#Emailid"+ID).html(Emailid);
+$("#Phonenumbers"+ID).html(Phonenumber);
+$("#Date2"+ID).html(Date1);
+$("#Status"+ID).html(Status);
+ var url = 'ownfood.html?Id=' + encodeURIComponent(ID);
+document.getElementById("getUrl4"+ ID).setAttribute("href",url);
+
+
+}
+}else{
+	document.getElementById("foodContainer3").innerHTML="<div><b style='margin-left:40%;font-size:20px'>No orders yet !</b></div>";
+
+}
+}
+});
+    
+           
        }
 });
 
 }
 
-function UpdateDispatched(Dyid){
-		var Updatestat = {
-	"Easyid" :parseInt(Dyid),
-	"Status" :"Delivered"
-}
-	  $.ajax({
-      type: "POST",
-      url: "http://176.111.105.86:8085/Updateinstantdeliver",
-      contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Updatestat),
+ function Getjavascript3(Dyid){
+ 	
+ var rentimage = 
+ "<tr>"+
+"<td id='Loginids"+Dyid+"'>@mdo</td>"+
+"<td id='Emailid"+Dyid+"'>@mdo</td>"+
+"<td id='Phonenumbers"+Dyid+"'>@mdo</td>"+
 
-   success: function(){
-console.log("sucessfully updated")
- window.location.reload(true);
+"<td ><a  id='getUrl4"+Dyid+"' style='color:white'>View Order</a></td>"+
+"<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched3("+Dyid+",this)' >Update Delivered</button>"+
+"<tr>";
+
+
+return rentimage;
+
  }
-});
-	                                                                                                               
-	}
+
+
+ function Getjavascript2(Dyid){
+ 	
+ var rentimage = 
+ "<tr>"+
+"<td id='Hotelname"+Dyid+"'>@mdo</td>"+
+"<td id='Addresss"+Dyid+"'>@mdo</td>"+
+"<td id='Mobilenumberr"+Dyid+"'>@mdo</td>"+
+"<td ><a  id='getUrl2"+Dyid+"' style='color:white'>View Order</a></td>"+
+"<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched2("+Dyid+",this)' >Update Delivered</button>"+
+"<tr>";
+
+
+return rentimage;
+
+ }
+
+
 	//For Slider
  function Getjavascript1(Dyid){
+ 	
  
   var rentimage = 
   
@@ -242,9 +412,8 @@ console.log("sucessfully updated")
 "<td id='Deliveryname"+Dyid+"'>@mdo</td>"+
 "<td id='Deliverynumber"+Dyid+"'>@mdo</td>"+
 "<td id='Deliveryaddress"+Dyid+"' style='display:block; word-wrap: break-word; width: 10em;'>@mdo</td>"+
-
 "<td id='Message"+Dyid+"'>@mdo</td>"+
-"<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched("+Dyid+",this)' >Update Delivered</button>"+
+"<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched1("+Dyid+",this)' >Update Delivered</button>"+
 "<tr>";
 
 
@@ -346,7 +515,7 @@ tbody tr:nth-child(even){
 			<div class="content">
 			<div class="registration_form" style="display:none" id="showdiv">
 		 <!-- Form -->
- <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
+ <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
 <div>
 <div style="visibility:hidden">
 					<label>Product Name</label>
@@ -409,24 +578,9 @@ tbody tr:nth-child(even){
 			<!-- /Form -->
 		</div>
 			</div>
-	<div class="content">
+	<div class="content" style="margin-top:6%">
 	
-			<div class="col-md-3 market-update-gd card  alert alert-success" style="width:1000px;visibility:hidden">
-				<div class="market-update-block clr-block-2">
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-shopping-cart" aria-hidden="true" ></i>
-					</div>
-					<a href="userlist.html">
-					 <div class="col-md-8 market-update-left">
-					 <h4><b style="color:black">E3 User Count</b></h4>
-					<h3 style="color:black" id="user"></h3>
-					<p style="color:black">Happy Shopping </p>
-					
-				  </div>
-				  </a>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
+		
 				
 					<div class="col-md-3 market-update-gd card  alert alert-success" style="width:250px;">
 				<div class="market-update-block clr-block-2">
@@ -435,9 +589,9 @@ tbody tr:nth-child(even){
 					</div>
 					<a href="userlist.html">
 					 <div class="col-md-8 market-update-left">
-					 <h5><b style="color:black">E3 User Count</b></h5>
+					 <h5><b style="color:black">User Count</b></h5>
 					<h3 style="color:black" id="user">123</h3>
-					<p style="color:black">Happy Shopping </p>
+					
 					
 				  </div>
 				  </a>
@@ -454,7 +608,7 @@ tbody tr:nth-child(even){
 					<div class="col-md-8 market-update-left">
 					<h5><b style="color:black">Order count</b></h5>
 						<h3 id="order" style="color:black">1,250</h3>
-						<p style="color:black">Happy Shopping</p>
+						
 					</div>
 					</a>
 				  <div class="clearfix"> </div>
@@ -470,7 +624,7 @@ tbody tr:nth-child(even){
 					<div class="col-md-8 market-update-left">
 						<h5><b style="color:black">Product List</b></h5>
 						<h3 style="color:black" id="product">1,500</h3>
-						<p style="color:black">Happy Shopping</p>
+						
 					</div></a>
 				  <div class="clearfix"> </div>
 				</div>
@@ -484,7 +638,7 @@ tbody tr:nth-child(even){
 					<div class="col-md-8 market-update-left">
 						<h5><b style="color:black">Instant Order</b></h5>
 						<h3 style="color:black" id="Instantcount">1,500</h3>
-						<p style="color:black">Happy Shopping</p>
+						
 					</div></a>
 				  <div class="clearfix"> </div>
 				</div>
@@ -503,7 +657,7 @@ tbody tr:nth-child(even){
 		<div class="table-container">
 
 <h2 style="text-align:center"><b>Today order</b></h2>
-	<table class="table" class="table table-inverse" style="width:1000px;margin-left:100px">
+	<table class="table" class="table table-inverse" style="width:1100px;margin-left:20px">
   <thead >
     <tr>
     
@@ -511,8 +665,8 @@ tbody tr:nth-child(even){
       <th>Loginid</th>
         <th style="width:20px">Address</th>
         <th>Phonenumber</th>
-      <th>Status</th>
-       <th>Update Status</th>
+         <th>View Order</th>
+         <th>Update Status</th>
 
       
     </tr>
@@ -529,7 +683,7 @@ tbody tr:nth-child(even){
 <h2 style="text-align:center"><b>Today Instant Order</b></h2>
 		<div class="table-container">
 
-<table class="table" class="table table-inverse" style="width:1000px;margin-left:100px">
+<table class="table" class="table table-inverse" style="width:1100px;margin-left:20px;">
   <thead >
     <tr>
     
@@ -552,6 +706,74 @@ tbody tr:nth-child(even){
 </table>
 </div>
 <div id="listContainer3"></div>
+
+<h2 style="text-align:center"><b>Today Food Delivery</b></h2>
+		<div class="table-container">
+
+<table class="table" class="table table-inverse" style="width:1000px;margin-left:20px">
+  <thead >
+    <tr>
+    
+     
+      <th>Hotel Name</th>
+      
+      <th>Pickup Address</th>
+      <th>pickup Number</th>
+     <th>View Detail</th>
+      <th> Update Status</th>
+
+      
+    </tr>
+  </thead>
+
+  <tbody id="foodContainer">
+    
+    
+  </tbody>
+</table>
+</div>
+<div id="foodContainer1"></div> 
+
+
+
+
+
+<h2 style="text-align:center"><b>E3 Food Deliver</b></h2>
+		<div class="table-container">
+
+<table class="table" class="table table-inverse" style="width:1000px;margin-left:20px">
+  <thead >
+    <tr>
+    
+   
+      <th>Loginid</th>
+      <th>Emailid</th>
+      <th>Phonenumber</th>
+     <th>View Detail</th>
+      <th> Update Status</th>
+
+      
+    </tr>
+  </thead>
+
+  <tbody id="foodContainer2">
+    
+    
+  </tbody>
+</table>
+</div>
+<div id="foodContainer3"></div> 
+
+
+
+
+
+
+
+
+
+
+
 				<!--//content-inner-->
 			<!--/sidebar-menu-->
 				<div class="sidebar-menu">
@@ -575,6 +797,7 @@ tbody tr:nth-child(even){
 											<li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
 											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
 											<li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
+											<li id="menu-academico-boletim" ><a href="Turkey.html">Turkey</a></li>
 											
 										  </ul>
 										</li>

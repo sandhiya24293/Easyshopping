@@ -55,7 +55,7 @@ $(document).ready(function(){
           
            $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Getinstanse",
+               url: "http://localhost:8085/Getinstanse",
                contentType:"application/json; charset=utf-8",
                
          
@@ -131,7 +131,7 @@ function UpdateDispatched(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/updatetrackstatus",
+      url: "http://localhost:8085/updatetrackstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -150,7 +150,7 @@ function UpdateDelivered(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/updatetrackstatus",
+      url: "http://localhost:8085/updatetrackstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -221,7 +221,7 @@ console.log("sucessfully updated")
 			<div class="content">
 			<div class="registration_form" style="display:none" id="showdiv">
 		 <!-- Form -->
- <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
+ <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
 <div>
 <div style="visibility:hidden">
 					<label>Product Name</label>
