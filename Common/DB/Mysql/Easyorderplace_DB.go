@@ -91,6 +91,8 @@ func OrderTracking_DB(loginid string) (Trackingres1 []Model.Trackingresponse) {
 
 func OrderTrackingadmin_DB(orderid int) (Trackingres1 Model.ResponseOrderplaced) {
 	var easyorderid int
+	var userid int
+
 	getrow, err := OpenConnection["Rentmatics"].Query("select orderid from ordertracking where Ordertrackingid=?", orderid)
 	if err != nil {
 		log.Println("Error -DB: Get User", err)
@@ -102,19 +104,30 @@ func OrderTrackingadmin_DB(orderid int) (Trackingres1 Model.ResponseOrderplaced)
 		)
 	}
 
-	rows, err := OpenConnection["Rentmatics"].Query("select Billid,Phonenumber,Totalproducts,TotalAmount,Date from easyorderplaced where Orderid=?", easyorderid)
+	rows, err := OpenConnection["Rentmatics"].Query("select userid,Billid,Phonenumber,Totalproducts,TotalAmount,Date from easyorderplaced where Orderid=?", easyorderid)
 	if err != nil {
 		log.Println("Error -DB: Get User", err)
 	}
 	for rows.Next() {
 
 		rows.Scan(
+			&userid,
 			&Trackingres1.Billid,
 			&Trackingres1.Phonenumber,
 			&Trackingres1.Totalproduct,
 			&Trackingres1.TotalAmount,
 			&Trackingres1.Date,
 		)
+
+		Addr, err := OpenConnection["Rentmatics"].Query("select Adress from easyprofile where easyuserid=?", userid)
+		fmt.Println("err", err)
+		for Addr.Next() {
+
+			Addr.Scan(
+				&Trackingres1.Address,
+			)
+		}
+
 		row, err := OpenConnection["Rentmatics"].Query("select Productid,Productname,productrate,weight from productlist where orderplaceid=?", orderid)
 		fmt.Println("err", err)
 		var Productlist []Model.Product1
@@ -205,7 +218,7 @@ func GetTracking_DB() (Tracking []Model.Trackingresponses) {
 
 }
 
-func GetTrackupdates_DB(Trackingres Model.Trackupdate) {
+func GetTrackupdates_DB(Trackingres Model.Trackupdate) string {
 	fmt.Println(Trackingres.Orderstatus, Trackingres.Orderid)
 
 	Queryupdate := "UPDATE ordertracking SET status='" + Trackingres.Orderstatus + "'where Ordertrackingid=" + fmt.Sprintf("%v", Trackingres.Orderid)
@@ -214,6 +227,7 @@ func GetTrackupdates_DB(Trackingres Model.Trackupdate) {
 	if err != nil {
 		log.Println("Error -DB: Get User", err, rows)
 	}
+	return "Success"
 
 }
 

@@ -189,7 +189,15 @@ func Updatetrackstatus(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error - ORDER HISTORY", err)
 	}
 
-	Db.GetTrackupdates_DB(Trackupdates)
+	Data := Db.GetTrackupdates_DB(Trackupdates)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - ORDER PLACED RESPONSE", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
 
 }
 func Orderhistory(w http.ResponseWriter, r *http.Request) {

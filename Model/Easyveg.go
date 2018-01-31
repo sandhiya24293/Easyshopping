@@ -44,8 +44,10 @@ type Orderplaced struct {
 }
 
 type ResponseOrderplaced struct {
-	Billid       string
-	Phonenumber  string
+	Billid      string
+	Address     string
+	Phonenumber string
+
 	Totalproduct string
 	Products     []Product1
 	TotalAmount  int

@@ -51,12 +51,14 @@ tbody tr:nth-child(even){
 <script src="js/jquery-1.10.2.min.js"></script>
    <!--pie-chart-->
    <script type="text/javascript">
+    var orderid =""
      window.onload = function () {
 
 
     var url = document.location.href,
     url1 = decodeURIComponent(url)
-    var orderid =""
+   
+    var status =""
 
    
   var params = location.search.substr(location.search.indexOf("?")+1);
@@ -66,8 +68,25 @@ tbody tr:nth-child(even){
 
          temp = params[i].split("=");
          if ( [temp[0]] == "Id" ) { orderid = temp[1]; }
-       } 
        
+          if ( [temp[0]] == "value" ) {
+           status = temp[1];
+           
+       }
+
+             } 
+if (status == "Dispatched"){
+     
+        document.getElementById("showtab2").style.display = "inline"
+       }else{
+       	
+       	document.getElementById("showtab1").style.display = "inline"
+
+
+       }
+
+
+     
 	var Updatestat = {
 	"Orderid" :parseInt(orderid)
 	
@@ -87,6 +106,8 @@ tbody tr:nth-child(even){
   var Totalproduct = searchout.Totalproduct
   var TotalAmount = searchout.TotalAmount
   var Date1  = searchout.Date
+    var Address  = searchout.Address
+  $("#Address").html(Address);
  $("#billid").html(billid);
 $("#phonenumber").html(phonenumber);
 $("#Totalproduct").html(Totalproduct);
@@ -131,6 +152,10 @@ $("#Weight"+ID).html(Weight);
 });
 }
 
+
+
+
+
 //For Slider
  function Getjavascript(Dyid){
 
@@ -146,7 +171,51 @@ $("#Weight"+ID).html(Weight);
 return rentimage;
 
  }
+function UpdateDispatched(){
+   alert(orderid)
+		var Updatestat = {
+	"Orderid" :parseInt(orderid),
+	"Orderstatus" :"Dispatched"
+}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/updatetrackstatus",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updatestat),
 
+   success: function(responsee){
+   	if(responsee == "Success"){
+   		
+   	   	alert("inside success")
+   	}
+
+console.log("sucessfully updated")
+url ="http://localhost:8085/web/home.html";
+window.location.replace=url
+ }
+});
+	                                                                                                               
+	}
+
+function UpdateDelivered(){
+	  alert(orderid)
+		var Updatestat = {
+	"Orderid" :parseInt(orderid),
+	"Orderstatus" :"Delivered"
+}
+	  $.ajax({
+      type: "POST",
+      url: "http://localhost:8085/updatetrackstatus",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(Updatestat),
+
+   success: function(){
+   	alert("inside success")
+url ="http://localhost:8085/web/home.html";
+window.location.replace=url
+ }
+});
+	}
 
  </script>
 </head> 
@@ -293,6 +362,12 @@ return rentimage;
 											</div>
 
 											<div class="form-group">
+											<div>ADDRESS<span style="margin-left:60px;" id="Address"></span></div>
+											
+											  
+											</div>
+
+											<div class="form-group">
 											<div>TOTAL PRODUCT  <span style="margin-left:60px;" id="Totalproduct"></span></div>
 											 
 											  
@@ -304,7 +379,7 @@ return rentimage;
 											  
 											</div>
 											<div class="form-group">
-											<div>DATE      :<span style="margin-left:140px;" id="Date1"></span></div>
+											<div>DATE   :<span style="margin-left:140px;" id="Date1"></span></div>
 											 
 											  
 											</div>
@@ -325,6 +400,10 @@ return rentimage;
     
   </tbody>
 </table>
+
+<div><button  id="showtab1" type="submit" class="btn btn-success" style="display:none" onclick="UpdateDispatched()">Update Dispatched</div>
+<div><button  id="showtab2" type="submit" class="btn btn-success" style="display:none" onclick="UpdateDelivered()">Update Delivered</div>
+
 										
 											
 											

@@ -79,7 +79,7 @@ $("#Orderplacedid"+ID).html(Orderplacedid);
 $("#Loginid"+ID).html(Loginid);
 $("#Status"+ID).html(Status);
 $("#Phonenumber"+ID).html(Phonenumber);
- var url = 'orderdetails.html?Id=' + encodeURIComponent(ID);
+var url = "orderdetails.html?Id=" + encodeURIComponent(ID)+ "&value=" + encodeURIComponent(Status);
 document.getElementById("getUrl"+ ID).setAttribute("href",url);
 
 }
@@ -199,7 +199,7 @@ console.log("sucessfully updated")
 "<tr>"+
 "<td id='Orderplacedid"+Dyid+"'>@mdo</td>"+
 "<td id='Loginid"+Dyid+"' style='width: 10em;'>@mdo</td>"+
-"<td id='Address"+Dyid+"'  style='display:block; word-wrap: break-word; width: 15em;'>@mdo</td> "+
+
 "<td id='Phonenumber"+Dyid+"'>@mdo</td>"+
 "<td ><a  id='getUrl"+Dyid+"' style='color:white'>View Order</a></td>"+
 "<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched("+Dyid+",this)' >Update Dispatched</button>"+
@@ -663,7 +663,7 @@ tbody tr:nth-child(even){
     
       <th>Bill Number</th>
       <th>Loginid</th>
-        <th style="width:20px">Address</th>
+        
         <th>Phonenumber</th>
          <th>View Order</th>
          <th>Update Status</th>
