@@ -176,16 +176,19 @@ console.log("sucessfully updated")
 						<div class="top_bg">
 							
 								<div class="header_top">
-									<div class="top_right" style="visibility:hidden">
+									<div class="top_right">
 										<ul>
-											<li><a href="contact.html">help</a></li>|
-											<li><a href="contact.html">Contact</a></li>|
-											<li><a href="checkout.html">Delivery information</a></li>
+										<a href="home.html">
+										<h1 style="color:brown;margin-top:-5px"><b> E3 Shopping Admin</b></h1> </a>
+										
+
+
+											
 										</ul>
 									</div>
-									<div class="top_left">
-										<!-- <h2><span></span> Call us : 032 2352 782</h2> -->
-									</div>
+								<li><a href="Changepassword.html" style="margin-left:40%;color:white">Change Password</a></li>
+
+								
 										<div class="clearfix"> </div>
 								</div>
 							
@@ -193,96 +196,11 @@ console.log("sucessfully updated")
 					<div class="clearfix"></div>
 				<!-- /top_bg -->
 				</div>
-				<div class="header_bg">
-						
-							<div class="header">
-								<div class="head-t">
-									<div class="logo" style="margin-right:-20px">
-										<a href="home.html">
-										<h1 style="color:brown;"><b> E3 Shopping</b></h1> </a>
-									</div>
-										<!-- start header_right -->
-									<div class="header_right">
-										<div class="rgt-bottom">
-											<div class="create_btn">
-								<a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px;visibility:hidden" ><b> + Add Product</b></a>
-										</div>
-											
-										
-										
-										
-							</div>
-						</div>
-					
-				</div>
-					<!-- //header-ends -->
+				
 				
 				<!--content-->
 			<div class="content">
-			<div class="registration_form" style="display:none" id="showdiv">
-		 <!-- Form -->
- <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data"  name="myform" novalidate>
-<div>
-<div style="visibility:hidden">
-					<label>Product Name</label>
-				<input placeholder="Product name " type="text" tabindex="1" required="" autofocus="" name="getname"  class="validate" required>
-					
-				</div>
-						
 
-					
-						<div >
-								<label >Product Type(*)</label>
-											<select  name="category"  style="border: 1px solid black;width:400px;height:30px" >
-                                             <option selected="true" disabled="disabled" value="Veg">Product type</option>   
-												<option value="Veg">Vegetable</option>
-												<option value ="Leaves">Leaves</option>
-												<option value="Fruits">Fruits</option>
-												<option value ="NonVeg">Non Veg</option>
-												<option value="Seafood">Sea Food</option>
-											</select>
-										</div>									
-										
-				<div>
-					<label>Product Name(*)</label>
-						<input placeholder="Product Name" type="text" tabindex="3"  name="namevalue"   required="true" style="width:400px">
-		
-					
-				</div>
-									
-
-				
-				<div>
-					<label>Rate 1KG(*)	</label>
-						<input placeholder="Rate(1KG)" type="text" tabindex="3"  name="getrate1"   required="true" style="width:400px">
-				
-				</div>
-				<div>
-					<label> Rate 500 GM(*)</label>
-						<input placeholder="500GM" type="text" tabindex="3"  required="true" name="getrate2" style="width:400px">
-					
-				</div>
-				<div>
-					<label> Rate 500 GM(*)</label>
-						<input placeholder="250GM" type="text" tabindex="3" required="true" name="getrate3" style="width:400px">
-					
-				</div>
-				 <div class="file-field input-field">
-      <div>
-        <label>Upload product Image(*)</label>
-        <input type="file"  name="uploadfile" >
-      </div>
-     
-    </div>
-<button type="submit"  class='btn btn-success' >Submit</button>
-</div>
-
-				
-</form>
-
-
-			<!-- /Form -->
-		</div>
 			</div>
 				<!--Content -->
 				<div class="content">
@@ -322,46 +240,51 @@ console.log("sucessfully updated")
 		
 				<!--//content-inner-->
 			<!--/sidebar-menu-->
-				<div class="sidebar-menu">
+			<div class="sidebar-menu">
 					<header class="logo1">
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
 					</header>
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-                           <div class="menu">
+                       <div class="menu">
 									<ul id="menu" >
-										<li><a href="home.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
-										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>
+										<li><a href="home.html"><i class="fa fa-home"></i> <span>E3 Home</span></a></li>
+										 <li ><a href="userlist.html"><i class="fa fa-users"></i> <span>E3 Users</span></a></li>
 
 									
 
 									
 
-										 <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span> Easy Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+										 <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 										   <ul id="menu-academico-sub" >
 										   <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
 										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
 											<li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
 											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
 											<li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
+											<li id="menu-academico-boletim" ><a href="Turkey.html">Turkey</a></li>
 											
 										  </ul>
 										</li>
 
 
 										
-									<li id="menu-academico" ><a href="orders.html"><i class="fa fa-file-text-o"></i> <span>Order List</span></a></li>
+									<li id="menu-academico" ><a href="orders.html"><i class="lnr lnr-book"></i> <span> E3 Order List</span></a></li>
+									<li id="menu-academico" ><a href="instant.html"><i class="fa fa-phone"></i> <span>E3 Instant Orders</span></a></li>
+									<li id="menu-academico" ><a href="hotel.html"><i class="fa fa-h-square"></i> <span>E3 Hotel Orders</span></a></li>
+									<li id="menu-academico" ><a href="foodorder.html"><i class="fa fa-angle-double-right"></i> <span>E3 Food Orders</span></a></li>
 
-									<li id="menu-academico" ><a href="Track.html"><i class="lnr lnr-book"></i> <span>Update Track</span></a></li>
-									<li id="menu-academico" ><a href="instant.html"><i class="lnr lnr-book"></i> <span>Instant Orders</span></a></li>
-									<li id="menu-academico" ><a href="updateinstant.html"><i class="lnr lnr-book"></i> <span>Update Instant Orders</span></a></li>
-									<li id="menu-academico" ><a href="Changepassword.html"><i class="lnr lnr-book"></i> <span>Change Password</span></a></li>
-									 
+									<li id="menu-academico" ><a href="Track.html"><i class="fa fa-edit"></i> <span>Update Product</span></a></li>
+							
+									<li id="menu-academico" ><a href="updateinstant.html"><i class="fa fa-edit"></i> <span>Update Instant Orders</span></a></li>
+									<li id="menu-academico" ><a href="updatehotel.html"><i class="fa fa-edit"></i> <span>Update Hotel Orders</span></a></li>
+								    <li id="menu-academico" ><a href="updateE3food.html"><i class="fa fa-edit"></i> <span>Update E3 Food  Orders</span></a></li>
+									
 									 
 							     
 								
 								</div>
 							  </div>
-							  <div class="clearfix"></div>		
+							  <div class="clearfix"></div>	
 							</div>
 							<script>
 							var toggle = true;

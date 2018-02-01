@@ -358,6 +358,65 @@ func Orderfooddeliver_DB(getorder Model.Ownorderplaced) string {
 
 }
 
+func Getallundeliverfood_DB() (FinalResponse []Model.ResOwnorderplacedAll) {
+	Querystring := "SELECT * FROM ownfoodorder "
+	var Response Model.ResOwnorderplacedAll
+	var Data Model.ResOwnorderplaced
+	rows, err := OpenConnection["Rentmatics"].Query(Querystring)
+	if err != nil {
+		log.Println("Error -Db:Activity", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+			&Data.Id,
+			&Data.Loginid,
+			&Data.Noofitems,
+			&Data.TotalAmount,
+			&Data.Date,
+			&Data.Status,
+		)
+		rows1, err := OpenConnection["Rentmatics"].Query("SELECT emailid,phonenumber FROM easylogin WHERE Loginid=?", Data.Loginid)
+		if err != nil {
+			log.Println("Error -Db:Activity", err)
+		}
+		for rows1.Next() {
+
+			rows1.Scan(
+				&Response.Emailid,
+				&Response.Phonenumber,
+			)
+		}
+
+		row, _ := OpenConnection["Rentmatics"].Query("select Dishname,Dishrate,platecount from ownorderlist where Orderid=?", Data.Id)
+
+		var Productlist []Model.Ownfood
+
+		for row.Next() {
+			var Productlist1 Model.Ownfood
+
+			row.Scan(
+
+				&Productlist1.Dishname,
+				&Productlist1.Rate,
+				&Productlist1.Platecount,
+			)
+
+			Productlist = append(Productlist, Productlist1)
+
+		}
+
+		Response.Res = Data
+
+		Response.Food = Productlist
+		FinalResponse = append(FinalResponse, Response)
+
+	}
+
+	return
+
+}
+
 func Getownundeliverfood_DB() (FinalResponse []Model.ResOwnorderplacedAll) {
 	Querystring := "SELECT * FROM ownfoodorder WHERE Status IN ( 'Order','Dispatched')"
 	var Response Model.ResOwnorderplacedAll

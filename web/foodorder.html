@@ -1,0 +1,265 @@
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>E3 Shopping</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Gretong Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- Graph CSS -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- jQuery -->
+<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- lined-icons -->
+<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
+<style type="text/css">
+	tbody td{
+  padding: 30px;
+}
+table th{
+ background-color: black;
+ color: #fff;
+}
+
+tbody tr:nth-child(odd){
+  background-color: brown;
+  color: #fff;
+}
+tbody tr:nth-child(even){
+  background-color: brown;
+  color: #fff;
+}
+</style>
+
+<!-- //lined-icons -->
+
+
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script src="js/jquery-1.10.2.min.js"></script>
+   <!--pie-chart-->
+   <script type="text/javascript">
+$(document).ready(function(){
+          
+           $.ajax({
+               type: "GET",
+               url: "http://localhost:8085/Getallundeliverfood",
+               contentType:"application/json; charset=utf-8",
+               
+         
+           success: function(responsee){
+           var searchout = JSON.parse(responsee);
+           var cardstring ="";
+  
+
+  if( searchout != null  ){
+     var property =searchout.length +" Results Found ";
+    for (k=0;k<searchout.length;k++){
+    	cardstring=cardstring+Getjavascript(searchout[k].Res.Id);
+   }
+  
+document.getElementById("listContainer").innerHTML=cardstring;
+for(j=0;j<searchout.length;j++){
+  var ID = searchout[j].Res.Id;
+  var Noofitems =searchout[j].Res.Noofitems;
+  var Date1 =searchout[j].Res.Date
+  var Loginid = searchout[j].Res.Loginid;
+  var Status = searchout[j].Res.Status;
+
+$("#order"+ID).html(ID);
+$("#login"+ID).html(Loginid);
+$("#Status"+ID).html(Status);
+$("#date1"+ID).html(Date1);
+
+
+ url1 = 'ownfooddetails.html?Id=' + encodeURIComponent(ID)  ;
+document.getElementById("getUrl1"+ ID).setAttribute("href",url1);
+// $("#Emailid"+ID).html(Emailid);
+
+}
+}
+}  });
+   });
+
+ //For Slider
+ function Getjavascript(Dyid){
+ 
+  var rentimage = 
+  
+"<tr>"+
+"<td id='order"+Dyid+"'>@mdo</td>"+
+"<td id='login"+Dyid+"'>@mdo</td>"+
+"<td id='date1"+Dyid+"'>@mdo</td>"+
+ "<td id='Status"+Dyid+"'>@mdo</td>"+
+ "<td ><a style='color:white' id='getUrl1"+Dyid+"'>"+
+ "View Details </a></td>"+
+ "</tr>";
+
+
+ return rentimage;
+
+ }
+ </script>
+</head> 
+<body>
+   <div class="page-container">
+  
+	<div class="left-content">
+	   <div class="inner-content">
+		<!-- header-starts -->
+			<!-- header-starts -->
+			<div class="header-section">
+			<!-- top_bg -->
+						<div class="top_bg">
+							
+								<div class="header_top">
+									<div class="top_right">
+										<ul>
+										<a href="home.html">
+										<h1 style="color:brown;margin-top:-5px"><b> E3 Shopping Admin</b></h1> </a>
+										
+
+
+											
+										</ul>
+									</div>
+								<li><a href="Changepassword.html" style="margin-left:40%;color:white">Change Password</a></li>
+
+								
+										<div class="clearfix"> </div>
+								</div>
+							
+						</div>
+					<div class="clearfix"></div>
+				<!-- /top_bg -->
+				</div>
+						
+			
+				
+				<!--content-->
+			<div class="content">
+			
+			</div>
+					<!-- //header-ends -->
+				<!--Content -->
+				<div class="content">
+						<div class="table-container">
+			
+				
+					<h2 style="color:black;visibility:hidden"><b>Orders list</b></h2>
+					<table class="table" class="table table-inverse">
+  <thead>
+    <tr>
+      <th>Order ID  </th>
+      <th>Loginid</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>View Products</th>
+    </tr>
+
+  <tbody id="listContainer">
+    
+    
+  </tbody>
+</table>
+</div>
+
+
+				</div>
+		
+						<!--//area-->
+	
+			<!--content-->
+		</div>
+</div>
+				<!--//content-inner-->
+			<!--/sidebar-menu-->
+				<div class="sidebar-menu">
+					<header class="logo1">
+						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
+					</header>
+						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+                       <div class="menu">
+									<ul id="menu" >
+										<li><a href="home.html"><i class="fa fa-home"></i> <span>E3 Home</span></a></li>
+										 <li ><a href="userlist.html"><i class="fa fa-users"></i> <span>E3 Users</span></a></li>
+
+									
+
+									
+
+										 <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+										   <ul id="menu-academico-sub" >
+										   <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
+										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
+											<li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
+											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
+											<li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
+											<li id="menu-academico-boletim" ><a href="Turkey.html">Turkey</a></li>
+											
+										  </ul>
+										</li>
+
+
+										
+									<li id="menu-academico" ><a href="orders.html"><i class="lnr lnr-book"></i> <span> E3 Order List</span></a></li>
+									<li id="menu-academico" ><a href="instant.html"><i class="fa fa-phone"></i> <span>E3 Instant Orders</span></a></li>
+									<li id="menu-academico" ><a href="hotel.html"><i class="fa fa-h-square"></i> <span>E3 Hotel Orders</span></a></li>
+									<li id="menu-academico" ><a href="foodorder.html"><i class="fa fa-angle-double-right"></i> <span>E3 Food Orders</span></a></li>
+
+									<li id="menu-academico" ><a href="Track.html"><i class="fa fa-edit"></i> <span>Update Product</span></a></li>
+							
+									<li id="menu-academico" ><a href="updateinstant.html"><i class="fa fa-edit"></i> <span>Update Instant Orders</span></a></li>
+									<li id="menu-academico" ><a href="updatehotel.html"><i class="fa fa-edit"></i> <span>Update Hotel Orders</span></a></li>
+								    <li id="menu-academico" ><a href="updateE3food.html"><i class="fa fa-edit"></i> <span>Update E3 Food  Orders</span></a></li>
+									
+									 
+							     
+								
+								</div>
+							  </div>
+							  <div class="clearfix"></div>	
+							</div>
+							<script>
+							var toggle = true;
+										
+							$(".sidebar-icon").click(function() {                
+							  if (toggle)
+							  {
+								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+								$("#menu span").css({"position":"absolute"});
+							  }
+							  else
+							  {
+								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+								setTimeout(function() {
+								  $("#menu span").css({"position":"relative"});
+								}, 400);
+							  }
+											
+											toggle = !toggle;
+										});
+							</script>
+<!--js -->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script src="js/bootstrap.min.js"></script>
+   <!-- /Bootstrap Core JavaScript -->
+   <!-- real-time -->
+	
+		   <script src="js/menu_jquery.js"></script>
+</body>
+</html>

@@ -52,85 +52,94 @@ tbody tr:nth-child(even){
    <!--pie-chart-->
    <script type="text/javascript">
 $(document).ready(function(){
+	var totalamt =""
+	 var params = location.search.substr(location.search.indexOf("?")+1);
+         params = params.split("&");
+     
+
+
+         temp = params[0].split("=");
+         if ( [temp[0]] == "Id" ) { 
+         	productid = temp[1]; 
+         }
+
+     
+
+       var Prod =
+       	{
+	"Orderid":parseInt(productid)
+}
+
+       
+
           
            $.ajax({
-               type: "GET",
-               url: "http://localhost:8085/Getinstanstundelivered",
+               type: "POST",
+               url: "http://localhost:8085/Getownsinglefood",
                contentType:"application/json; charset=utf-8",
+               data: JSON.stringify(Prod),
                
          
-           success: function(responsee){
-           var searchout = JSON.parse(responsee);
-           var cardstring ="";
-  
+            success: function(responsee){
+       var searchout = JSON.parse(responsee);
 
-  if( searchout != null  ){
-     var property =searchout.length +" Results Found ";
-    for (k=0;k<searchout.length;k++){
-    	cardstring=cardstring+Getjavascript1(searchout[k].Productid);
+   var cardstring ="";
+   var ta = searchout.Res.TotalAmount;
+    var Loginid = searchout.Res.Loginid;
+     var noi = searchout.Res.Noofitems;
+      var date1 = searchout.Res.Date;
+       var sta = searchout.Res.Status;
+   $("#ta").html(ta);
+   $("#sta").html(sta);
+   $("#noi").html(noi);
+   $("#date1").html(date1);
+   $("#Loginid").html(Loginid);
+
+  if( searchout.Food != null  ){
+     var property =searchout.Food.length +" Results Found ";
+    for (k=0;k<searchout.Food.length;k++){
+       cardstring=cardstring+Getjavascript(searchout.Food[k].Id);
    }
-  
-document.getElementById("listContainer2").innerHTML=cardstring;
-for(j=0;j<searchout.length;j++){
-var ID = searchout[j].Productid;
-  var Uniqueid =searchout[j].Uniqueid;
- var Productname = searchout[j].Productname;
- var Deliveryname = searchout[j].Deliveryname;
- var Deliverynumber =searchout[j].Deliverynumber;
- var Deliveryaddress =searchout[j].Deliveryaddress;
- var Message =searchout[j].Message;
- var Status =searchout[j].Status;
- $("#Uniqueid"+ID).html(Uniqueid);
-$("#Productname"+ID).html(Productname);
-$("#Deliveryname"+ID).html(Deliveryname);
-$("#Deliveryaddress"+ID).html(Deliveryaddress);
-$("#Deliverynumber"+ID).html(Deliverynumber);
-$("#Status"+ID).html(Status);
-$("#Message"+ID).html(Message);
 
-}}else{
-	document.getElementById("listContainer3").innerHTML="<div><b style='margin-left:40%;font-size:20px'>No orders yet !</b></div>";
-
-}
-}
-});
-       
-});
-function UpdateDispatched(Dyid){
-		var Updatestat = {
-	"Easyid" :parseInt(Dyid),
-	"Status" :"Delivered"
-}
-	  $.ajax({
-      type: "POST",
-      url: "http://localhost:8085/Updateinstantdeliver",
-      contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Updatestat),
-
-   success: function(){
-console.log("sucessfully updated")
- window.location.reload(true);
+  document.getElementById("listContainer").innerHTML=cardstring;
  }
-});
-	                                                                                                               
-	}
-function Getjavascript1(Dyid){
+	console.log(searchout.Food)
+
+
+
+for(j=0;j<searchout.Food.length;j++){
+ var ID = searchout.Food[j].Id;
+ var Dishname = searchout.Food[j].Dishname;
+ var Rate = searchout.Food[j].Rate;
+ var Platecount = searchout.Food[j].Platecount;
+
+$("#Dishname"+ID).html(Dishname);
+$("#Rate"+ID).html(Rate);
+$("#Platecount"+ID).html(Platecount);
+
+}
+}
+
+       });
+             
+         });
+
+
+//For Slider
+ function Getjavascript(Dyid){
  
   var rentimage = 
   
 "<tr>"+
-"<td id='Uniqueid"+Dyid+"'>@mdo</td>"+
-"<td id='Productname"+Dyid+"'>@mdo</td>"+
-"<td id='Deliveryname"+Dyid+"'>@mdo</td>"+
-"<td id='Deliverynumber"+Dyid+"'>@mdo</td>"+
-"<td id='Deliveryaddress"+Dyid+"' style='display:block; word-wrap: break-word; width: 10em;'>@mdo</td>"+
 
-"<td id='Message"+Dyid+"'>@mdo</td>"+
-"<td><button  id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  UpdateDispatched("+Dyid+",this)' >Update Delivered</button>"+
-"<tr>";
+"<td id='Dishname"+Dyid+"'>@mdo</td>"+
+"<td id='Rate"+Dyid+"'>@mdo</td>"+
+"<td id='Platecount"+Dyid+"'>@mdo</td>"+
+ 
+"</tr>";
 
 
-return rentimage;
+ return rentimage;
 
  }
 
@@ -143,7 +152,7 @@ return rentimage;
 	<div class="left-content">
 	   <div class="inner-content">
 		<!-- header-starts -->
-		<!-- header-starts -->
+			<!-- header-starts -->
 			<div class="header-section">
 			<!-- top_bg -->
 						<div class="top_bg">
@@ -169,49 +178,62 @@ return rentimage;
 					<div class="clearfix"></div>
 				<!-- /top_bg -->
 				</div>
-				
+			
 				
 				<!--content-->
 			<div class="content">
+			
+		 <!-- Form -->
+
+
+
+
+			<!-- /Form -->
 		
 			</div>
+					<!-- //header-ends -->
 				<!--Content -->
 				<div class="content">
 						<div class="table-container">
-			
-				<h2 style="text-align:center"><b>Today Instant Order</b></h2>
-<table class="table" class="table table-inverse" style="width:1000px;margin-left:10px">
-  <thead >
-    <tr>
-    
-      <th>Order Number</th>
-      <th>Product Name</th>
-      <th>Pickuper Name</th>
-      <th>pickup Number</th>
-      <th>Pickup Address</th>
-      <th>Message</th>
-      <th> Update Status</th>
+ <div style="color:black"><b>Loginid<span style="margin-left:60px" id="Loginid"></span></b></div>
 
-      
+ <div style="color:black"><b>Noofitems<span style="margin-left:40px" id="noi"></span></b></div>
+
+ <div style="color:black"><b>Date<span  style="margin-left:80px" id="date1"></span></b></div>
+
+ <div style="color:black"><b>Status<span style="margin-left:70px" id="sta"></span></b></div>
+
+ <div style="color:black"><b>Total Amount<span style="margin-left:20px" id="ta"></span></b></div>
+			
+				
+					<h2 style="color:black;visibility:hidden"><b>Product Details</b></h2>
+					<table class="table" class="table table-inverse" style="width:500px">
+  <thead>
+    <tr>
+      <th>Food Name</th>
+      <th>Food rate</th>
+      <th>Plate Count</th>
+     
     </tr>
   </thead>
 
-  <tbody id="listContainer2">
+  <tbody id="listContainer" >
     
     
   </tbody>
+  
+
 </table>
 </div>
-<div id="listContainer3"></div>
+
 
 
 				</div>
 		
-		
-		
+					
 				<!--//content-inner-->
 			<!--/sidebar-menu-->
-				<div class="sidebar-menu">
+			<div class="sidebar-menu">
 					<header class="logo1">
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
 					</header>

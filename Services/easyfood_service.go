@@ -236,6 +236,18 @@ func Getownundeliverfood(w http.ResponseWriter, r *http.Request) {
 	w.Write(Senddata)
 }
 
+func Getallundeliverfood(w http.ResponseWriter, r *http.Request) {
+
+	Data := Db.Getallundeliverfood_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
 func Getownsinglefood(w http.ResponseWriter, r *http.Request) {
 	var Owner Foodorderid
 	err := json.NewDecoder(r.Body).Decode(&Owner)
