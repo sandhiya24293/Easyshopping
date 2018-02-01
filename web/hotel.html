@@ -51,157 +51,70 @@ tbody tr:nth-child(even){
 <script src="js/jquery-1.10.2.min.js"></script>
    <!--pie-chart-->
    <script type="text/javascript">
-    var orderid =""
-     window.onload = function () {
-
-
-    var url = document.location.href,
-    url1 = decodeURIComponent(url)
-   
-    var status =""
-
-   
-  var params = location.search.substr(location.search.indexOf("?")+1);
-         params = params.split("&");
-      for (var i=0; i<params.length; i++)
-       {
-
-         temp = params[i].split("=");
-         if ( [temp[0]] == "Id" ) { orderid = temp[1]; }
-       
+$(document).ready(function(){
           
+           $.ajax({
+               type: "GET",
+               url: "http://localhost:8085/Getallfooddelivery",
+               contentType:"application/json; charset=utf-8",
+               
+         
+           success: function(responsee){
+           var searchout = JSON.parse(responsee);
+           var cardstring ="";
+  
 
-             } 
-
-
-     
-	var Updatestat = {
-	"Orderid" :parseInt(orderid)
-	
-}
-	  $.ajax({
-      type: "POST",
-      url: "http://localhost:8085/Ordertrackingadmin",
-      contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Updatestat),
-
-   success: function(responsee){
-   
-
-  var searchout = JSON.parse(responsee);  
-  var billid =   searchout.Billid;
- var phonenumber = searchout.Phonenumber
-  var Totalproduct = searchout.Totalproduct
-  var TotalAmount = searchout.TotalAmount
-  var Date1  = searchout.Date
-    var Address  = searchout.Address
-  $("#Address").html(Address);
- $("#billid").html(billid);
-$("#phonenumber").html(phonenumber);
-$("#Totalproduct").html(Totalproduct);
-$("#TotalAmount").html(TotalAmount);
-$("#Date1").html(Date1);
-
-
-var cardstring="";
-  for (k=0;k<searchout.Products.length;k++){
-    	cardstring=cardstring+Getjavascript(searchout.Products[k].Id);
+  if( searchout != null  ){
+     var property =searchout.length +" Results Found ";
+    for (k=0;k<searchout.length;k++){
+    	cardstring=cardstring+Getjavascript(searchout[k].Details.Foodid);
    }
-
-
+  
 document.getElementById("listContainer").innerHTML=cardstring;
+for(j=0;j<searchout.length;j++){
+  var ID = searchout[j].Details.Foodid;
+  var Hotelname =searchout[j].Details.Hotelname
+  var Address =searchout[j].Details.Address
+  var Mobilenumber =searchout[j].Details.Mobilenumber
+  var Address =searchout[j].Details.Address
+  var Loginid = searchout[j].Details.Loginid;
+  var Status = searchout[j].Details.Status;
 
-
-for(j=0;j<searchout.Products.length;j++){
-	
-
-var ID = searchout.Products[j].Id;
-
- var Product = searchout.Products[j].Product;
-var Rate =searchout.Products[j].Rate;
- var Weight = searchout.Products[j].Weight;
-
- 
- 
-$("#Product"+ID).html(Product);
-$("#Rate"+ID).html(Rate);
-$("#Weight"+ID).html(Weight);
-
-
+$("#order"+ID).html(ID);
+$("#Hotelname"+ID).html(Hotelname);
+$("#login"+ID).html(Loginid);
+$("#Status"+ID).html(Status);
+$("#Address"+ID).html(Address);
+$("#Mobilenumber"+ID).html(Mobilenumber);
+ url = 'fooddetails.html?Id=' + encodeURIComponent(ID)  ;
+document.getElementById("getUrl"+ ID).setAttribute("href",url);
+// $("#Emailid"+ID).html(Emailid);
 
 }
-
-
-
- }
-});
 }
+}  });
+   });
 
-
-
-
-
-//For Slider
+ //For Slider
  function Getjavascript(Dyid){
-
+ 
   var rentimage = 
- "<tr>"+
+  
+"<tr>"+
+"<td id='order"+Dyid+"'>@mdo</td>"+
+"<td id='Hotelname"+Dyid+"'>@mdo</td>"+
+"<td id='login"+Dyid+"'>@mdo</td>"+
+"<td id='Address"+Dyid+"'>@mdo</td>"+
+"<td id='Mobilenumber"+Dyid+"'>@mdo</td>"+
+ "<td id='Status"+Dyid+"'>@mdo</td>"+
+ "<td ><a style='color:white' id='getUrl"+Dyid+"'>"+
+ "View Details </a></td>"+
+ "</tr>";
 
-"<td id='Product"+Dyid+"'>@mdo</td>"+
-"<td id='Rate"+Dyid+"' style='width: 10em;'>@mdo</td>"+
-"<td id='Weight"+Dyid+"'  style='display:block; word-wrap: break-word; width: 15em;'>@mdo</td> "+
 
-"</tr>";
-
-return rentimage;
+ return rentimage;
 
  }
-function UpdateDispatched(){
-   alert(orderid)
-		var Updatestat = {
-	"Orderid" :parseInt(orderid),
-	"Orderstatus" :"Dispatched"
-}
-	  $.ajax({
-      type: "POST",
-      url: "http://localhost:8085/updatetrackstatus",
-      contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Updatestat),
-
-   success: function(responsee){
-   	if(responsee == "Success"){
-   		
-   	   	alert("inside success")
-   	}
-
-console.log("sucessfully updated")
-url ="http://localhost:8085/web/home.html";
-window.location.replace=url
- }
-});
-	                                                                                                               
-	}
-
-function UpdateDelivered(){
-	  alert(orderid)
-		var Updatestat = {
-	"Orderid" :parseInt(orderid),
-	"Orderstatus" :"Delivered"
-}
-	  $.ajax({
-      type: "POST",
-      url: "http://localhost:8085/updatetrackstatus",
-      contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(Updatestat),
-
-   success: function(){
-   	alert("inside success")
-url ="http://localhost:8085/web/home.html";
-window.location.replace=url
- }
-});
-	}
-
  </script>
 </head> 
 <body>
@@ -210,7 +123,7 @@ window.location.replace=url
 	<div class="left-content">
 	   <div class="inner-content">
 		<!-- header-starts -->
-		<!-- header-starts -->
+			<!-- header-starts -->
 			<div class="header-section">
 			<!-- top_bg -->
 						<div class="top_bg">
@@ -242,7 +155,7 @@ window.location.replace=url
 										<h1 style="color:brown;"><b> E3 Shopping</b></h1> </a>
 									</div>
 										<!-- start header_right -->
-									<div class="header_right">
+									<div class="header_right" >
 										<div class="rgt-bottom">
 											<div class="create_btn">
 								<a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px;visibility:hidden" ><b> + Add Product</b></a>
@@ -324,87 +237,40 @@ window.location.replace=url
 			<!-- /Form -->
 		</div>
 			</div>
+					<!-- //header-ends -->
 				<!--Content -->
 				<div class="content">
-				<h2 style="color:black;visibility:hidden">User list</h2>
-			<div class="col-md-6">
-							<div class="panel panel-widget">
-								<div class="validation-grids widget-shadow" data-example-id="basic-forms"> 
-									<div class="input-info">
-										<h3>ORDER DETAILS:</h3>
-									</div> 
-								
-									<div >
-										<form data-toggle="validator" novalidate="true">
-											<div class="form-group valid-form">
-												<div>BIll NUMBER <span style="margin-left:90px;" id="billid"></span></div>
-											</div>
-											
-											<div class="form-group">
-											<div>PHONE NUMBER <span style="margin-left:60px;" id="phonenumber"></span></div>
-											
-											  
-											</div>
-
-											<div class="form-group">
-											<div>ADDRESS<span style="margin-left:60px;" id="Address"></span></div>
-											
-											  
-											</div>
-
-											<div class="form-group">
-											<div>TOTAL PRODUCT  <span style="margin-left:60px;" id="Totalproduct"></span></div>
-											 
-											  
-											</div>
-
-											<div class="form-group">
-											<div>TOTAL AMOUNT <span style="margin-left:60px;" id="TotalAmount"></span></div>
-											 
-											  
-											</div>
-											<div class="form-group">
-											<div>DATE   :<span style="margin-left:140px;" id="Date1"></span></div>
-											 
-											  
-											</div>
-<table class="table" class="table table-inverse" >
-  <thead >
+						<div class="table-container">
+			
+				
+					<h2 style="color:black;visibility:hidden"><b>Orders list</b></h2>
+					<table class="table" class="table table-inverse">
+  <thead>
     <tr>
-    
-      <th>Product name</th>
-      <th>Rate</th>
-        <th>Weight</th>
-
-      
+      <th>Order ID  </th>
+      <th>Hotelname</th>
+      <th>Loginid</th>
+      <th>Address</th>
+      <th>Mobilenumber</th>
+      <th>Status</th>
+      <th>View Products</th>
     </tr>
-  </thead>
 
   <tbody id="listContainer">
     
     
   </tbody>
 </table>
-
-
-										
-											
-											
-										
-										</form>
-									</div>
-								</div>
-							</div>
-						
-							
-							</div>
-						</div>
+</div>
 
 
 				</div>
 		
-		
-		
+						<!--//area-->
+	
+			<!--content-->
+		</div>
+</div>
 				<!--//content-inner-->
 			<!--/sidebar-menu-->
 				<div class="sidebar-menu">
@@ -412,16 +278,11 @@ window.location.replace=url
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
 					</header>
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-                           <div class="menu">
+                       <div class="menu">
 									<ul id="menu" >
 										<li><a href="home.html"><i class="fa fa-tachometer"></i> <span>Easy Home</span></a></li>
 										 <li ><a href="userlist.html"><i class="fa fa-file-text-o"></i> <span>Easy Users</span></a></li>
-
-									
-
-									
-
-										 <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span> Easy Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                                          <li id="menu-academico" ><a href="#"><i class="fa fa-table"></i> <span> Easy Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 										   <ul id="menu-academico-sub" >
 										   <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
 										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
@@ -440,6 +301,7 @@ window.location.replace=url
 									<li id="menu-academico" ><a href="instant.html"><i class="lnr lnr-book"></i> <span>Instant Orders</span></a></li>
 									<li id="menu-academico" ><a href="updateinstant.html"><i class="lnr lnr-book"></i> <span>Update Instant Orders</span></a></li>
 									<li id="menu-academico" ><a href="Changepassword.html"><i class="lnr lnr-book"></i> <span>Change Password</span></a></li>
+									 
 									 
 							     
 								

@@ -123,6 +123,52 @@ func GetFooddeliver_DB(loginid string) (Response []Model.Foodtrackreesponse) {
 	return
 
 }
+
+func Getallfooddelivery_DB() (Response []Model.Foodtrackreesponse) {
+	Querystring := "SELECT * FROM fooddeliver"
+	var tempres Model.Foodtrackreesponse
+
+	var Data Model.Foodtrack
+	rows, err := OpenConnection["Rentmatics"].Query(Querystring)
+	if err != nil {
+		log.Println("Error -Db:Activity", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+			&Data.Foodid,
+			&Data.Hotelname,
+			&Data.Address,
+			&Data.Mobilenumber,
+			&Data.Status,
+			&Data.Loginid,
+		)
+		row, _ := OpenConnection["Rentmatics"].Query("select foodname,foodqty from fooddelivername where foodid=?", Data.Foodid)
+
+		var Productlist []Model.Foodcount
+
+		for row.Next() {
+			var Productlist1 Model.Foodcount
+
+			row.Scan(
+
+				&Productlist1.Foodname,
+				&Productlist1.Quantity,
+			)
+
+			Productlist = append(Productlist, Productlist1)
+
+		}
+		tempres.Details = Data
+		tempres.Fooddetails = Productlist
+		Response = append(Response, tempres)
+
+	}
+
+	return
+
+}
+
 func Gethistory_DB(loginid string) (Response []Model.Foodtrackreesponse) {
 	var tempres Model.Foodtrackreesponse
 

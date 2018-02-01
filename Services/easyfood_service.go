@@ -27,6 +27,19 @@ func Foodinsert(w http.ResponseWriter, r *http.Request) {
 	w.Write(Senddata)
 }
 
+func Getallfooddelivery(w http.ResponseWriter, r *http.Request) {
+
+	Data := Db.Getallfooddelivery_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+
 type Foodinstant struct {
 	Loginid string
 }
