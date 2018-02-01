@@ -37,6 +37,48 @@ func Getvegetables_DB(Data string) (Data1 Model.Senddata) {
 	return
 }
 
+func GetNonvegetables_DB(Data string) (Data1 Model.Senddata1) {
+	var Vegarray []Model.Nonveg
+	var Vegetabledata Model.Nonveg
+	rows, err := OpenConnection["Rentmatics"].Query("select * from easyvegetables where Type=?", Data)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+
+			&Vegetabledata.Vegid,
+			&Vegetabledata.Vegetable,
+			&Vegetabledata.Type,
+			&Vegetabledata.Rate1kg,
+			&Vegetabledata.Rate500gm,
+			&Vegetabledata.Rate250gm,
+			&Vegetabledata.Display,
+			&Vegetabledata.Pictureurl,
+		)
+		rows, err := OpenConnection["Rentmatics"].Query("select 1250kg,1500kg,1750kg,2kg from meatweight where prodid=?", Vegetabledata.Vegid)
+		if err != nil {
+			log.Println("Error -DB: Get User", err)
+		}
+		for rows.Next() {
+
+			rows.Scan(
+
+				&Vegetabledata.Rate1250gm,
+				&Vegetabledata.Rate1500kg,
+				&Vegetabledata.Rate1750kg,
+				&Vegetabledata.Rate2kg,
+			)
+		}
+
+		Vegarray = append(Vegarray, Vegetabledata)
+		Data1.Data = Vegarray
+	}
+
+	return
+}
+
 func GetSingleprod_DB(Productid int) (Responsedata Model.Vegetables) {
 
 	rows, err := OpenConnection["Rentmatics"].Query("select * from easyvegetables where easyid=?", Productid)
@@ -71,8 +113,8 @@ func GetLeaves() (Vegresponse Model.Senddata) {
 	return
 }
 
-func GetNonveg() (Vegresponse Model.Senddata) {
-	Vegresponse = Getvegetables_DB("NonVeg")
+func GetNonveg() (Vegresponse Model.Senddata1) {
+	Vegresponse = GetNonvegetables_DB("NonVeg")
 	return
 }
 

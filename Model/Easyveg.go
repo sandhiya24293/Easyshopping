@@ -1,8 +1,26 @@
 package Model
 
+type Nonveg struct {
+	Vegid      int
+	Vegetable  string
+	Type       string
+	Rate1kg    int
+	Rate500gm  int
+	Rate250gm  int
+	Rate1250gm int
+	Rate1500kg int
+	Rate1750kg int
+	Rate2kg    int
+	Display    string
+	Pictureurl string
+}
+type Senddata1 struct {
+	Data []Nonveg
+}
 type Senddata struct {
 	Data []Vegetables
 }
+
 type Vegetables struct {
 	Vegid      int
 	Vegetable  string

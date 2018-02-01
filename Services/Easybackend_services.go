@@ -166,7 +166,7 @@ func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 
 	var Data1 Model.Catergorylist
 
-	var Category = []string{"Meat", "Sea food", "Turkey"}
+	var Category = []string{"Meat", "Sea food", "Turkey", "Chicken", "legpiece"}
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
@@ -174,8 +174,14 @@ func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 		} else if i == 1 {
 			Data1.Url = "http://176.111.105.86:8085/Seafood"
 
-		} else {
+		} else if i == 2 {
 			Data1.Url = "http://176.111.105.86:8085/Turkey"
+
+		} else if i == 3 {
+			Data1.Url = "http://176.111.105.86:8085/Chicken"
+
+		} else {
+			Data1.Url = "http://176.111.105.86:8085/legpiece"
 
 		}
 		Response = append(Response, Data1)
