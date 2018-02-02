@@ -36,12 +36,36 @@ type Addproduct struct {
 	Productrate250gm int
 	Pictureurl       string
 }
+
+type NonAddproduct struct {
+	Categorylist      string
+	Productname       string
+	Productrate1kg    int
+	Productrate500kg  int
+	Productrate250gm  int
+	Productrate1250gm int
+	Productrate1500gm int
+	Productrate1750gm int
+	Productrate2000gm int
+	Pictureurl        string
+}
 type Updateproduct struct {
 	Productid        int
 	Productname      string
 	Productrate1kg   int
 	Productrate500gm int
 	Productrate250gm int
+}
+type Updatenonproduct struct {
+	Productid         int
+	Productname       string
+	Productrate2kg    int
+	Productrate1750gm int
+	Productrate1500gm int
+	Productrate1250gm int
+	Productrate1kg    int
+	Productrate500gm  int
+	Productrate250gm  int
 }
 type Updatestatus struct {
 	Productid     int

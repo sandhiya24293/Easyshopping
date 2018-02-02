@@ -87,8 +87,23 @@ func Addproduct_DB(Adddata Model.Addproduct) {
 
 }
 
+func AddNonproduct_DB(Adddata Model.NonAddproduct) {
+	row, err := OpenConnection["Rentmatics"].Exec("insert into easynonveg (Easyproduct,Type,Rate2KG,Rate1750gm,Rate1500gm,Rate1250gm,Rate1KG,Rate500gm,Rate250gm,display,pictureurl ) values (?,?,?,?,?,?,?,?,?,?,?)", Adddata.Productname, Adddata.Categorylist, Adddata.Productrate2000gm, Adddata.Productrate1750gm, Adddata.Productrate1500gm, Adddata.Productrate1250gm, Adddata.Productrate1kg, Adddata.Productrate500kg, Adddata.Productrate250gm, "show", Adddata.Pictureurl)
+	if err != nil {
+		log.Println("Error -DB: update Profile", err, row)
+	}
+
+}
 func Updateproduct_DB(Editdata Model.Updateproduct) {
 	Queryupdate := "UPDATE easyvegetables SET Easyproduct='" + Editdata.Productname + "' , Rate1KG= '" + fmt.Sprintf("%v", Editdata.Productrate1kg) + "' ,Rate500gm= '" + fmt.Sprintf("%v", Editdata.Productrate500gm) + "' ,Rate250gm= '" + fmt.Sprintf("%v", Editdata.Productrate250gm) + "'  where easyid= " + fmt.Sprintf("%v", Editdata.Productid)
+
+	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: update Profile", err, row)
+	}
+}
+func Updatenonproduct_DB(Editdata Model.Updatenonproduct) {
+	Queryupdate := "UPDATE easynonveg SET Easyproduct='" + Editdata.Productname + "' , Rate2KG= '" + fmt.Sprintf("%v", Editdata.Productrate2kg) + "' ,Rate1750gm= '" + fmt.Sprintf("%v", Editdata.Productrate1750gm) + "' ,Rate1500gm= '" + fmt.Sprintf("%v", Editdata.Productrate1500gm) + "' ,Rate1250gm= '" + fmt.Sprintf("%v", Editdata.Productrate1250gm) + "' ,Rate1KG= '" + fmt.Sprintf("%v", Editdata.Productrate1kg) + "' ,Rate500gm= '" + fmt.Sprintf("%v", Editdata.Productrate500gm) + "' ,Rate250gm= '" + fmt.Sprintf("%v", Editdata.Productrate250gm) + "'  where easynonid= " + fmt.Sprintf("%v", Editdata.Productid)
 
 	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
 	if err != nil {

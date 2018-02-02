@@ -75,7 +75,7 @@ $(document).ready(function(){
           
            $.ajax({
                type: "POST",
-               url: "http://localhost:8085/Getownsinglefood",
+               url: "http://176.111.105.86:8085/Getownsinglefood",
                contentType:"application/json; charset=utf-8",
                data: JSON.stringify(Prod),
                
@@ -247,14 +247,26 @@ $("#Platecount"+ID).html(Platecount);
 
 									
 
-										 <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+								
+
+										 <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Veg</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 										   <ul id="menu-academico-sub" >
 										   <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
 										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
 											<li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
+											
+											
+										  </ul>
+										</li>
+
+										 <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Non-Veg</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+										   <ul id="menu-academico-sub" >
+										
 											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
 											<li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
 											<li id="menu-academico-boletim" ><a href="Turkey.html">Turkey</a></li>
+											<li id="menu-academico-boletim" ><a href="Chicken.html">Chicken</a></li>
+											<li id="menu-academico-boletim" ><a href="legpiece.html">Legpiece</a></li>
 											
 										  </ul>
 										</li>

@@ -39,7 +39,7 @@ var login ={
 	
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/AdminLogin",
+      url: "http://176.111.105.86:8085/AdminLogin",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(login),
 
@@ -48,7 +48,7 @@ var login ={
   
    	var searchout = JSON.parse(response);
    	if(searchout == "Success"){
-   		window.location= "http://localhost:8085/web/home.html";
+   		window.location= "http://176.111.105.86:8085/web/home.html";
    		
    	}else{
    		alert("Incorrect Username or password")

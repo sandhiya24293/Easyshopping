@@ -31,7 +31,7 @@ $(document).ready(function(){
        
       $.ajax({
                type: "GET",
-               url: "http://localhost:8085/Trackstatus",
+               url: "http://176.111.105.86:8085/Trackstatus",
                contentType:"application/json; charset=utf-8",
                
          
@@ -104,7 +104,7 @@ function UpdateDispatched(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/updatetrackstatus",
+      url: "http://176.111.105.86:8085/updatetrackstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -123,7 +123,7 @@ function UpdateDelivered(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/updatetrackstatus",
+      url: "http://176.111.105.86:8085/updatetrackstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -142,7 +142,7 @@ function UpdateDispatched1(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/Updateinstantdeliver",
+      url: "http://176.111.105.86:8085/Updateinstantdeliver",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -161,7 +161,7 @@ function UpdateDispatched3(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/updateownfoodstatus",
+      url: "http://176.111.105.86:8085/updateownfoodstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -181,7 +181,7 @@ function UpdateDispatched2(Dyid){
 }
 	  $.ajax({
       type: "POST",
-      url: "http://localhost:8085/updatefooddelivered",
+      url: "http://176.111.105.86:8085/updatefooddelivered",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updatestat),
 
@@ -212,7 +212,7 @@ return rentimage;
   window.onload = function () {
   	    $.ajax({
                type: "GET",
-               url: "http://localhost:8085/Getcount_service",
+               url: "http://176.111.105.86:8085/Getcount_service",
                contentType:"application/json; charset=utf-8",
                
          
@@ -230,7 +230,7 @@ return rentimage;
 
            $.ajax({
                type: "GET",
-               url: "http://localhost:8085/Getinstanstundelivered",
+               url: "http://176.111.105.86:8085/Getinstanstundelivered",
                contentType:"application/json; charset=utf-8",
                
          
@@ -271,7 +271,7 @@ else{
 });
  $.ajax({
                type: "GET",
-               url: "http://localhost:8085/Getundelivered",
+               url: "http://176.111.105.86:8085/Getundelivered",
                contentType:"application/json; charset=utf-8",
                
          
@@ -312,7 +312,7 @@ document.getElementById("getUrl2"+ ID).setAttribute("href",url);
 });
  $.ajax({
                type: "GET",
-               url: "http://localhost:8085/Getownundeliverfood",
+               url: "http://176.111.105.86:8085/Getownundeliverfood",
                contentType:"application/json; charset=utf-8",
                
          
@@ -710,14 +710,24 @@ tbody tr:nth-child(even){
 
 									
 
-										 <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+										 <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Veg</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 										   <ul id="menu-academico-sub" >
 										   <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
 										    <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
 											<li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
+											
+											
+										  </ul>
+										</li>
+
+										 <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Non-Veg</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+										   <ul id="menu-academico-sub" >
+										
 											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
 											<li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
 											<li id="menu-academico-boletim" ><a href="Turkey.html">Turkey</a></li>
+											<li id="menu-academico-boletim" ><a href="Chicken.html">Chicken</a></li>
+											<li id="menu-academico-boletim" ><a href="legpiece.html">Legpiece</a></li>
 											
 										  </ul>
 										</li>

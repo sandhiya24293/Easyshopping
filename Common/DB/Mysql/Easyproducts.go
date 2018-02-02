@@ -40,7 +40,7 @@ func Getvegetables_DB(Data string) (Data1 Model.Senddata) {
 func GetNonvegetables_DB(Data string) (Data1 Model.Senddata1) {
 	var Vegarray []Model.Nonveg
 	var Vegetabledata Model.Nonveg
-	rows, err := OpenConnection["Rentmatics"].Query("select * from easyvegetables where Type=?", Data)
+	rows, err := OpenConnection["Rentmatics"].Query("select * from easynonveg where Type=?", Data)
 	if err != nil {
 		log.Println("Error -DB: Get User", err)
 	}
@@ -51,26 +51,16 @@ func GetNonvegetables_DB(Data string) (Data1 Model.Senddata1) {
 			&Vegetabledata.Vegid,
 			&Vegetabledata.Vegetable,
 			&Vegetabledata.Type,
+			&Vegetabledata.Rate2kg,
+			&Vegetabledata.Rate1750kg,
+			&Vegetabledata.Rate1500kg,
+			&Vegetabledata.Rate1250gm,
 			&Vegetabledata.Rate1kg,
 			&Vegetabledata.Rate500gm,
 			&Vegetabledata.Rate250gm,
 			&Vegetabledata.Display,
 			&Vegetabledata.Pictureurl,
 		)
-		rows, err := OpenConnection["Rentmatics"].Query("select 1250kg,1500kg,1750kg,2kg from meatweight where prodid=?", Vegetabledata.Vegid)
-		if err != nil {
-			log.Println("Error -DB: Get User", err)
-		}
-		for rows.Next() {
-
-			rows.Scan(
-
-				&Vegetabledata.Rate1250gm,
-				&Vegetabledata.Rate1500kg,
-				&Vegetabledata.Rate1750kg,
-				&Vegetabledata.Rate2kg,
-			)
-		}
 
 		Vegarray = append(Vegarray, Vegetabledata)
 		Data1.Data = Vegarray
@@ -104,6 +94,35 @@ func GetSingleprod_DB(Productid int) (Responsedata Model.Vegetables) {
 	return
 }
 
+func GetnonSingleprod_DB(Productid int) (Responsedata Model.Nonveg) {
+
+	rows, err := OpenConnection["Rentmatics"].Query("select * from easynonveg where easynonid=?", Productid)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+
+			&Responsedata.Vegid,
+			&Responsedata.Vegetable,
+			&Responsedata.Type,
+			&Responsedata.Rate2kg,
+			&Responsedata.Rate1750kg,
+			&Responsedata.Rate1500kg,
+			&Responsedata.Rate1250gm,
+			&Responsedata.Rate1kg,
+			&Responsedata.Rate500gm,
+			&Responsedata.Rate250gm,
+			&Responsedata.Display,
+			&Responsedata.Pictureurl,
+		)
+
+	}
+
+	return
+}
+
 func Getveg() (Vegresponse Model.Senddata) {
 	Vegresponse = Getvegetables_DB("Veg")
 	return
@@ -113,23 +132,30 @@ func GetLeaves() (Vegresponse Model.Senddata) {
 	return
 }
 
+func GetFruits() (Vegresponse Model.Senddata) {
+	Vegresponse = Getvegetables_DB("Fruits")
+	return
+}
 func GetNonveg() (Vegresponse Model.Senddata1) {
 	Vegresponse = GetNonvegetables_DB("NonVeg")
 	return
 }
 
-func GetFruits() (Vegresponse Model.Senddata) {
-	Vegresponse = Getvegetables_DB("Fruits")
+func GetTurkey() (Vegresponse Model.Senddata1) {
+	Vegresponse = GetNonvegetables_DB("Turkey")
+	return
+}
+func Getlegpiece() (Vegresponse Model.Senddata1) {
+	Vegresponse = GetNonvegetables_DB("Legpiece")
+	return
+}
+func Getchicken() (Vegresponse Model.Senddata1) {
+	Vegresponse = GetNonvegetables_DB("Chicken")
 	return
 }
 
-func GetTurkey() (Vegresponse Model.Senddata) {
-	Vegresponse = Getvegetables_DB("Turkey")
-	return
-}
-
-func GetSeafood_DB() (Vegresponse Model.Senddata) {
-	Vegresponse = Getvegetables_DB("Seafood")
+func GetSeafood_DB() (Vegresponse Model.Senddata1) {
+	Vegresponse = GetNonvegetables_DB("Seafood")
 	return
 }
 func Search_DB(searchstring string) (Data1 Model.Senddata) {

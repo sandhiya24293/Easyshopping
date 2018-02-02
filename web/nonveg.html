@@ -30,7 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           
            $.ajax({
                type: "GET",
-               url: "http://localhost:8085/NonVeg",
+               url: "http://176.111.105.86:8085/NonVeg",
                contentType:"application/json; charset=utf-8",
                
          
@@ -53,9 +53,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 for(j=0;j<searchout.Data.length;j++){
  var ID = searchout.Data[j].Vegid;
  var Vegetable =searchout.Data[j].Vegetable
- var rate1 = searchout.Data[j].Rate1kg;
- var rate2 = searchout.Data[j].Rate500gm;
- var rate3 =searchout.Data[j].Rate250gm;
+ var rate1 = searchout.Data[j].Rate2kg;
+ var rate2 = searchout.Data[j].Rate1750kg;
+ var rate3 =searchout.Data[j].Rate1500kg;
+ var rate4 = searchout.Data[j].Rate1250gm;
+ var rate5 = searchout.Data[j].Rate1kg;
+ var rate6 =searchout.Data[j].Rate500gm;
+ var rate7 =searchout.Data[j].Rate250gm;
+
+
  if ( searchout.Data[j].Display=="hide"){
   
   document.getElementById("showtab1"+ID).style.display = "none";
@@ -65,13 +71,25 @@ $("#name"+ID).html(Vegetable);
 $("#rate1"+ID).html(rate1);
 $("#rate2"+ID).html(rate2);
 $("#rate3"+ID).html(rate3);
+$("#rate4"+ID).html(rate4);
+$("#rate5"+ID).html(rate5);
+$("#rate6"+ID).html(rate6);
+$("#rate7"+ID).html(rate7);
 
 }
 }
 });
 });
 
-
+  function Showform1(){
+    var x = document.getElementById("showdiv1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    
+  }
 
  //For Slider
  function Getjavascript(Dyid){
@@ -84,6 +102,15 @@ $("#rate3"+ID).html(rate3);
 "<td id='rate1"+Dyid+"'>@mdo</td>"+
 "<td id='rate2"+Dyid+"'>@mdo</td>"+
  "<td id='rate3"+Dyid+"'>@mdo</td>"+
+"<td id='rate4"+Dyid+"'>@mdo</td>"+
+ "<td id='rate5"+Dyid+"'>@mdo</td>"+
+ "<td id='rate6"+Dyid+"'>@mdo</td>"+
+  "<td id='rate7"+Dyid+"'>@mdo</td>"+
+
+
+
+
+
  "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button>"+
  "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>"+
 "<button id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
@@ -106,23 +133,30 @@ function Updaterate(Dyid){
   }
     $.ajax({
       type: "POST",
-      url: "http://localhost:8085/Getsingledata",
+      url: "http://176.111.105.86:8085/Getnonsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
    success: function(responsee){
     var searchout = JSON.parse(responsee);
     var product =searchout.Vegetable 
-    var rate1 =searchout.Rate1kg 
-    var rate2 =searchout.Rate500gm 
-    var rate3 =searchout.Rate250gm 
-    var picurl =searchout.Pictureurl 
+   var rates1 = searchout.Rate2kg;
+ var rates2 = searchout.Rate1750kg;
+ var rates3 =searchout.Rate1500kg;
+ var rates4 = searchout.Rate1250gm;
+ var rates5 = searchout.Rate1kg;
+ var rates6 =searchout.Rate500gm;
+ var rates7 =searchout.Rate250gm;
     
 
  $("#names1").val(product);
-$("#rates1").val(rate1);
-$("#rates2").val(rate2);
-$("#rates3").val(rate3);
+$("#rates1").val(rates1);
+$("#rates2").val(rates2);
+$("#rates3").val(rates3);
+$("#rates4").val(rates4);
+$("#rates5").val(rates5);
+$("#rates6").val(rates6);
+$("#rates7").val(rates7);
 
 
 
@@ -145,7 +179,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateProductstatus",
+      url: "http://176.111.105.86:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -164,7 +198,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateProductstatus",
+      url: "http://176.111.105.86:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -182,6 +216,10 @@ function updateratefunc(){
   var updaterate1 = document.getElementById("rates1").value;
   var updaterate2 = document.getElementById("rates2").value;
   var updaterate3 = document.getElementById("rates3").value;
+  var updaterate4 = document.getElementById("rates4").value;
+  var updaterate5 = document.getElementById("rates5").value;
+  var updaterate6 = document.getElementById("rates6").value;
+  var updaterate7 = document.getElementById("rates7").value;
   
   
   
@@ -190,10 +228,14 @@ function updateratefunc(){
 var Updateproduct ={
     
     "Productid":  parseInt(productid),
-  "Productname"   :Updatename,
-  "Productrate1kg"   :parseInt(updaterate1),
-  "Productrate500gm" :parseInt(updaterate2),
-  "Productrate250gm" :parseInt(updaterate3),
+    "Productname" :Updatename,
+  "Productrate2kg":    parseInt(updaterate1),
+   "Productrate1750gm":parseInt(updaterate2),
+   "Productrate1500gm":parseInt(updaterate3),
+   "Productrate1250gm":parseInt(updaterate4),
+   "Productrate1kg":   parseInt(updaterate5),
+   "Productrate500gm": parseInt(updaterate6),
+   "Productrate250gm": parseInt(updaterate7),
   
   
  
@@ -201,7 +243,7 @@ var Updateproduct ={
   
     $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateRate",
+      url: "http://176.111.105.86:8085/UpdateNonRate",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -232,7 +274,7 @@ function Addproduct(){
   }
    $.ajax({
       type: "POST",
-      url: "http://localhost:8085/Addproduct",
+      url: "http://176.111.105.86:8085/Addproduct",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Add),
 
@@ -323,6 +365,10 @@ tbody tr:nth-child(even){
                       <div class="create_btn">
                 <a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px" ><b> + Add Product</b></a>
                     </div>
+                    <br>
+                    <div class="create_btn">
+                <a href="javascript:Showform1()" style="width:240px;margin-top:78px;margin-left:15px;background-color:brown;color:white;font-size:18px" ><b> + Add Product(Non-veg)</b></a>
+                    </div>
                       
                     
                     
@@ -334,81 +380,188 @@ tbody tr:nth-child(even){
           <!-- //header-ends -->
         
         <!--content-->
-      <div class="content">
-      
-      
-      <div  style="display:none" id="showdiv">
+     
+  
+        <!--content-->
+<div class="content">
+  <div style="display:none;" id="showdiv">
      <!-- Form -->
-          <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data" >
+     <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  >
+       <div>
+      <div style="visibility:hidden;">
+          <label >Product Name</label>
+        <input placeholder="Product name " type="text" tabindex="1" required="" autofocus="" name="getname"  class="validate" required>
+          
+    </div>
+        <br>
+        <br>
 
-
-<div >
-
-   	<div style="visibility:hidden;">
-					<label >Product Name</label>
-				<input placeholder="Product name " type="text" tabindex="1" required="" autofocus="" name="getname"  class="validate" required>
-					
-				</div>
-				<br>
-				<br>
-
-                       <div >
-								<label >Product Type(*)</label>
-											<select  name="category"  style="border: 1px solid black;width:400px;height:30px" >
+          <div >
+                <label >Product Type(*)</label>
+                      <select  name="category"  style="border: 1px solid black;width:400px;height:30px" >
                                              <option selected="true" disabled="disabled" value="Veg"></option>   
-												<option value="Veg">Vegetable</option>
-												<option value ="Leaves">Leaves</option>
-												<option value="Fruits">Fruits</option>
-												<option value ="NonVeg">Non Veg</option>
-												<option value="Seafood">Sea Food</option>
-											</select>
-										</div>	
+                        <option value="Veg">Vegetable</option>
+                        <option value ="Leaves">Leaves</option>
+                        <option value="Fruits">Fruits</option>
+                        
+                      </select>
+      </div>  
 
 
 
-										
-				<div>
-					<label>Product Name(*)</label>
-						<input  type="text" tabindex="3"  name="namevalue"   required="true" style="width:400px">
-		
-					
-				</div>
-									
+                    
+        <div>
+          <label>Product Name(*)</label>
+            <input  type="text" tabindex="3"  name="namevalue"   required="true" style="width:400px">
+    
+          
+        </div>
+                  
 
-				
-				<div>
-					<label>Rate 1KG(*)	</label>
-						<input  type="text" tabindex="3"  name="getrate1"   required="true" style="width:400px">
-				
-				</div>
-				<div>
-					<label> Rate 500 GM(*)</label>
-						<input  type="text" tabindex="3"  required="true" name="getrate2" style="width:400px">
-					
-				</div>
-				<div>
-					<label> Rate 500 GM(*)</label>
-						<input  type="text" tabindex="3" required="true" name="getrate3" style="width:400px">
-					
-				</div>
-				 <div class="file-field input-field">
+        
+        <div>
+          <label>Rate 1KG(*)  </label>
+            <input  type="text" tabindex="3"  name="getrate1"   required="true" style="width:400px">
+        
+        </div>
+        <div>
+          <label> Rate 500 GM(*)</label>
+            <input  type="text" tabindex="3"  required="true" name="getrate2" style="width:400px">
+          
+        </div>
+        <div>
+          <label> Rate 500 GM(*)</label>
+            <input  type="text" tabindex="3" required="true" name="getrate3" style="width:400px">
+          
+        </div>
+         <div class="file-field input-field">
       <div>
         <label>Upload product Image(*)</label>
         <input type="file"  name="uploadfile" >
       </div>
+
       <br>
      
     </div>
 <button type="submit"  class='btn btn-success'>Submit</button>
 </div>
 
-				
+        
 </form>
 
 
       <!-- /Form -->
     </div>
       </div>
+
+
+  <div class="content">
+      
+      
+      <div style="display:none;" id="showdiv1">
+     <!-- Form -->
+          <form action="http://176.111.105.86:8085/NonAddproduct" method="POST" enctype="multipart/form-data"  >
+                <div >
+
+    
+
+                       <div>
+                <label >Meat Type(*)</label>
+                      <select  name="meat"  style="border: 1px solid black;width:400px;height:30px" >
+                                             <option selected ="true" disabled="disabled" value="Veg"></option>   
+                        <option value ="NonVeg">NonVeg</option>
+                        <option value ="Turkey">Turkey</option>
+                        <option value ="Seafood">Seafood</option>
+                        <option value ="Chicken">Chicken</option>
+                        <option value ="LegPiece">LegPiece</option>
+                      </select>
+                    </div>      
+                   
+
+
+
+                    
+        <div>
+          <label>Meat Name(*)</label>
+            <input  type="text" tabindex="3"  name="meatname"   required="true" style="width:400px">
+    
+          
+        </div>
+                  
+
+        
+        <div>
+          <label>Rate 250KG(*)  </label>
+            <input  type="text" tabindex="3"  name="meatrate1"   required="true" style="width:400px">
+        
+        </div>
+        <div>
+          <label> Rate 500 GM(*)</label>
+            <input  type="text" tabindex="3"  required="true" name="meatrate2" style="width:400px">
+          
+        </div>
+        <div>
+          <label> Rate 1KG(*)</label>
+            <input  type="text" tabindex="3" required="true" name="meatrate3" style="width:400px">
+          
+        </div>
+        <div>
+          <label> Rate 1250KG(*)</label>
+            <input  type="text" tabindex="3" required="true" name="meatrate4" style="width:400px">
+          
+        </div>
+        <div>
+          <label> Rate 1500 GM(*)</label>
+            <input  type="text" tabindex="3" required="true" name="meatrate5" style="width:400px">
+          
+        </div>
+        <div>
+          <label> Rate 1750 GM(*)</label>
+            <input  type="text" tabindex="3" required="true" name="meatrate6" style="width:400px">
+          
+        </div>
+        <div>
+          <label> Rate 2KG(*)</label>
+            <input  type="text" tabindex="3" required="true" name="meatrate7" style="width:400px">
+          
+        </div>
+         <div class="file-field input-field">
+      <div>
+        <label>Upload product Image(*)</label>
+        <input type="file"  name="uploadfile1" >
+      </div>
+
+      <br>
+     
+    </div>
+<button type="submit"  class='btn btn-success'>Submit</button>
+</div>
+
+        
+</form>
+
+
+      <!-- /Form -->
+    </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="content">
                 <div class="table-container">
       
@@ -418,6 +571,10 @@ tbody tr:nth-child(even){
     <tr>
      
       <th>Meat Name</th>
+      <th> Rate- 2KG</th>
+      <th> Rate- 1750KG</th>
+      <th> Rate- 1500KG</th>
+      <th> Rate- 1250KG</th>
       <th> Rate- 1KG</th>
       <th> Rate- 500gms</th>
       <th> Rate- 250gms </th>
@@ -453,14 +610,26 @@ tbody tr:nth-child(even){
 
                   
 
-                     <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                    
+
+                     <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Veg</span> <span class="fa fa-angle-right" style="float: right"></span></a>
                        <ul id="menu-academico-sub" >
                        <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
                         <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
                       <li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
+                      
+                      
+                      </ul>
+                    </li>
+
+                     <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Non-Veg</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                       <ul id="menu-academico-sub" >
+                    
                       <li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
                       <li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
                       <li id="menu-academico-boletim" ><a href="Turkey.html">Turkey</a></li>
+                      <li id="menu-academico-boletim" ><a href="Chicken.html">Chicken</a></li>
+                      <li id="menu-academico-boletim" ><a href="legpiece.html">Legpiece</a></li>
                       
                       </ul>
                     </li>
@@ -504,15 +673,23 @@ tbody tr:nth-child(even){
       </div>
         <h4 ><b>Edit Product Name</b><span class="lnr lnr-pencil"></span></h4>
          <input type="text" id="names1" style="color:black">
-         <h4 ><b>Edit Rate 1KG</b><span class="lnr lnr-pencil"></span></h4>
+         <h4 ><b>Edit Rate 2KG</b><span class="lnr lnr-pencil"></span></h4>
          <input type="text" id="rates1" style="color:black">
-         <h4 ><b>Edit Rate 500GMS</b><span class="lnr lnr-pencil"></span></h4>
+          <h4 ><b>Edit Rate 1750KG</b><span class="lnr lnr-pencil"></span></h4>
          <input type="text" id="rates2" style="color:black">
-         <h4 ><b>Edit Rate 250GMS</b><span class="lnr lnr-pencil"></span></h4>
+          <h4 ><b>Edit Rate 1500KG</b><span class="lnr lnr-pencil"></span></h4>
          <input type="text" id="rates3" style="color:black">
+          <h4 ><b>Edit Rate 1250KG</b><span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates4" style="color:black">
+         <h4 ><b>Edit Rate 1KG</b><span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates5" style="color:black">
+         <h4 ><b>Edit Rate 500GMS</b><span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates6" style="color:black">
+         <h4 ><b>Edit Rate 250GMS</b><span class="lnr lnr-pencil"></span></h4>
+         <input type="text" id="rates7" style="color:black">
          <br>
          <br>
-         <button type="button"   data-dismiss="modal"  class='btn btn-success'  onclick="updateratefunc()">   Update
+         <button type="button"   data-dismiss="modal"  class='btn btn-success'  onclick="updateratefunc()">Update
         </button>
           
       </div>

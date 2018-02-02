@@ -30,7 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           
            $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Seafood",
+               url: "http://localhost:8085/Legpiece",
                contentType:"application/json; charset=utf-8",
                
          
@@ -133,7 +133,7 @@ function Updaterate(Dyid){
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Getnonsingledata",
+      url: "http://localhost:8085/Getnonsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
@@ -179,7 +179,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateProductstatus",
+      url: "http://localhost:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -198,7 +198,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateProductstatus",
+      url: "http://localhost:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -243,7 +243,7 @@ var Updateproduct ={
   
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateNonRate",
+      url: "http://localhost:8085/UpdateNonRate",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -274,7 +274,7 @@ function Addproduct(){
   }
    $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Addproduct",
+      url: "http://localhost:8085/Addproduct",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Add),
 
@@ -386,7 +386,7 @@ tbody tr:nth-child(even){
 <div class="content">
   <div style="display:none;" id="showdiv">
      <!-- Form -->
-     <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  >
+     <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data"  >
        <div>
       <div style="visibility:hidden;">
           <label >Product Name</label>
@@ -460,7 +460,7 @@ tbody tr:nth-child(even){
       
       <div style="display:none;" id="showdiv1">
      <!-- Form -->
-          <form action="http://176.111.105.86:8085/NonAddproduct" method="POST" enctype="multipart/form-data"  >
+          <form action="http://localhost:8085/NonAddproduct" method="POST" enctype="multipart/form-data"  >
                 <div >
 
     
@@ -610,26 +610,14 @@ tbody tr:nth-child(even){
 
                   
 
-                  
-
-                     <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Veg</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                     <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Product</span> <span class="fa fa-angle-right" style="float: right"></span></a>
                        <ul id="menu-academico-sub" >
                        <li id="menu-academico-avaliacoes" ><a href="vegetables.html">Vegetables</a></li>
                         <li id="menu-academico-avaliacoes" ><a href="leaves.html">Leaves</a></li>
                       <li id="menu-academico-avaliacoes" ><a href="Fruits.html">Fruits</a></li>
-                      
-                      
-                      </ul>
-                    </li>
-
-                     <li id="menu-academico" ><a href="#"><i class="fa fa-shopping-cart"></i> <span> E3 Non-Veg</span> <span class="fa fa-angle-right" style="float: right"></span></a>
-                       <ul id="menu-academico-sub" >
-                    
                       <li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
                       <li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
                       <li id="menu-academico-boletim" ><a href="Turkey.html">Turkey</a></li>
-                      <li id="menu-academico-boletim" ><a href="Chicken.html">Chicken</a></li>
-                      <li id="menu-academico-boletim" ><a href="legpiece.html">Legpiece</a></li>
                       
                       </ul>
                     </li>
