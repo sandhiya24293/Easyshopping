@@ -54,10 +54,16 @@ func Serve() bool {
 	router.HandleFunc("/Fruits", Service.Fruits)
 	router.HandleFunc("/Turkey", Service.Turkey)
 	router.HandleFunc("/Chicken", Service.Chicken)
+	router.HandleFunc("/Chickenbiriyani", Service.Chickenbiriyani)
+	router.HandleFunc("/Muttonbiriyani", Service.Muttonbiriyani)
+	router.HandleFunc("/friedrice", Service.Friedrice)
+	router.HandleFunc("/noodles", Service.Noodles)
+	router.HandleFunc("/Grill", Service.Grill)
 	router.HandleFunc("/Legpiece", Service.Legpiece)
 
 	router.HandleFunc("/SendVegetable", Service.SendVegetable)
 	router.HandleFunc("/SendNonVeg", Service.SendNonVeg)
+	router.HandleFunc("/SendFruit", Service.SendFruit)
 
 	//Vegetables
 

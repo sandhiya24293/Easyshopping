@@ -89,6 +89,62 @@ func Chicken(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Orgin", "*")
 	w.Write(Senddata)
 }
+
+func Chickenbiriyani(w http.ResponseWriter, r *http.Request) {
+	Data := Db.GetChickenbiriyani_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - RETRIVE PRODUCT DATA", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+func Muttonbiriyani(w http.ResponseWriter, r *http.Request) {
+	Data := Db.GetMuttonbiriyani_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - RETRIVE PRODUCT DATA", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+func Friedrice(w http.ResponseWriter, r *http.Request) {
+	Data := Db.Getfriedrice_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - RETRIVE PRODUCT DATA", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+func Noodles(w http.ResponseWriter, r *http.Request) {
+	Data := Db.Getnoodles_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - RETRIVE PRODUCT DATA", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
+func Grill(w http.ResponseWriter, r *http.Request) {
+	Data := Db.Getgrill_DB()
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error - RETRIVE PRODUCT DATA", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
 func Seafood(w http.ResponseWriter, r *http.Request) {
 	Data := Db.GetSeafood_DB()
 	Senddata, err := json.Marshal(Data)

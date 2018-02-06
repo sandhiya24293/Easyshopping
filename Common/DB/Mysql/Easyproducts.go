@@ -69,6 +69,29 @@ func GetNonvegetables_DB(Data string) (Data1 Model.Senddata1) {
 	return
 }
 
+func Getfooditem_DB(Data string) (Data1 Model.Sendfood) {
+	var Vegarray []Model.Biriyani
+	var Vegetabledata Model.Biriyani
+	rows, err := OpenConnection["Rentmatics"].Query("select * from foodlist where Type=?", Data)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+
+			&Vegetabledata.Foodid,
+			&Vegetabledata.Foodname,
+			&Vegetabledata.Foodtype,
+			&Vegetabledata.Rate,
+		)
+
+		Vegarray = append(Vegarray, Vegetabledata)
+		Data1.Data = Vegarray
+	}
+
+	return
+}
 func GetSingleprod_DB(Productid int) (Responsedata Model.Vegetables) {
 
 	rows, err := OpenConnection["Rentmatics"].Query("select * from easyvegetables where easyid=?", Productid)
@@ -146,14 +169,33 @@ func GetTurkey() (Vegresponse Model.Senddata1) {
 	return
 }
 func Getlegpiece() (Vegresponse Model.Senddata1) {
-	Vegresponse = GetNonvegetables_DB("Legpiece")
+	Vegresponse = GetNonvegetables_DB("Frozenchicken")
 	return
 }
 func Getchicken() (Vegresponse Model.Senddata1) {
 	Vegresponse = GetNonvegetables_DB("Chicken")
 	return
 }
-
+func Getgrill_DB() (Vegresponse Model.Sendfood) {
+	Vegresponse = Getfooditem_DB("Grill")
+	return
+}
+func GetChickenbiriyani_DB() (Vegresponse Model.Sendfood) {
+	Vegresponse = Getfooditem_DB("Chickenbiriyani")
+	return
+}
+func GetMuttonbiriyani_DB() (Vegresponse Model.Sendfood) {
+	Vegresponse = Getfooditem_DB("Muttonbiriyani")
+	return
+}
+func Getfriedrice_DB() (Vegresponse Model.Sendfood) {
+	Vegresponse = Getfooditem_DB("friedrice")
+	return
+}
+func Getnoodles_DB() (Vegresponse Model.Sendfood) {
+	Vegresponse = Getfooditem_DB("noodles")
+	return
+}
 func GetSeafood_DB() (Vegresponse Model.Senddata1) {
 	Vegresponse = GetNonvegetables_DB("Seafood")
 	return

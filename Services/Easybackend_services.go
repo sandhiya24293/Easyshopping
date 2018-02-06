@@ -210,14 +210,50 @@ func SendVegetable(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Orgin", "*")
 	w.Write(Senddata)
 }
+func SendFruit(w http.ResponseWriter, r *http.Request) {
+	var Response []Model.Catergorylist
+	var Datasend Model.Datares
 
+	var Data1 Model.Catergorylist
+
+	var Category = []string{"Fruits", "Fruits1", "Fruits2", "Fruits3", "Fruits4"}
+	for i, v := range Category {
+		Data1.CategoryName = v
+		if i == 0 {
+			Data1.Url = "http://176.111.105.86:8085/Fruits"
+		} else if i == 1 {
+			Data1.Url = "http://176.111.105.86:8085/Fruits1"
+
+		} else if i == 2 {
+			Data1.Url = "http://176.111.105.86:8085/Fruits2"
+
+		} else if i == 3 {
+			Data1.Url = "http://176.111.105.86:8085/Fruits3"
+
+		} else {
+			Data1.Url = "http://176.111.105.86:8085/Fruits4"
+
+		}
+		Response = append(Response, Data1)
+
+	}
+	Datasend.Data = Response
+	Senddata, err := json.Marshal(Datasend)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
 func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 	var Response []Model.Catergorylist
 	var Datasend Model.Datares
 
 	var Data1 Model.Catergorylist
 
-	var Category = []string{"Meat", "Sea food", "Turkey", "Chicken", "legpiece"}
+	var Category = []string{"Meat", "Sea food", "Frozen Chicken", "meattab1", "meattab2", "meattab3"}
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
@@ -226,13 +262,16 @@ func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 			Data1.Url = "http://176.111.105.86:8085/Seafood"
 
 		} else if i == 2 {
-			Data1.Url = "http://176.111.105.86:8085/Turkey"
+			Data1.Url = "http://176.111.105.86:8085/Legpiece"
 
 		} else if i == 3 {
-			Data1.Url = "http://176.111.105.86:8085/Chicken"
+			Data1.Url = "http://176.111.105.86:8085/meattab1"
+
+		} else if i == 4 {
+			Data1.Url = "http://176.111.105.86:8085/meattab2"
 
 		} else {
-			Data1.Url = "http://176.111.105.86:8085/Legpiece"
+			Data1.Url = "http://176.111.105.86:8085/meattab3"
 
 		}
 		Response = append(Response, Data1)

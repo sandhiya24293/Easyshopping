@@ -17,6 +17,15 @@ type Nonveg struct {
 type Senddata1 struct {
 	Data []Nonveg
 }
+type Biriyani struct {
+	Foodid   int
+	Foodname string
+	Foodtype string
+	Rate     int
+}
+type Sendfood struct {
+	Data []Biriyani
+}
 type Senddata struct {
 	Data []Vegetables
 }
