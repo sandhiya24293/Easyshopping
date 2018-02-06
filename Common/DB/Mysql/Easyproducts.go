@@ -84,6 +84,7 @@ func Getfooditem_DB(Data string) (Data1 Model.Sendfood) {
 			&Vegetabledata.Foodname,
 			&Vegetabledata.Foodtype,
 			&Vegetabledata.Rate,
+			&Vegetabledata.Imageurl,
 		)
 
 		Vegarray = append(Vegarray, Vegetabledata)

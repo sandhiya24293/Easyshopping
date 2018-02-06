@@ -22,6 +22,7 @@ type Biriyani struct {
 	Foodname string
 	Foodtype string
 	Rate     int
+	Imageurl string
 }
 type Sendfood struct {
 	Data []Biriyani

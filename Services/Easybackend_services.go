@@ -247,6 +247,43 @@ func SendFruit(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Orgin", "*")
 	w.Write(Senddata)
 }
+func SendFood(w http.ResponseWriter, r *http.Request) {
+	var Response []Model.Catergorylist
+	var Datasend Model.Datares
+
+	var Data1 Model.Catergorylist
+
+	var Category = []string{"Chickenbiriyani", "Muttonbiriyani", "friedrice", "noodles", "Grill"}
+	for i, v := range Category {
+		Data1.CategoryName = v
+		if i == 0 {
+			Data1.Url = "http://176.111.105.86:8085/Chickenbiriyani"
+		} else if i == 1 {
+			Data1.Url = "http://176.111.105.86:8085/Muttonbiriyani"
+
+		} else if i == 2 {
+			Data1.Url = "http://176.111.105.86:8085/friedrice"
+
+		} else if i == 3 {
+			Data1.Url = "http://176.111.105.86:8085/noodles"
+
+		} else {
+			Data1.Url = "http://176.111.105.86:8085/Grill"
+
+		}
+		Response = append(Response, Data1)
+
+	}
+	Datasend.Data = Response
+	Senddata, err := json.Marshal(Datasend)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
 func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 	var Response []Model.Catergorylist
 	var Datasend Model.Datares
