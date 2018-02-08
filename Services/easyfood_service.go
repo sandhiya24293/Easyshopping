@@ -265,6 +265,24 @@ func Getownsinglefood(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Orgin", "*")
 	w.Write(Senddata)
 }
+
+func Getfoodsingledata(w http.ResponseWriter, r *http.Request) {
+	var Owner Foodorderid
+	err := json.NewDecoder(r.Body).Decode(&Owner)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Data := Db.Getownsinglefood_DB(Owner.Orderid)
+	Senddata, err := json.Marshal(Data)
+	if err != nil {
+		log.Println("Error -  INSTATNT DELIVERY", err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Access-Control-Allow-Orgin", "*")
+	w.Write(Senddata)
+}
 func TrackOwnfooddeliver(w http.ResponseWriter, r *http.Request) {
 	var Trackinstant Foodinstant
 	err := json.NewDecoder(r.Body).Decode(&Trackinstant)

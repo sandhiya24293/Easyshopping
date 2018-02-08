@@ -476,6 +476,28 @@ func Getownundeliverfood_DB() (FinalResponse []Model.ResOwnorderplacedAll) {
 
 }
 
+func Getownsinglefood_DB(Productid int) (Data Model.Responseownfood) {
+
+	rows, err := OpenConnection["Rentmatics"].Query("select * from owndeliver where id=?", Productid)
+	if err != nil {
+		log.Println("Error -DB: Get User", err)
+	}
+	for rows.Next() {
+
+		rows.Scan(
+
+			&Data.ID,
+			&Data.Dishname,
+			&Data.Rate,
+			&Data.Platecount,
+			&Data.Image,
+			&Data.Status,
+		)
+
+	}
+
+	return
+}
 func OrderOwnsinglefood_DB(ownfoodid int) (FinalResponse Model.ResOwnorderplacedAll1) {
 	var userid int
 	var Data Model.ResOwnorderplaced

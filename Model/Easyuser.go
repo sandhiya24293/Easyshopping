@@ -56,6 +56,12 @@ type Updateproduct struct {
 	Productrate500gm int
 	Productrate250gm int
 }
+type UpdateFoodproduct struct {
+	Foodid     int
+	Dishname   string
+	Dishrate   int
+	Platecount int
+}
 type Updatenonproduct struct {
 	Productid         int
 	Productname       string

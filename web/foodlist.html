@@ -30,19 +30,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           
            $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Fruits",
+               url: "http://localhost:8085/GetOwnfooddeliver",
                contentType:"application/json; charset=utf-8",
                
          
            success: function(responsee){
            var searchout = JSON.parse(responsee);
-           
+         
            var cardstring ="";
   if( searchout.Data != null  ){
 
      var property =searchout.Data.length +" Results Found ";
     for (k=0;k<searchout.Data.length;k++){
-       cardstring=cardstring+Getjavascript(searchout.Data[k].Vegid);
+       cardstring=cardstring+Getjavascript(searchout.Data[k].ID);
    }
 
   document.getElementById("listContainer").innerHTML=cardstring;
@@ -51,12 +51,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 for(j=0;j<searchout.Data.length;j++){
- var ID = searchout.Data[j].Vegid;
- var Vegetable =searchout.Data[j].Vegetable
- var rate1 = searchout.Data[j].Rate1kg;
- var rate2 = searchout.Data[j].Rate500gm;
- var rate3 =searchout.Data[j].Rate250gm;
- if ( searchout.Data[j].Display=="hide"){
+ var ID = searchout.Data[j].ID;
+ var Vegetable =searchout.Data[j].Dishname
+ var rate1 = searchout.Data[j].Rate;
+ var rate2 = searchout.Data[j].Platecount;
+
+ if ( searchout.Data[j].Status=="hide"){
  	
  	document.getElementById("showtab1"+ID).style.display = "none";
  	document.getElementById("showtab2"+ID).style.display = "inline";
@@ -64,7 +64,7 @@ for(j=0;j<searchout.Data.length;j++){
 $("#name"+ID).html(Vegetable);
 $("#rate1"+ID).html(rate1);
 $("#rate2"+ID).html(rate2);
-$("#rate3"+ID).html(rate3);
+
 
 }
 }
@@ -83,7 +83,7 @@ $("#rate3"+ID).html(rate3);
 "<td id='name"+Dyid+"'>@mdo</td>"+
 "<td id='rate1"+Dyid+"'>@mdo</td>"+
 "<td id='rate2"+Dyid+"'>@mdo</td>"+
- "<td id='rate3"+Dyid+"'>@mdo</td>"+
+ 
  "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button>"+
  "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>"+
 "<button id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
@@ -100,29 +100,28 @@ function Updaterate(Dyid){
 
 	$('#myModal').modal('show');
 	$("#showid").val(Dyid)
-
+     alert(Dyid)
 	var sendid ={
-		 "Getproductid" :Dyid,
+		 "Orderid" :Dyid,
 	}
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Getsingledata",
+      url: "http://localhost:8085/Getfoodsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
    success: function(responsee){
    	var searchout = JSON.parse(responsee);
-   	var product =searchout.Vegetable 
-   	var rate1 =searchout.Rate1kg 
-   	var rate2 =searchout.Rate500gm 
-   	var rate3 =searchout.Rate250gm 
-   	var picurl =searchout.Pictureurl 
+   	var product =searchout.Dishname 
+   	var rate1 =searchout.Rate 
+   	var rate2 =searchout.Platecount 
+   	
    	
 
  $("#names1").val(product);
 $("#rates1").val(rate1);
 $("#rates2").val(rate2);
-$("#rates3").val(rate3);
+
 
 
 
@@ -177,31 +176,26 @@ console.log("sucessfully updated")
 }
 
 function updateratefunc(){
-	var productid = document.getElementById("showid").value;
-	var Updatename = document.getElementById("names1").value;
-	var updaterate1 = document.getElementById("rates1").value;
-	var updaterate2 = document.getElementById("rates2").value;
-	var updaterate3 = document.getElementById("rates3").value;
-	
-	
+	var foodid = document.getElementById("showid").value;
+	var dishname = document.getElementById("names1").value;
+	var rate = document.getElementById("rates1").value;
+	var platecount = document.getElementById("rates2").value;
 	
 	
 	
 var Updateproduct ={
 		
-    "Productid":  parseInt(productid),
-	"Productname"   :Updatename,
-	"Productrate1kg"   :parseInt(updaterate1),
-	"Productrate500gm" :parseInt(updaterate2),
-	"Productrate250gm" :parseInt(updaterate3),
+    "Foodid":  parseInt(foodid),
+	"Dishname"   :dishname,
+	"Dishrate"   :parseInt(rate),
+	"Platecount" :parseInt(platecount),
 	
 	
- 
-}
+	}
 	
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateRate",
+      url: "http://localhost:8085/UpdatefoodRate",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -243,15 +237,7 @@ console.log("sucessfully updated")
 
 
 }
-	function Showform1(){
-		var x = document.getElementById("showdiv1");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-		
-	}
+
  </script>
 
 
@@ -282,7 +268,19 @@ tbody tr:nth-child(even){
     } else {
         x.style.display = "none";
     }
-		//document.getElementById("").style.display = "inline"
+		
+	}
+</script>
+
+<script>
+		function Showform1(){
+		var x = document.getElementById("showdiv1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+		
 	}
 </script>
 <!-- //lined-icons -->
@@ -305,10 +303,7 @@ tbody tr:nth-child(even){
 										<a href="home.html">
 										<h1 style="color:brown;margin-top:-5px"><b> E3 Shopping Admin</b></h1> </a>
 										
-
-
-											
-										</ul>
+</ul>
 									</div>
 								<li><a href="Changepassword.html" style="margin-left:40%;color:white">Change Password</a></li>
 
@@ -320,7 +315,6 @@ tbody tr:nth-child(even){
 					<div class="clearfix"></div>
 				<!-- /top_bg -->
 				</div>
-						
 				<div class="header_bg">
 						
 							<div class="header">
@@ -330,12 +324,11 @@ tbody tr:nth-child(even){
 									<div class="header_right">
 										<div class="rgt-bottom">
 											<div class="create_btn">
-								<a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px" ><b> + Add Product</b></a>
+								<a href="javascript:Showform()" style="width:200px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px" ><b> + Add Food</b></a>
 										</div>
 										<br>
-										<div class="create_btn">
-								<a href="javascript:Showform1()" style="width:240px;margin-top:78px;margin-left:15px;background-color:brown;color:white;font-size:18px" ><b> + Add Product(Non-veg)</b></a>
-										</div>
+										
+											
 											
 										
 										
@@ -346,40 +339,28 @@ tbody tr:nth-child(even){
 				</div>
 				</div>
 				</div>
-
-
-
+					<!-- //header-ends -->
+				
 				<!--content-->
 <div class="content">
 	<div style="display:none;" id="showdiv">
 		 <!-- Form -->
-	   <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  >
+	   <form action="http://localhost:8085/AddFoodproduct" method="POST" enctype="multipart/form-data"  >
        <div>
-    	<div style="visibility:hidden;">
-					<label >Product Name</label>
-				<input placeholder="Product name " type="text" tabindex="1" required="" autofocus="" name="getname"  class="validate" required>
+    	<!-- <div style="visibility:hidden;">
+					<label >Dish Name</label>
+				<input placeholder="Product name " type="text" tabindex="1" required="" autofocus=""  class="validate" required>
 					
-		</div>
+		</div> -->
 				<br>
 				<br>
-
-          <div >
-								<label >Product Type(*)</label>
-											<select  name="category"  style="border: 1px solid black;width:400px;height:30px" >
-                                             <option selected="true" disabled="disabled" value="Veg"></option>   
-												<option value="Veg">Vegetable</option>
-												<option value ="Leaves">Leaves</option>
-												<option value="Fruits">Fruits</option>
-												
-											</select>
-			</div>	
 
 
 
 										
 				<div>
-					<label>Product Name(*)</label>
-						<input  type="text" tabindex="3"  name="namevalue"   required="true" style="width:400px">
+					<label>Dish Name(*)</label>
+						<input  type="text" tabindex="3"  name="dish"   required="true" style="width:400px">
 		
 					
 				</div>
@@ -387,24 +368,20 @@ tbody tr:nth-child(even){
 
 				
 				<div>
-					<label>Rate 1KG(*)	</label>
-						<input  type="text" tabindex="3"  name="getrate1"   required="true" style="width:400px">
+					<label>Rate</label>
+						<input  type="text" tabindex="3"  name="rate"   required="true" style="width:400px">
 				
 				</div>
 				<div>
-					<label> Rate 500 GM(*)</label>
-						<input  type="text" tabindex="3"  required="true" name="getrate2" style="width:400px">
+					<label>Platecount</label>
+						<input  type="text" tabindex="3"  required="true" name="count" style="width:400px">
 					
 				</div>
-				<div>
-					<label> Rate 500 GM(*)</label>
-						<input  type="text" tabindex="3" required="true" name="getrate3" style="width:400px">
-					
-				</div>
+				
 				 <div class="file-field input-field">
       <div>
         <label>Upload product Image(*)</label>
-        <input type="file"  name="uploadfile" >
+        <input type="file"  name="uploadfile2" >
       </div>
 
       <br>
@@ -422,116 +399,20 @@ tbody tr:nth-child(even){
 			</div>
 
 
-	<div class="content">
-			
-			
-			<div style="display:none;" id="showdiv1">
-		 <!-- Form -->
-			    <form action="http://176.111.105.86:8085/NonAddproduct" method="POST" enctype="multipart/form-data"  >
-                <div >
-
-		
-
-                       <div>
-								<label >Meat Type(*)</label>
-											<select  name="meat"  style="border: 1px solid black;width:400px;height:30px" >
-                                             <option selected ="true" disabled="disabled" value="Veg"></option>   
-												<option value ="NonVeg">NonVeg</option>
-												<option value ="Turkey">Turkey</option>
-												<option value ="Seafood">Seafood</option>
-												<option value ="Chicken">Chicken</option>
-												<option value ="LegPiece">LegPiece</option>
-											</select>
-										</div>	
-										
 
 
-
-										
-				<div>
-					<label>Meat Name(*)</label>
-						<input  type="text" tabindex="3"  name="meatname"   required="true" style="width:400px">
-		
-					
-				</div>
-									
-
-				
-				<div>
-					<label>Rate 250KG(*)	</label>
-						<input  type="text" tabindex="3"  name="meatrate1"   required="true" style="width:400px">
-				
-				</div>
-				<div>
-					<label> Rate 500 GM(*)</label>
-						<input  type="text" tabindex="3"  required="true" name="meatrate2" style="width:400px">
-					
-				</div>
-				<div>
-					<label> Rate 1KG(*)</label>
-						<input  type="text" tabindex="3" required="true" name="meatrate3" style="width:400px">
-					
-				</div>
-				<div>
-					<label> Rate 1250KG(*)</label>
-						<input  type="text" tabindex="3" required="true" name="meatrate4" style="width:400px">
-					
-				</div>
-				<div>
-					<label> Rate 1500 GM(*)</label>
-						<input  type="text" tabindex="3" required="true" name="meatrate5" style="width:400px">
-					
-				</div>
-				<div>
-					<label> Rate 1750 GM(*)</label>
-						<input  type="text" tabindex="3" required="true" name="meatrate6" style="width:400px">
-					
-				</div>
-				<div>
-					<label> Rate 2KG(*)</label>
-						<input  type="text" tabindex="3" required="true" name="meatrate7" style="width:400px">
-					
-				</div>
-				 <div class="file-field input-field">
-      <div>
-        <label>Upload product Image(*)</label>
-        <input type="file"  name="uploadfile1" >
-      </div>
-
-      <br>
-     
-    </div>
-<button type="submit"  class='btn btn-success'>Submit</button>
-</div>
-
-				
-</form>
-
-
-			<!-- /Form -->
-		</div>
-			</div>
-
-					<!-- //header-ends -->
-				
-				<!--content-->
-			<div class="content">
-			
-			
-
-			</div>
-	<div class="content">
-				    		<div class="table-container">
+<div class="content">
+	<div class="table-container">
 			
 					<h2 style="color:black;visibility:hidden">Product List</h2>
 					<table class="table" class="table table-inverse">
   <thead>
     <tr>
      
-      <th>Fruits Name</th>
-      <th> Rate- 1KG</th>
-      <th> Rate- 500gms</th>
-      <th> Rate- 250gms </th>
+      <th>Dish Name</th>
+      <th> Rate</th>
+      <th>Plate Count</th>
+
 	  <th>Update Rate</th>
       <th>Delete</th>
     </tr>
@@ -546,29 +427,9 @@ tbody tr:nth-child(even){
 
 				
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		</div>
 </div>
-			
+				
 				<div class="sidebar-menu">
 					<header class="logo1">
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
@@ -627,6 +488,7 @@ tbody tr:nth-child(even){
 							  </div>
 							  <div class="clearfix"></div>	
 							</div>
+
 <div class="modal fade" id="myModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -643,14 +505,13 @@ tbody tr:nth-child(even){
      
       <div id="listContainer1">
       </div>
-        <h4 ><b>Edit Product Name</b><span class="lnr lnr-pencil"></span></h4>
+        <h4 ><b>Edit Dish Name</b><span class="lnr lnr-pencil"></span></h4>
          <input type="text" id="names1" style="color:black">
-         <h4 ><b>Edit Rate 1KG</b><span class="lnr lnr-pencil"></span></h4>
+         <h4 ><b>Edit Dish Rate </b><span class="lnr lnr-pencil"></span></h4>
          <input type="text" id="rates1" style="color:black">
-         <h4 ><b>Edit Rate 500GMS</b><span class="lnr lnr-pencil"></span></h4>
+         <h4 ><b>Edit Plate count</b><span class="lnr lnr-pencil"></span></h4>
          <input type="text" id="rates2" style="color:black">
-         <h4 ><b>Edit Rate 250GMS</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates3" style="color:black">
+         
          <br>
          <br>
          <button type="button"   data-dismiss="modal"  class='btn btn-success'  onclick="updateratefunc()">   Update

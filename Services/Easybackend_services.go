@@ -95,6 +95,36 @@ func Allproduct(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func AddFoodproduct(w http.ResponseWriter, r *http.Request) {
+
+	var Userdata Model.Ownfood
+	var plate string
+	var rate string
+	r.ParseMultipartForm(32 << 20)
+	r.ParseForm()
+
+	Userdata.Dishname = r.Form["dish"][0]
+	plate = r.Form["count"][0]
+	rate = r.Form["rate"][0]
+	Userdata.Platecount, _ = strconv.Atoi(plate)
+	Userdata.Rate, _ = strconv.Atoi(rate)
+
+	file, handler, err := r.FormFile("uploadfile2")
+
+	Pictureurl := "Productimage/" + handler.Filename
+
+	f, err := os.OpenFile(Pictureurl, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer f.Close()
+
+	io.Copy(f, file)
+	Userdata.Image = "http://localhost:8085/" + Pictureurl
+	Db.AddFood_DB(Userdata)
+
+}
 func NonAddproduct(w http.ResponseWriter, r *http.Request) {
 
 	var Userdata Model.NonAddproduct
@@ -144,6 +174,17 @@ func Editproduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Db.Updateproduct_DB(Editprod)
+
+}
+
+func UpdatefoodRate(w http.ResponseWriter, r *http.Request) {
+	var Editprod Model.UpdateFoodproduct
+	err := json.NewDecoder(r.Body).Decode(&Editprod)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Db.Updatefoodproduct_DB(Editprod)
 
 }
 func UpdateNonRate(w http.ResponseWriter, r *http.Request) {
@@ -300,12 +341,6 @@ func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 
 		} else if i == 2 {
 			Data1.Url = "http://176.111.105.86:8085/Legpiece"
-
-		} else if i == 3 {
-			Data1.Url = "http://176.111.105.86:8085/meattab1"
-
-		} else if i == 4 {
-			Data1.Url = "http://176.111.105.86:8085/meattab2"
 
 		} else {
 			Data1.Url = "http://176.111.105.86:8085/meattab3"

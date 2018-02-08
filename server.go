@@ -88,6 +88,7 @@ func Serve() bool {
 	router.HandleFunc("/Getallorder", Service.GetAllorder)
 	router.HandleFunc("/Addproduct", Service.Allproduct)
 	router.HandleFunc("/NonAddproduct", Service.NonAddproduct)
+	router.HandleFunc("/AddFoodproduct", Service.AddFoodproduct)
 
 	router.HandleFunc("/UpdateRate", Service.Editproduct)
 	router.HandleFunc("/UpdateNonRate", Service.UpdateNonRate)
@@ -98,6 +99,7 @@ func Serve() bool {
 	//router.HandleFunc("/Getsingleorderdata", Service.Getsingleorderdata)
 
 	router.HandleFunc("/UpdateProductstatus", Service.Updatestatus)
+
 	router.HandleFunc("/Getordertracking", Service.Getordertracking)
 	router.HandleFunc("/Getcount_service", Service.Getcount_service)
 
@@ -122,6 +124,9 @@ func Serve() bool {
 	router.HandleFunc("/GetOwnfooddeliver", Service.Getfooddeliver)
 	router.HandleFunc("/Ownfooddeliver", Service.Ownfooddeliver)
 	router.HandleFunc("/Orderowndeliver", Service.Orderowndeliver)
+	router.HandleFunc("/UpdatefoodRate", Service.UpdatefoodRate)
+	router.HandleFunc("/Getfoodsingledata", Service.Getfoodsingledata)
+
 	router.HandleFunc("/Getownundeliverfood", Service.Getownundeliverfood)
 	router.HandleFunc("/Getallundeliverfood", Service.Getallundeliverfood)
 	router.HandleFunc("/updateownfoodstatus", Service.Updateownfoodstatus)
