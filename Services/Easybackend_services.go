@@ -294,23 +294,11 @@ func SendFood(w http.ResponseWriter, r *http.Request) {
 
 	var Data1 Model.Catergorylist
 
-	var Category = []string{"Chickenbiriyani", "Muttonbiriyani", "friedrice", "noodles", "Grill"}
+	var Category = []string{"food"}
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
-			Data1.Url = "http://176.111.105.86:8085/Chickenbiriyani"
-		} else if i == 1 {
-			Data1.Url = "http://176.111.105.86:8085/Muttonbiriyani"
-
-		} else if i == 2 {
-			Data1.Url = "http://176.111.105.86:8085/friedrice"
-
-		} else if i == 3 {
-			Data1.Url = "http://176.111.105.86:8085/noodles"
-
-		} else {
-			Data1.Url = "http://176.111.105.86:8085/Grill"
-
+			Data1.Url = "http://176.111.105.86:8085/GetOwnfooddeliver"
 		}
 		Response = append(Response, Data1)
 
@@ -331,19 +319,14 @@ func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 
 	var Data1 Model.Catergorylist
 
-	var Category = []string{"Meat", "Sea food", "Frozen Chicken", "meattab1", "meattab2", "meattab3"}
+	var Category = []string{"Meat", "Sea food"}
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
 			Data1.Url = "http://176.111.105.86:8085/NonVeg"
-		} else if i == 1 {
-			Data1.Url = "http://176.111.105.86:8085/Seafood"
-
-		} else if i == 2 {
-			Data1.Url = "http://176.111.105.86:8085/Legpiece"
 
 		} else {
-			Data1.Url = "http://176.111.105.86:8085/meattab3"
+			Data1.Url = "http://176.111.105.86:8085/Seafood"
 
 		}
 		Response = append(Response, Data1)
