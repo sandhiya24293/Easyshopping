@@ -137,6 +137,26 @@ func Updatestatus_DB(Data Model.Updatestatus) {
 	}
 }
 
+func Updatestatusnon_DB(Data Model.Updatestatus) {
+
+	Queryupdate := "UPDATE easynonveg SET display ='" + Data.Productstatus + "' where easynonid= " + fmt.Sprintf("%v", Data.Productid)
+
+	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: update Profile", err, row)
+	}
+}
+
+func Updatefoodstatus_DB(Data Model.Updatestatus) {
+
+	Queryupdate := "UPDATE owndeliver SET status ='" + Data.Productstatus + "' where id= " + fmt.Sprintf("%v", Data.Productid)
+
+	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: update Profile", err, row)
+	}
+}
+
 func Getordertracking_DB() (Trackresult Model.Trackrespopnse) {
 	var Orderdaata Model.Gettrack
 	var Orderplaced Model.Ordertrackdata

@@ -208,6 +208,28 @@ func Updatestatus(w http.ResponseWriter, r *http.Request) {
 	Db.Updatestatus_DB(Upprod)
 
 }
+
+func UpdatenonvegProductstatus(w http.ResponseWriter, r *http.Request) {
+	var Upprod Model.Updatestatus
+	err := json.NewDecoder(r.Body).Decode(&Upprod)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Db.Updatestatusnon_DB(Upprod)
+
+}
+func Changefoodstatus(w http.ResponseWriter, r *http.Request) {
+	var Upprod Model.Updatestatus
+	err := json.NewDecoder(r.Body).Decode(&Upprod)
+	if err != nil {
+		log.Println("Error - INSTATNT DELIVERY", err)
+	}
+
+	Db.Updatefoodstatus_DB(Upprod)
+
+}
+
 func Getordertracking(w http.ResponseWriter, r *http.Request) {
 
 	Data := Db.Getordertracking_DB()
