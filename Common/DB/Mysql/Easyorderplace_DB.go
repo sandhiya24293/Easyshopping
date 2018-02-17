@@ -83,13 +83,13 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 	subject := "E3 NOTIFICATION - New Order Recieved!"
 	to := mail.NewEmail("Example User", "sandhiyabalakrishnan6@gmail.com")
 	plainTextContent := "sandhiyabalakrishnan6@gmail.com"
-	htmlContent := "<div>E3 NEW ORDER : </div><br> " +
+	htmlContent := "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
 		"<div style='font-style:sans-serif'>Loginid - " + Order.Loginid +
 		"</div><br><div style='font-style:sans-serif'>Date -" + Order.Date +
 		"</div><br><div style='font-style:sans-serif'>Total Amount -" + fmt.Sprintf("%v", Order.TotalAmount) +
 		"</div><br><div style='font-style:sans-serif'>No of Products -" + fmt.Sprintf("%v", Order.Noofproducts) +
-		"</div><br><table class='table' border='1' style='padding:3px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >Product</th><th>Rate</th><th>Weight</th></tr>" +
-		result + "</tbody></table>"
+		"</div><br><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >Product</th><th>Rate</th><th>Weight</th></tr>" +
+		result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
 
 	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
 	fmt.Println(message)
