@@ -23,7 +23,7 @@ func InsertnewUser(Userdata Model.EasyRegister, randomno string) (Userinfo Model
 	)
 	if Count == 0 {
 
-		row, err := OpenConnection["Rentmatics"].Exec("insert into easylogin (uniqueid,username,Loginid,password,phonenumber,emailid,logintype) values (?,?,?,?,?,?,?)", randomno, Userdata.Username, Userdata.Loginid, Userdata.Password, Userdata.Phonenumber, Userdata.Emailid, Userdata.Logintype)
+		row, err := OpenConnection["Rentmatics"].Exec("insert into easylogin (uniqueid,username,Loginid,password,emailid,phonenumber,logintype) values (?,?,?,?,?,?,?)", randomno, Userdata.Username, Userdata.Loginid, Userdata.Password, Userdata.Emailid, Userdata.Phonenumber, Userdata.Logintype)
 		if err != nil {
 			log.Println("Error -DB: User", err, row)
 		}
@@ -202,8 +202,8 @@ func EasyRetriveprofile(Loginid string) (Profileresp Model.Profileresponse) {
 			&Data.Uniueid,
 			&Data.Username,
 			&Data.Loginid,
-			&Data.Phonenumber,
 			&Data.Emailid,
+			&Data.Phonenumber,
 		)
 
 	}

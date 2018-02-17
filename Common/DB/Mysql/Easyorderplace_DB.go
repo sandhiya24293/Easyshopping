@@ -6,8 +6,12 @@ import (
 	"fmt"
 
 	"log"
+	"os"
+	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
 func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Placeorderresponse) {
@@ -61,7 +65,47 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 
 	}
 
+	var stringprod []string
+
+	for _, v := range Order.Products {
+		var getstring string
+		getstring = "<tr style='font-style:sans-serif'><td>" + v.Product + "</td><td>" + fmt.Sprintf("%v", v.Rate) + "</td><td>" + v.Weight + "</td></tr>"
+		stringprod = append(stringprod, getstring)
+	}
+
+	result := strings.Join(stringprod, "")
+	fmt.Println(stringprod)
+
+	sendkey := os.Getenv("SENDGRID_API_KEYGO")
+	fmt.Println(sendkey)
+
+	from := mail.NewEmail("E3 Shopping", "sandhiyabalakrishnan6@gmail.com")
+	subject := "E3 NOTIFICATION - New Order Recieved!"
+	to := mail.NewEmail("Example User", "sandhiyabalakrishnan6@gmail.com")
+	plainTextContent := "sandhiyabalakrishnan6@gmail.com"
+	htmlContent := "<div>E3 NEW ORDER : </div><br> " +
+		"<div style='font-style:sans-serif'>Loginid - " + Order.Loginid +
+		"</div><br><div style='font-style:sans-serif'>Date -" + Order.Date +
+		"</div><br><div style='font-style:sans-serif'>Total Amount -" + fmt.Sprintf("%v", Order.TotalAmount) +
+		"</div><br><div style='font-style:sans-serif'>No of Products -" + fmt.Sprintf("%v", Order.Noofproducts) +
+		"</div><br><table class='table' border='1' style='padding:3px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >Product</th><th>Rate</th><th>Weight</th></tr>" +
+		result + "</tbody></table>"
+
+	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
+	fmt.Println(message)
+	client := sendgrid.NewSendClient(sendkey)
+	response, err := client.Send(message)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(response.StatusCode)
+		fmt.Println(response.Body)
+		fmt.Println(response.Headers)
+
+	}
+
 	return Orderres
+
 }
 
 func OrderTracking_DB(loginid string) (Trackingres1 []Model.Trackingresponse) {
