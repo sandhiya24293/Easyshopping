@@ -77,22 +77,21 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 	fmt.Println(stringprod)
 
 	sendkey := os.Getenv("SENDGRID_API_KEYGO")
-	fmt.Println(sendkey)
 
-	from := mail.NewEmail("E3 Shopping", "sandhiyabalakrishnan6@gmail.com")
+	from := mail.NewEmail("E3 Shopping", "e3easyshopping@gmail.com")
 	subject := "E3 NOTIFICATION - New Order Recieved!"
-	to := mail.NewEmail("Example User", "sandhiyabalakrishnan6@gmail.com")
-	plainTextContent := "sandhiyabalakrishnan6@gmail.com"
+	to := mail.NewEmail("E3 Admin", "e3easyshopping@gmail.com")
+	plainTextContent := "e3easyshopping@gmail.com"
 	htmlContent := "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-		"<div style='font-style:sans-serif'>Loginid - " + Order.Loginid +
-		"</div><br><div style='font-style:sans-serif'>Date -" + Order.Date +
-		"</div><br><div style='font-style:sans-serif'>Total Amount -" + fmt.Sprintf("%v", Order.TotalAmount) +
-		"</div><br><div style='font-style:sans-serif'>No of Products -" + fmt.Sprintf("%v", Order.Noofproducts) +
-		"</div><br><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >Product</th><th>Rate</th><th>Weight</th></tr>" +
+		"<div style='font-style:sans-serif'>LOGINID - " + Order.Loginid +
+		"</div><div style='font-style:sans-serif'>DATE -" + Order.Date +
+		"</div><div style='font-style:sans-serif'>TOTAL AMOUNT -" + fmt.Sprintf("%v", Order.TotalAmount) +
+		"</div><div style='font-style:sans-serif'>NO OF PRODUCTS -" + fmt.Sprintf("%v", Order.Noofproducts) +
+		"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >PRODUCT</th><th>RATE</th><th>WEIGHT</th></tr>" +
 		result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
 
 	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-	fmt.Println(message)
+
 	client := sendgrid.NewSendClient(sendkey)
 	response, err := client.Send(message)
 	if err != nil {
