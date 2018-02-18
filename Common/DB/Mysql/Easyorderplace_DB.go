@@ -65,7 +65,7 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 		)
 
 	}
-	row3, err := OpenConnection["Rentmatics"].Query("select Adress  from  easyprofile where easyuserid=?", Orderid)
+	row3, err := OpenConnection["Rentmatics"].Query("select Adress  from  easyprofile where easyuserid=?", Orderuser.Userid)
 	if err != nil {
 		log.Println("Error -DB: Get User", err, row2)
 	}
