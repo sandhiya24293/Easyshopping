@@ -18,6 +18,7 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 
 	var Orderuser Model.Orderdata
 	var Productdata Model.Product
+	var Address string
 	rows, err := OpenConnection["Rentmatics"].Query("select userid,uniqueid,emailid,phonenumber	 from  easylogin where Loginid=?", Order.Loginid)
 	if err != nil {
 		log.Println("Error -DB: Get User", err)
@@ -64,6 +65,17 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 		)
 
 	}
+	row3, err := OpenConnection["Rentmatics"].Query("select Adress  from  easyprofile where easyuserid=?", Orderid)
+	if err != nil {
+		log.Println("Error -DB: Get User", err, row2)
+	}
+	for row3.Next() {
+
+		row3.Scan(
+			&Address,
+		)
+
+	}
 
 	var stringprod []string
 
@@ -84,10 +96,11 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 	plainTextContent := "e3easyshopping@gmail.com"
 	htmlContent := "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
 		"<div style='font-style:sans-serif'>LOGINID - " + Order.Loginid +
+		"<div style='font-style:sans-serif'>ADDRESS - " + Address +
 		"</div><div style='font-style:sans-serif'>DATE -" + Order.Date +
 		"</div><div style='font-style:sans-serif'>TOTAL AMOUNT -" + fmt.Sprintf("%v", Order.TotalAmount) +
 		"</div><div style='font-style:sans-serif'>NO OF PRODUCTS -" + fmt.Sprintf("%v", Order.Noofproducts) +
-		"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >PRODUCT</th><th>RATE</th><th>WEIGHT</th></tr>" +
+		"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >PRODUCT</th><th>RATE</th></tr>" +
 		result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
 
 	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
