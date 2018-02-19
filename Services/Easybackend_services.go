@@ -341,7 +341,7 @@ func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 
 	var Data1 Model.Catergorylist
 
-	var Category = []string{"Meat", "Frozenchicken", "Sea food"}
+	var Category = []string{"Meat", "Frozen", "Sea food"}
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
