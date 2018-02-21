@@ -133,7 +133,7 @@ function Updaterate(Dyid){
   }
     $.ajax({
       type: "POST",
-      url: "http://localhost:8085/Getnonsingledata",
+      url: "http://176.111.105.86:8085/Getnonsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
@@ -179,7 +179,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateProductstatus",
+      url: "http://176.111.105.86:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -198,7 +198,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateProductstatus",
+      url: "http://176.111.105.86:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -243,7 +243,7 @@ var Updateproduct ={
   
     $.ajax({
       type: "POST",
-      url: "http://localhost:8085/UpdateNonRate",
+      url: "http://176.111.105.86:8085/UpdateNonRate",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -274,7 +274,7 @@ function Addproduct(){
   }
    $.ajax({
       type: "POST",
-      url: "http://localhost:8085/Addproduct",
+      url: "http://176.111.105.86:8085/Addproduct",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Add),
 
@@ -386,7 +386,7 @@ tbody tr:nth-child(even){
 <div class="content">
   <div style="display:none;" id="showdiv">
      <!-- Form -->
-     <form action="http://localhost:8085/Addproduct" method="POST" enctype="multipart/form-data"  >
+     <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  >
        <div>
       <div style="visibility:hidden;">
           <label >Product Name</label>
@@ -460,7 +460,7 @@ tbody tr:nth-child(even){
       
       <div style="display:none;" id="showdiv1">
      <!-- Form -->
-          <form action="http://localhost:8085/NonAddproduct" method="POST" enctype="multipart/form-data"  >
+          <form action="http://176.111.105.86:8085/NonAddproduct" method="POST" enctype="multipart/form-data"  >
                 <div >
 
     
@@ -471,6 +471,7 @@ tbody tr:nth-child(even){
                                              <option selected ="true" disabled="disabled" value="Veg"></option>   
                         <option value ="NonVeg">NonVeg</option>
                         <option value ="Seafood">Seafood</option>
+                          <option value ="Frozenchicken">Frozen</option>
                       
                       </select>
                     </div>  
@@ -623,6 +624,7 @@ tbody tr:nth-child(even){
                     
                       <li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
                       <li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
+                      <li id="menu-academico-boletim" ><a href="legpiece.html">Frozen</a></li>
                      
                       
                       </ul>
