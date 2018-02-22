@@ -90,7 +90,7 @@ func Allproduct(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	Userdata.Pictureurl = "http://localhost:8085/" + Pictureurl
+	Userdata.Pictureurl = "http://176.111.105.86:8085/" + Pictureurl
 	Db.Addproduct_DB(Userdata)
 
 }
@@ -121,7 +121,7 @@ func AddFoodproduct(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	Userdata.Image = "http://localhost:8085/" + Pictureurl
+	Userdata.Image = "http://176.111.105.86:8085/" + Pictureurl
 	Db.AddFood_DB(Userdata)
 
 }
@@ -162,7 +162,7 @@ func NonAddproduct(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	Userdata.Pictureurl = "http://localhost:8085/" + Pictureurl
+	Userdata.Pictureurl = "http://176.111.105.86:8085/" + Pictureurl
 	Db.AddNonproduct_DB(Userdata)
 
 }
