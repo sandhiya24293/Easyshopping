@@ -110,6 +110,23 @@ func Updateproduct_DB(Editdata Model.Updateproduct) {
 	}
 }
 
+func Updateimage_DB(getid int, getimage string) {
+	Queryupdate := "UPDATE easyvegetables SET pictureurl='" + getimage + "'  where easyid= " + fmt.Sprintf("%v", getid)
+
+	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: update Profile", err, row)
+	}
+}
+func Updatenonimage_DB(getid int, getimage string) {
+	Queryupdate := "UPDATE easynonveg SET pictureurl='" + getimage + "'  where easynonid= " + fmt.Sprintf("%v", getid)
+
+	row, err := OpenConnection["Rentmatics"].Exec(Queryupdate)
+	if err != nil {
+		log.Println("Error -DB: update Profile", err, row)
+	}
+}
+
 func Updatefoodproduct_DB(Editdata Model.UpdateFoodproduct) {
 	Queryupdate := "UPDATE owndeliver SET dishname='" + Editdata.Dishname + "' , Rate= '" + fmt.Sprintf("%v", Editdata.Dishrate) + "' ,platecount= '" + fmt.Sprintf("%v", Editdata.Platecount) + "'  where id= " + fmt.Sprintf("%v", Editdata.Foodid)
 

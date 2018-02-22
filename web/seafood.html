@@ -36,7 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
          
            success: function(responsee){
            var searchout = JSON.parse(responsee);
-          
+         
            var cardstring ="";
   if( searchout.Data != null  ){
 
@@ -53,15 +53,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 for(j=0;j<searchout.Data.length;j++){
  var ID = searchout.Data[j].Vegid;
  var Vegetable =searchout.Data[j].Vegetable
- var rate1 = searchout.Data[j].Rate2kg;
- var rate2 = searchout.Data[j].Rate1750kg;
- var rate3 =searchout.Data[j].Rate1500kg;
- var rate4 = searchout.Data[j].Rate1250gm;
- var rate5 = searchout.Data[j].Rate1kg;
- var rate6 =searchout.Data[j].Rate500gm;
- var rate7 =searchout.Data[j].Rate250gm;
-
-
+ var rate1 = searchout.Data[j].Rate1kg;
+ var rate2 = searchout.Data[j].Rate500gm;
+ var rate3 =searchout.Data[j].Rate250gm;
  if ( searchout.Data[j].Display=="hide"){
   
   document.getElementById("showtab1"+ID).style.display = "none";
@@ -71,25 +65,13 @@ $("#name"+ID).html(Vegetable);
 $("#rate1"+ID).html(rate1);
 $("#rate2"+ID).html(rate2);
 $("#rate3"+ID).html(rate3);
-$("#rate4"+ID).html(rate4);
-$("#rate5"+ID).html(rate5);
-$("#rate6"+ID).html(rate6);
-$("#rate7"+ID).html(rate7);
 
 }
 }
 });
 });
 
-  function Showform1(){
-    var x = document.getElementById("showdiv1");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-    
-  }
+
 
  //For Slider
  function Getjavascript(Dyid){
@@ -102,17 +84,8 @@ $("#rate7"+ID).html(rate7);
 "<td id='rate1"+Dyid+"'>@mdo</td>"+
 "<td id='rate2"+Dyid+"'>@mdo</td>"+
  "<td id='rate3"+Dyid+"'>@mdo</td>"+
-"<td id='rate4"+Dyid+"'>@mdo</td>"+
- "<td id='rate5"+Dyid+"'>@mdo</td>"+
- "<td id='rate6"+Dyid+"'>@mdo</td>"+
-  "<td id='rate7"+Dyid+"'>@mdo</td>"+
-
-
-
-
-
- "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button>"+
- "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>"+
+ "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button></td>"+"<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updateimage("+Dyid+",this)'>Update Image</button></td>"+
+ "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button> "+
 "<button id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
 
 "</tr>";
@@ -133,42 +106,58 @@ function Updaterate(Dyid){
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Getnonsingledata",
+      url: "http://176.111.105.86:8085/Getsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
    success: function(responsee){
     var searchout = JSON.parse(responsee);
     var product =searchout.Vegetable 
-   var rates1 = searchout.Rate2kg;
- var rates2 = searchout.Rate1750kg;
- var rates3 =searchout.Rate1500kg;
- var rates4 = searchout.Rate1250gm;
- var rates5 = searchout.Rate1kg;
- var rates6 =searchout.Rate500gm;
- var rates7 =searchout.Rate250gm;
-    
+    var rate1 =searchout.Rate1kg 
+    var rate2 =searchout.Rate500gm 
+    var rate3 =searchout.Rate250gm 
+    var picurl =searchout.Pictureurl 
+     $("#names1").val(product);
+$("#rates1").val(rate1);
+$("#rates2").val(rate2);
+$("#rates3").val(rate3);
 
- $("#names1").val(product);
-$("#rates1").val(rates1);
-$("#rates2").val(rates2);
-$("#rates3").val(rates3);
-$("#rates4").val(rates4);
-$("#rates5").val(rates5);
-$("#rates6").val(rates6);
-$("#rates7").val(rates7);
+console.log("sucessfully updated")
+}
+});}
 
+    function Updateimage(Dyid){
+
+  $('#myModal1').modal('show');
+  $("#showid1").val(Dyid)
+
+  var sendid ={
+     "Getproductid" :Dyid,
+  }
+    $.ajax({
+      type: "POST",
+      url: "http://176.111.105.86:8085/Getsingledata",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(sendid),
+
+   success: function(responsee){
+    var searchout = JSON.parse(responsee);
+    var product =searchout.Vegetable 
+    var rate1 =searchout.Rate1kg 
+    var rate2 =searchout.Rate500gm 
+    var rate3 =searchout.Rate250gm 
+    var picurl =searchout.Pictureurl 
+    var id=searchout.Vegid
+   $("#names1").val(product);
+$("#rates1").val(rate1);
+$("#rates2").val(rate2);
+$("#rates3").val(rate3);
+$("#getid").val(id);
 
 
 console.log("sucessfully updated")
-
-
-
- }
-});
-    
-
-  }
+}
+});}
 
 
   function Hide(Dyid){
@@ -179,7 +168,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdatenonvegProductstatus",
+      url: "http://176.111.105.86:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -198,7 +187,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdatenonvegProductstatus",
+      url: "http://176.111.105.86:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -216,10 +205,6 @@ function updateratefunc(){
   var updaterate1 = document.getElementById("rates1").value;
   var updaterate2 = document.getElementById("rates2").value;
   var updaterate3 = document.getElementById("rates3").value;
-  var updaterate4 = document.getElementById("rates4").value;
-  var updaterate5 = document.getElementById("rates5").value;
-  var updaterate6 = document.getElementById("rates6").value;
-  var updaterate7 = document.getElementById("rates7").value;
   
   
   
@@ -228,14 +213,10 @@ function updateratefunc(){
 var Updateproduct ={
     
     "Productid":  parseInt(productid),
-    "Productname" :Updatename,
-  "Productrate2kg":    parseInt(updaterate1),
-   "Productrate1750gm":parseInt(updaterate2),
-   "Productrate1500gm":parseInt(updaterate3),
-   "Productrate1250gm":parseInt(updaterate4),
-   "Productrate1kg":   parseInt(updaterate5),
-   "Productrate500gm": parseInt(updaterate6),
-   "Productrate250gm": parseInt(updaterate7),
+  "Productname"   :Updatename,
+  "Productrate1kg"   :parseInt(updaterate1),
+  "Productrate500gm" :parseInt(updaterate2),
+  "Productrate250gm" :parseInt(updaterate3),
   
   
  
@@ -243,7 +224,7 @@ var Updateproduct ={
   
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateNonRate",
+      url: "http://176.111.105.86:8085/UpdateRate",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -257,7 +238,7 @@ window.location.reload(true);
 
 
 function Addproduct(){
-
+  alert("inside");
   var Categorylist = document.getElementById("category").value;
   var Productname = document.getElementById("name").value;
   var Productrate = document.getElementById("rate").value;
@@ -316,7 +297,19 @@ tbody tr:nth-child(even){
     } else {
         x.style.display = "none";
     }
-    //document.getElementById("").style.display = "inline"
+    
+  }
+</script>
+
+<script>
+    function Showform1(){
+    var x = document.getElementById("showdiv1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    
   }
 </script>
 <!-- //lined-icons -->
@@ -339,10 +332,7 @@ tbody tr:nth-child(even){
                     <a href="home.html">
                     <h1 style="color:brown;margin-top:-5px"><b> E3 Shopping Admin</b></h1> </a>
                     
-
-
-                      
-                    </ul>
+</ul>
                   </div>
                 <li><a href="Changepassword.html" style="margin-left:40%;color:white">Change Password</a></li>
 
@@ -363,12 +353,13 @@ tbody tr:nth-child(even){
                   <div class="header_right">
                     <div class="rgt-bottom">
                       <div class="create_btn">
-                <a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px" ><b> + Add Product</b></a>
+                <a href="javascript:Showform()" style="width:200px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px" ><b> + Add Product(veg)</b></a>
                     </div>
                     <br>
                     <div class="create_btn">
                 <a href="javascript:Showform1()" style="width:240px;margin-top:78px;margin-left:15px;background-color:brown;color:white;font-size:18px" ><b> + Add Product(Non-veg)</b></a>
                     </div>
+                      
                       
                     
                     
@@ -377,11 +368,10 @@ tbody tr:nth-child(even){
             </div>
           
         </div>
+        </div>
+        </div>
           <!-- //header-ends -->
         
-        <!--content-->
-     
-  
         <!--content-->
 <div class="content">
   <div style="display:none;" id="showdiv">
@@ -471,11 +461,11 @@ tbody tr:nth-child(even){
                                              <option selected ="true" disabled="disabled" value="Veg"></option>   
                         <option value ="NonVeg">NonVeg</option>
                         <option value ="Seafood">Seafood</option>
-                          <option value ="Frozenchicken">Frozen</option>
-                       
+                        <option value ="Frozenchicken">Frozen</option>
+                        
                       </select>
-                    </div>      
-                   
+                    </div>  
+                    
 
 
 
@@ -561,6 +551,18 @@ tbody tr:nth-child(even){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="content">
                 <div class="table-container">
       
@@ -569,15 +571,12 @@ tbody tr:nth-child(even){
   <thead>
     <tr>
      
-      <th>Meat Name</th>
-      <th> Rate- 2KG</th>
-      <th> Rate- 1750KG</th>
-      <th> Rate- 1500KG</th>
-      <th> Rate- 1250KG</th>
+      <th>Vegetable Name</th>
       <th> Rate- 1KG</th>
       <th> Rate- 500gms</th>
       <th> Rate- 250gms </th>
     <th>Update Rate</th>
+     <th>Edit Image</th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -593,7 +592,7 @@ tbody tr:nth-child(even){
 </div>
     </div>
 </div>
-       
+        
         <div class="sidebar-menu">
           <header class="logo1">
             <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
@@ -670,23 +669,15 @@ tbody tr:nth-child(even){
       </div>
         <h4 ><b>Edit Product Name</b><span class="lnr lnr-pencil"></span></h4>
          <input type="text" id="names1" style="color:black">
-         <h4 ><b>Edit Rate 2KG</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates1" style="color:black">
-          <h4 ><b>Edit Rate 1750KG</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates2" style="color:black">
-          <h4 ><b>Edit Rate 1500KG</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates3" style="color:black">
-          <h4 ><b>Edit Rate 1250KG</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates4" style="color:black">
          <h4 ><b>Edit Rate 1KG</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates5" style="color:black">
+         <input type="text" id="rates1" style="color:black">
          <h4 ><b>Edit Rate 500GMS</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates6" style="color:black">
+         <input type="text" id="rates2" style="color:black">
          <h4 ><b>Edit Rate 250GMS</b><span class="lnr lnr-pencil"></span></h4>
-         <input type="text" id="rates7" style="color:black">
+         <input type="text" id="rates3" style="color:black">
          <br>
          <br>
-         <button type="button"   data-dismiss="modal"  class='btn btn-success'  onclick="updateratefunc()">Update
+         <button type="button"   data-dismiss="modal"  class='btn btn-success'  onclick="updateratefunc()">   Update
         </button>
           
       </div>
@@ -694,6 +685,50 @@ tbody tr:nth-child(even){
   </div>
 </div>
 </div>
+
+<div class="modal fade" id="myModal1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:black;color:white">
+        <h3 class="modal-title" id="exampleModalLabel"><b>Update Product Image</b></h3>
+        <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top:-30px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body" style="background-color:brown;color:white">
+       <div class="file-field input-field">
+     <form action="http://176.111.105.86:8085/NonEditimage" method="POST" enctype="multipart/form-data"  >
+     <div><input  type="text" id="getid" name="getidd" style="display:none"></div>
+      <div>
+        <label>Upload product Image</label>
+        <input type="file"  name="upload1" >
+      </div>
+      <br>
+      <div>
+      <button type="submit"  class='btn btn-success'>Submit</button>
+</div>
+      </form>
+
+      <br>
+     
+    </div>
+     
+          
+      </div>
+     
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
 
 <script>
               var toggle = true;

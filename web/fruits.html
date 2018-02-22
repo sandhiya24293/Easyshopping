@@ -36,7 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
          
            success: function(responsee){
            var searchout = JSON.parse(responsee);
-           
+         
            var cardstring ="";
   if( searchout.Data != null  ){
 
@@ -84,8 +84,8 @@ $("#rate3"+ID).html(rate3);
 "<td id='rate1"+Dyid+"'>@mdo</td>"+
 "<td id='rate2"+Dyid+"'>@mdo</td>"+
  "<td id='rate3"+Dyid+"'>@mdo</td>"+
- "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button>"+
- "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>"+
+ "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button></td>"+"<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updateimage("+Dyid+",this)'>Update Image</button></td>"+
+ "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>	"+
 "<button id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
 
 "</tr>";
@@ -117,24 +117,47 @@ function Updaterate(Dyid){
    	var rate2 =searchout.Rate500gm 
    	var rate3 =searchout.Rate250gm 
    	var picurl =searchout.Pictureurl 
-   	
-
- $("#names1").val(product);
+   	 $("#names1").val(product);
 $("#rates1").val(rate1);
 $("#rates2").val(rate2);
 $("#rates3").val(rate3);
 
+console.log("sucessfully updated")
+}
+});}
+
+	  function Updateimage(Dyid){
+
+	$('#myModal1').modal('show');
+	$("#showid1").val(Dyid)
+
+	var sendid ={
+		 "Getproductid" :Dyid,
+	}
+	  $.ajax({
+      type: "POST",
+      url: "http://176.111.105.86:8085/Getsingledata",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(sendid),
+
+   success: function(responsee){
+   	var searchout = JSON.parse(responsee);
+   	var product =searchout.Vegetable 
+   	var rate1 =searchout.Rate1kg 
+   	var rate2 =searchout.Rate500gm 
+   	var rate3 =searchout.Rate250gm 
+   	var picurl =searchout.Pictureurl 
+   	var id=searchout.Vegid
+   $("#names1").val(product);
+$("#rates1").val(rate1);
+$("#rates2").val(rate2);
+$("#rates3").val(rate3);
+$("#getid").val(id);
 
 
 console.log("sucessfully updated")
-
-
-
- }
-});
-		
-
-	}
+}
+});}
 
 
 	function Hide(Dyid){
@@ -243,15 +266,7 @@ console.log("sucessfully updated")
 
 
 }
-	function Showform1(){
-		var x = document.getElementById("showdiv1");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-		
-	}
+
  </script>
 
 
@@ -282,7 +297,19 @@ tbody tr:nth-child(even){
     } else {
         x.style.display = "none";
     }
-		//document.getElementById("").style.display = "inline"
+		
+	}
+</script>
+
+<script>
+		function Showform1(){
+		var x = document.getElementById("showdiv1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+		
 	}
 </script>
 <!-- //lined-icons -->
@@ -305,10 +332,7 @@ tbody tr:nth-child(even){
 										<a href="home.html">
 										<h1 style="color:brown;margin-top:-5px"><b> E3 Shopping Admin</b></h1> </a>
 										
-
-
-											
-										</ul>
+</ul>
 									</div>
 								<li><a href="Changepassword.html" style="margin-left:40%;color:white">Change Password</a></li>
 
@@ -320,7 +344,6 @@ tbody tr:nth-child(even){
 					<div class="clearfix"></div>
 				<!-- /top_bg -->
 				</div>
-						
 				<div class="header_bg">
 						
 							<div class="header">
@@ -330,12 +353,13 @@ tbody tr:nth-child(even){
 									<div class="header_right">
 										<div class="rgt-bottom">
 											<div class="create_btn">
-								<a href="javascript:Showform()" style="width:150px;height:40px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px" ><b> + Add Product</b></a>
+								<a href="javascript:Showform()" style="width:200px;margin-top:38px;margin-left:100px;background-color:brown;color:white;font-size:18px" ><b> + Add Product(veg)</b></a>
 										</div>
 										<br>
 										<div class="create_btn">
 								<a href="javascript:Showform1()" style="width:240px;margin-top:78px;margin-left:15px;background-color:brown;color:white;font-size:18px" ><b> + Add Product(Non-veg)</b></a>
 										</div>
+											
 											
 										
 										
@@ -346,9 +370,8 @@ tbody tr:nth-child(even){
 				</div>
 				</div>
 				</div>
-
-
-
+					<!-- //header-ends -->
+				
 				<!--content-->
 <div class="content">
 	<div style="display:none;" id="showdiv">
@@ -438,8 +461,8 @@ tbody tr:nth-child(even){
                                              <option selected ="true" disabled="disabled" value="Veg"></option>   
 												<option value ="NonVeg">NonVeg</option>
 												<option value ="Seafood">Seafood</option>
-													<option value ="Frozenchicken">Frozen</option>
-										
+												<option value ="Frozenchicken">Frozen</option>
+												
 											</select>
 										</div>	
 										
@@ -511,14 +534,35 @@ tbody tr:nth-child(even){
 		</div>
 			</div>
 
-					<!-- //header-ends -->
-				
-				<!--content-->
-			<div class="content">
-			
-			
 
-			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<div class="content">
 				    		<div class="table-container">
 			
@@ -527,11 +571,12 @@ tbody tr:nth-child(even){
   <thead>
     <tr>
      
-      <th>Fruits Name</th>
+      <th>Vegetable Name</th>
       <th> Rate- 1KG</th>
       <th> Rate- 500gms</th>
       <th> Rate- 250gms </th>
 	  <th>Update Rate</th>
+	   <th>Edit Image</th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -545,29 +590,9 @@ tbody tr:nth-child(even){
 
 				
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		</div>
 </div>
-			
+				
 				<div class="sidebar-menu">
 					<header class="logo1">
 						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
@@ -599,7 +624,8 @@ tbody tr:nth-child(even){
 											<li id="menu-academico-boletim" ><a href="nonveg.html">Non-Veg</a></li>
 											<li id="menu-academico-boletim" ><a href="seafood.html">Sea Food</a></li>
 											<li id="menu-academico-boletim" ><a href="legpiece.html">Frozen</a></li>
-																					
+											
+											
 										  </ul>
 										</li>
 
@@ -623,8 +649,8 @@ tbody tr:nth-child(even){
 								</div>
 							  </div>
 							  <div class="clearfix"></div>	
-							</div>	
 							</div>
+
 <div class="modal fade" id="myModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -659,6 +685,50 @@ tbody tr:nth-child(even){
   </div>
 </div>
 </div>
+
+<div class="modal fade" id="myModal1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:black;color:white">
+        <h3 class="modal-title" id="exampleModalLabel"><b>Update Product Image</b></h3>
+        <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top:-30px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body" style="background-color:brown;color:white">
+       <div class="file-field input-field">
+     <form action="http://176.111.105.86:8085/Editimage" method="POST" enctype="multipart/form-data"  >
+     <div><input  type="text" id="getid" name="getidd" style="display:none"></div>
+      <div>
+        <label>Upload product Image</label>
+        <input type="file"  name="upload1" >
+      </div>
+      <br>
+      <div>
+      <button type="submit"  class='btn btn-success'>Submit</button>
+</div>
+      </form>
+
+      <br>
+     
+    </div>
+     
+          
+      </div>
+     
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
 
 <script>
 							var toggle = true;

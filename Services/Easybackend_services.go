@@ -177,6 +177,57 @@ func Editproduct(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func Editimage(w http.ResponseWriter, r *http.Request) {
+
+	r.ParseMultipartForm(32 << 20)
+	r.ParseForm()
+
+	getid := r.Form["getidd"][0]
+
+	file, handler, err := r.FormFile("upload1")
+
+	Pictureurl := "Productimage/" + handler.Filename
+	getid1, _ := strconv.Atoi(getid)
+
+	f, err := os.OpenFile(Pictureurl, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer f.Close()
+
+	io.Copy(f, file)
+	Pictureurl = "http://176.111.105.86:8085/" + Pictureurl
+
+	Db.Updateimage_DB(getid1, Pictureurl)
+
+}
+
+func NonEditimage(w http.ResponseWriter, r *http.Request) {
+
+	r.ParseMultipartForm(32 << 20)
+	r.ParseForm()
+
+	getid := r.Form["getidd"][0]
+
+	file, handler, err := r.FormFile("upload1")
+
+	Pictureurl := "Productimage/" + handler.Filename
+	getid1, _ := strconv.Atoi(getid)
+
+	f, err := os.OpenFile(Pictureurl, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer f.Close()
+
+	io.Copy(f, file)
+	Pictureurl = "http://176.111.105.86:8085/" + Pictureurl
+
+	Db.Updatenonimage_DB(getid1, Pictureurl)
+
+}
 func UpdatefoodRate(w http.ResponseWriter, r *http.Request) {
 	var Editprod Model.UpdateFoodproduct
 	err := json.NewDecoder(r.Body).Decode(&Editprod)

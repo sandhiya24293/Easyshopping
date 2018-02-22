@@ -91,6 +91,8 @@ func Serve() bool {
 	router.HandleFunc("/AddFoodproduct", Service.AddFoodproduct)
 
 	router.HandleFunc("/UpdateRate", Service.Editproduct)
+	router.HandleFunc("/Editimage", Service.Editimage)
+	router.HandleFunc("/NonEditimage", Service.NonEditimage)
 	router.HandleFunc("/UpdateNonRate", Service.UpdateNonRate)
 	router.HandleFunc("/Getsingledata", Service.GetSingleproduct)
 	router.HandleFunc("/Getnonsingledata", Service.Getnonsingledata)
