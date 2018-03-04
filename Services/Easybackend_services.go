@@ -73,14 +73,13 @@ func Allproduct(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(Userdata.Productname)
 
 	Productrate1kg := r.Form["getrate1"][0]
-	Productrate500kg := r.Form["getrate1"][0]
-	Productrate250gm := r.Form["getrate3"][0]
+
 	file, handler, err := r.FormFile("uploadfile")
 
 	Pictureurl := "Productimage/" + handler.Filename
 	Userdata.Productrate1kg, _ = strconv.Atoi(Productrate1kg)
-	Userdata.Productrate500kg, _ = strconv.Atoi(Productrate500kg)
-	Userdata.Productrate250gm, _ = strconv.Atoi(Productrate250gm)
+	Userdata.Productrate500kg = Userdata.Productrate1kg / 2
+	Userdata.Productrate250gm = Userdata.Productrate1kg / 4
 
 	f, err := os.OpenFile(Pictureurl, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
@@ -136,23 +135,19 @@ func NonAddproduct(w http.ResponseWriter, r *http.Request) {
 	Userdata.Productname = r.Form["meatname"][0]
 	fmt.Println(Userdata.Productname)
 
-	Productrate1kg := r.Form["meatrate3"][0]
-	Productrate500kg := r.Form["meatrate2"][0]
-	Productrate250gm := r.Form["meatrate1"][0]
-	Productrate1250gm := r.Form["meatrate4"][0]
-	Productrate1500gm := r.Form["meatrate5"][0]
-	Productrate1750gm := r.Form["meatrate6"][0]
 	Productrate2000gm := r.Form["meatrate7"][0]
+
 	file, handler, err := r.FormFile("uploadfile1")
 
 	Pictureurl := "Productimage/" + handler.Filename
-	Userdata.Productrate1kg, _ = strconv.Atoi(Productrate1kg)
-	Userdata.Productrate500kg, _ = strconv.Atoi(Productrate500kg)
-	Userdata.Productrate250gm, _ = strconv.Atoi(Productrate250gm)
-	Userdata.Productrate1250gm, _ = strconv.Atoi(Productrate1250gm)
-	Userdata.Productrate1500gm, _ = strconv.Atoi(Productrate1500gm)
-	Userdata.Productrate1750gm, _ = strconv.Atoi(Productrate1750gm)
+
 	Userdata.Productrate2000gm, _ = strconv.Atoi(Productrate2000gm)
+	Userdata.Productrate1kg = Userdata.Productrate2000gm / 2
+	Userdata.Productrate500kg = Userdata.Productrate1kg / 2
+	Userdata.Productrate250gm = Userdata.Productrate500kg / 2
+	Userdata.Productrate1250gm = Userdata.Productrate250gm * 5
+	Userdata.Productrate1500gm = Userdata.Productrate500kg * 3
+	Userdata.Productrate1750gm = Userdata.Productrate250gm * 7
 
 	f, err := os.OpenFile(Pictureurl, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
