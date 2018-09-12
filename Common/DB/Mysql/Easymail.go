@@ -52,30 +52,29 @@ func MailOrder(t interface{}, addr string, number string) {
 		var stringprod []string
 		for _, v := range Order.Products {
 			var getstring string
-			getstring = "<tr style='font-style:sans-serif'><td>" + v.Product + "</td><td>" + fmt.Sprintf("%v", v.Rate) + "</td><td>" + v.Weight + "</td></tr>"
+			getstring = "\nPRODUCT - " + v.Product + "\nRATE :" + fmt.Sprintf("%v", v.Rate) + "\nWEIGHT :" + v.Weight
 			stringprod = append(stringprod, getstring)
 		}
 		result := strings.Join(stringprod, "")
 		fmt.Println(stringprod)
 
-		htmlContent = "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-			"<div style='font-style:sans-serif'>LOGINID - " + Order.Loginid +
-			"<div style='font-style:sans-serif'>ADDRESS - " + addr +
-			"</div><div style='font-style:sans-serif'>DATE -" + Order.Date +
-			"</div><div style='font-style:sans-serif'>TOTAL AMOUNT -" + fmt.Sprintf("%v", Order.TotalAmount) +
-			"</div><div style='font-style:sans-serif'>NO OF PRODUCTS -" + fmt.Sprintf("%v", Order.Noofproducts) +
-			"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >PRODUCT</th><th>RATE</th><th>WEIGHT</th></tr>" +
-			result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
+		htmlContent = "E3 NEW ORDER RECIEVED : " +
+			"\n\nLOGINID - " + Order.Loginid +
+			"\nADDRESS - " + addr +
+			"\nDATE - " + Order.Date +
+			"\nTOTAL AMOUNT - " + fmt.Sprintf("%v", Order.TotalAmount) + result +
+
+			"\n\n Please Check E3 Admin Panel for more detail ...!"
 
 	case Model.Easyinstance:
 		Instancedata := t1
-		htmlContent = "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-			"<div style='font-style:sans-serif'>NAME  - " + Instancedata.Deliveryname +
-			"<div style='font-style:sans-serif'>ADDRESS - " + Instancedata.Deliveryaddress +
-			"</div><div style='font-style:sans-serif'>NUMBER -" + Instancedata.Deliverynumber +
-			"</div><div style='font-style:sans-serif'>PRODUCT  -" + Instancedata.Productname +
-			"</div><div style='font-style:sans-serif'>MESSAGE" + Instancedata.Message +
-			"</div></tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
+		htmlContent = "\n\nE3 NEW ORDER : " +
+			"\n\nNAME  - " + Instancedata.Deliveryname +
+			"\nADDRESS - " + Instancedata.Deliveryaddress +
+			"\nNUMBER -" + Instancedata.Deliverynumber +
+			"\nPRODUCT  -" + Instancedata.Productname +
+			"\nMESSAGE" + Instancedata.Message +
+			"\n\nPlease Check E3 Admin Panel for more detail ...!"
 
 	case Model.Ownorderplaced:
 		getorder := t1
@@ -83,39 +82,36 @@ func MailOrder(t interface{}, addr string, number string) {
 
 		for _, Food := range getorder.Food {
 			var getstring string
-			getstring = "<tr style='font-style:sans-serif'><td>" + Food.Dishname + "</td><td>" + fmt.Sprintf("%v", Food.Rate) + "</td><td>" + fmt.Sprintf("%v", Food.Platecount) + "</td></tr>"
+			getstring = "\nDISH : " + Food.Dishname + "\nRATE : " + fmt.Sprintf("%v", Food.Rate) + "\nPLATECOUNT" + fmt.Sprintf("%v", Food.Platecount)
 			stringprod = append(stringprod, getstring)
 		}
 		result := strings.Join(stringprod, "")
 
-		htmlContent = "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-			"<div style='font-style:sans-serif'>LOGINID - " + getorder.Loginid +
-			"<div style='font-style:sans-serif'>ADDRESS - " + addr +
-			"</div><div style='font-style:sans-serif'>NUMBER -" + number +
-			"</div><div style='font-style:sans-serif'>NO Of ITEMS -" + fmt.Sprintf("%v", getorder.Noofitems) +
-			"</div><div style='font-style:sans-serif'>TOTAL AMOUNT -" + fmt.Sprintf("%v", getorder.TotalAmount) +
-
-			"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >DISH </th><th>RATE</th><th>PLATECOUNT</th></tr>" +
-			result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
+		htmlContent = "E3 NEW ORDER : " +
+			"\n\nLOGINID - " + getorder.Loginid +
+			"\nADDRESS - " + addr +
+			"\nNUMBER -" + number +
+			"\nNO Of ITEMS -" + fmt.Sprintf("%v", getorder.Noofitems) +
+			"\nTOTAL AMOUNT -" + fmt.Sprintf("%v", getorder.TotalAmount) +
+			result + "\nPlease Check E3 Admin Panel for more detail ...!"
 
 	case Model.Fooddelivery:
 		Instancedata := t1
 		var stringprod []string
 		for _, Food := range Instancedata.Food {
 			var getstring string
-			getstring = "<tr style='font-style:sans-serif'><td>" + Food.Foodname + "</td><td>" + fmt.Sprintf("%v", Food.Quantity) + "</td></tr>"
+			getstring = "\nFOOD - " + Food.Foodname + "\nQUANTITY - " + fmt.Sprintf("%v", Food.Quantity)
 			stringprod = append(stringprod, getstring)
 		}
 		result := strings.Join(stringprod, "")
 
-		htmlContent = "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-			"<div style='font-style:sans-serif'>LOGINID - " + Instancedata.Loginid +
-			"<div style='font-style:sans-serif'>ADDRESS - " + Instancedata.Address +
-			"</div><div style='font-style:sans-serif'>NUMBER -" + Instancedata.Mobilenumber +
-			"</div><div style='font-style:sans-serif'>HOTEL NAME -" + Instancedata.Hotelname +
+		htmlContent = "\n\nE3 NEW ORDER :  " +
+			"\nLOGINID - " + Instancedata.Loginid +
+			"\nADDRESS - " + Instancedata.Address +
+			"\nNUMBER -" + Instancedata.Mobilenumber +
+			"\nHOTEL NAME -" + Instancedata.Hotelname +
 
-			"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >FOOD </th><th>QUANTITY</th></tr>" +
-			result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
+			result + "\nPlease Check E3 Admin Panel for more detail ...!"
 
 	default:
 		_ = t
@@ -123,7 +119,7 @@ func MailOrder(t interface{}, addr string, number string) {
 	}
 	mail := Mail{}
 	mail.Sender = "Rentmatics@gmail.com"
-	mail.To = []string{"sandhiyabalakrishnan6@gmail.com"}
+	mail.To = []string{"e3easyshopping@gmail.com"}
 	//mail.Cc = []string{"mnp@gmail.com"}
 	//mail.Bcc = []string{"a69@outlook.com"}
 	mail.Subject = "E3 NOTIFICATION - New Order Recieved!"
