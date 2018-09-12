@@ -26,7 +26,7 @@ func Foodinsert_DB(Instancedata Model.Fooddelivery) string {
 			log.Println("Error -DB: Executive insert picture", err, rows)
 		}
 	}
-	Mail(Instancedata, "Dummyaddress", "dummynumber")
+	MailOrder(Instancedata, "Dummyaddress", "dummynumber")
 
 	return "Success"
 
@@ -387,7 +387,7 @@ func Orderfooddeliver_DB(getorder Model.Ownorderplaced) string {
 
 	}
 
-	Mail(getorder, Address, Number)
+	MailOrder(getorder, Address, Number)
 
 	return "success"
 

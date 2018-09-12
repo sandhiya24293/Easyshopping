@@ -15,7 +15,7 @@ func Instance_DB(Instancedata Model.Easyinstance, Uniqueid string) string {
 	if err != nil {
 		log.Println("Error -DB: update Profile", err, row)
 	}
-	Mail(Instancedata, "Dummyaddress", "dummynumber")
+	MailOrder(Instancedata, "Dummyaddress", "dummynumber")
 
 	return "Success"
 

@@ -6,12 +6,8 @@ import (
 	"fmt"
 
 	"log"
-	"os"
-	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/sendgrid/sendgrid-go"
-	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
 func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Placeorderresponse) {
@@ -76,108 +72,12 @@ func Orderplaced_DB(Order Model.Orderplaced, Billid string) (Orderres Model.Plac
 		)
 
 	}
-	Mail(Order, Address, "dummynumber")
+	MailOrder(Order, Address, "dummynumber")
 
 	return Orderres
 
 }
-func Mail(t interface{}, addr string, number string) {
-	var htmlContent string
-	sendkey := os.Getenv("SENDGRID_API_KEYGO")
-	from := mail.NewEmail("E3 Shopping", "e3easyshopping@gmail.com")
-	subject := "E3 NOTIFICATION - New Order Recieved!"
-	to := mail.NewEmail("E3 Admin", "e3easyshopping@gmail.com")
-	plainTextContent := "e3easyshopping@gmail.com"
 
-	switch t1 := t.(type) {
-	case Model.Orderplaced:
-		Order := t1
-		var stringprod []string
-		for _, v := range Order.Products {
-			var getstring string
-			getstring = "<tr style='font-style:sans-serif'><td>" + v.Product + "</td><td>" + fmt.Sprintf("%v", v.Rate) + "</td><td>" + v.Weight + "</td></tr>"
-			stringprod = append(stringprod, getstring)
-		}
-		result := strings.Join(stringprod, "")
-		fmt.Println(stringprod)
-
-		htmlContent = "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-			"<div style='font-style:sans-serif'>LOGINID - " + Order.Loginid +
-			"<div style='font-style:sans-serif'>ADDRESS - " + addr +
-			"</div><div style='font-style:sans-serif'>DATE -" + Order.Date +
-			"</div><div style='font-style:sans-serif'>TOTAL AMOUNT -" + fmt.Sprintf("%v", Order.TotalAmount) +
-			"</div><div style='font-style:sans-serif'>NO OF PRODUCTS -" + fmt.Sprintf("%v", Order.Noofproducts) +
-			"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >PRODUCT</th><th>RATE</th><th>WEIGHT</th></tr>" +
-			result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
-
-	case Model.Easyinstance:
-		Instancedata := t1
-		htmlContent = "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-			"<div style='font-style:sans-serif'>NAME  - " + Instancedata.Deliveryname +
-			"<div style='font-style:sans-serif'>ADDRESS - " + Instancedata.Deliveryaddress +
-			"</div><div style='font-style:sans-serif'>NUMBER -" + Instancedata.Deliverynumber +
-			"</div><div style='font-style:sans-serif'>PRODUCT  -" + Instancedata.Productname +
-			"</div><div style='font-style:sans-serif'>MESSAGE" + Instancedata.Message +
-			"</div></tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
-
-	case Model.Ownorderplaced:
-		getorder := t1
-		var stringprod []string
-
-		for _, Food := range getorder.Food {
-			var getstring string
-			getstring = "<tr style='font-style:sans-serif'><td>" + Food.Dishname + "</td><td>" + fmt.Sprintf("%v", Food.Rate) + "</td><td>" + fmt.Sprintf("%v", Food.Platecount) + "</td></tr>"
-			stringprod = append(stringprod, getstring)
-		}
-		result := strings.Join(stringprod, "")
-
-		htmlContent = "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-			"<div style='font-style:sans-serif'>LOGINID - " + getorder.Loginid +
-			"<div style='font-style:sans-serif'>ADDRESS - " + addr +
-			"</div><div style='font-style:sans-serif'>NUMBER -" + number +
-			"</div><div style='font-style:sans-serif'>NO Of ITEMS -" + fmt.Sprintf("%v", getorder.Noofitems) +
-			"</div><div style='font-style:sans-serif'>TOTAL AMOUNT -" + fmt.Sprintf("%v", getorder.TotalAmount) +
-
-			"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >DISH </th><th>RATE</th><th>PLATECOUNT</th></tr>" +
-			result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
-
-	case Model.Fooddelivery:
-		Instancedata := t1
-		var stringprod []string
-		for _, Food := range Instancedata.Food {
-			var getstring string
-			getstring = "<tr style='font-style:sans-serif'><td>" + Food.Foodname + "</td><td>" + fmt.Sprintf("%v", Food.Quantity) + "</td></tr>"
-			stringprod = append(stringprod, getstring)
-		}
-		result := strings.Join(stringprod, "")
-
-		htmlContent = "<div><b style='font-size:15px'>E3 NEW ORDER : </b></div><br> " +
-			"<div style='font-style:sans-serif'>LOGINID - " + Instancedata.Loginid +
-			"<div style='font-style:sans-serif'>ADDRESS - " + Instancedata.Address +
-			"</div><div style='font-style:sans-serif'>NUMBER -" + Instancedata.Mobilenumber +
-			"</div><div style='font-style:sans-serif'>HOTEL NAME -" + Instancedata.Hotelname +
-
-			"</div><table class='table' border='1' style='padding:5px;font-style:sans-serif'><tbody >" + "<tr style='border-bottom:1pt solid black;'><th >FOOD </th><th>QUANTITY</th></tr>" +
-			result + "</tbody></table><br><div>Please Check E3 Admin Panel for more detail ...!</div>"
-
-	default:
-		_ = t
-
-	}
-	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-
-	client := sendgrid.NewSendClient(sendkey)
-	response, err := client.Send(message)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(response.StatusCode)
-		fmt.Println(response.Body)
-		fmt.Println(response.Headers)
-
-	}
-
-}
 func OrderTracking_DB(loginid string) (Trackingres1 []Model.Trackingresponse) {
 	var Trackingres Model.Trackingresponse
 	Querystring := "SELECT * FROM ordertracking WHERE status IN ('Dispatched', 'Order') && loginid ='" + loginid + "'"
