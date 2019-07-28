@@ -1,4 +1,4 @@
-	<!--
+<!--
 Author: W3layouts
 Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
@@ -80,7 +80,17 @@ $("#rate7"+ID).html(rate7);
 }
 });
 });
- //Update image
+
+  function Showform1(){
+    var x = document.getElementById("showdiv1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    
+  }
+  //Update image
 
 function Updateimage(Dyid){
 
@@ -115,15 +125,6 @@ console.log("sucessfully updated")
 }
 });}
 
-  function Showform1(){
-    var x = document.getElementById("showdiv1");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-    
-  }
 
  //For Slider
  function Getjavascript(Dyid){
@@ -146,7 +147,7 @@ console.log("sucessfully updated")
 
 
  "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button>"+
- "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updateimage("+Dyid+",this)'>Update Image</button></td>"+
+  "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updateimage("+Dyid+",this)'>Update Image</button></td>"+
  "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>"+
 "<button id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
 
@@ -581,6 +582,20 @@ tbody tr:nth-child(even){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="content">
                 <div class="table-container">
       
@@ -598,7 +613,7 @@ tbody tr:nth-child(even){
       <th> Rate- 500gms</th>
       <th> Rate- 250gms </th>
     <th>Update Rate</th>
-	<th>Edit image</th>
+    <th>Edit image</th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -738,6 +753,7 @@ tbody tr:nth-child(even){
       <div>
       <button type="submit"  class='btn btn-success'>Submit</button>
 </div>
+
 <script>
               var toggle = true;
                     
