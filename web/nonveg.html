@@ -90,6 +90,41 @@ $("#rate7"+ID).html(rate7);
     }
     
   }
+  //Update image
+
+function Updateimage(Dyid){
+
+$('#myModal1').modal('show');
+$("#showid1").val(Dyid)
+
+var sendid ={
+   "Getproductid" :Dyid,
+}
+  $.ajax({
+    type: "POST",
+    url: "http://176.111.105.86:8085/Getsingledata",
+    contentType:"application/json; charset=utf-8",
+    data: JSON.stringify(sendid),
+
+ success: function(responsee){
+   var searchout = JSON.parse(responsee);
+   var product =searchout.Vegetable 
+   var rate1 =searchout.Rate1kg 
+   var rate2 =searchout.Rate500gm 
+   var rate3 =searchout.Rate250gm 
+   var picurl =searchout.Pictureurl 
+   var id=searchout.Vegid
+ $("#names1").val(product);
+$("#rates1").val(rate1);
+$("#rates2").val(rate2);
+$("#rates3").val(rate3);
+$("#getid").val(id);
+
+
+console.log("sucessfully updated")
+}
+});}
+
 
  //For Slider
  function Getjavascript(Dyid){
@@ -112,6 +147,7 @@ $("#rate7"+ID).html(rate7);
 
 
  "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updaterate("+Dyid+",this)'>Update Rate</button>"+
+  "<td id='userid"+Dyid+"'><button type='submit' class='btn btn-success'   onclick='return  Updateimage("+Dyid+",this)'>Update Image</button></td>"+
  "<td><button id='showtab2"+Dyid+"'  type='submit' class='btn btn-success' onclick='return  Show("+Dyid+",this)' style='margin-bottom:-20%;display:none;'>Show</button>"+
 "<button id='showtab1"+Dyid+"' type='submit' class='btn btn-success' onclick='return  Hide("+Dyid+",this)'>Hide</button></td>"+
 
@@ -577,6 +613,7 @@ tbody tr:nth-child(even){
       <th> Rate- 500gms</th>
       <th> Rate- 250gms </th>
     <th>Update Rate</th>
+    <th>Edit image</th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -692,6 +729,29 @@ tbody tr:nth-child(even){
      
   </div>
 </div>
+</div>
+
+<div class="modal fade" id="myModal1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:black;color:white">
+        <h3 class="modal-title" id="exampleModalLabel"><b>Update Product Image</b></h3>
+        <button type="button" class="close" aria-label="Close" data-dismiss="modal" style="margin-top:-30px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body" style="background-color:brown;color:white">
+       <div class="file-field input-field">
+     <form action="http://176.111.105.86:8085/NonEditimage" method="POST" enctype="multipart/form-data"  >
+     <div><input  type="text" id="getid" name="getidd" style="display:none"></div>
+      <div>
+        <label>Upload product Image</label>
+        <input type="file"  name="upload1" required>
+      </div>
+      <br>
+      <div>
+      <button type="submit"  class='btn btn-success'>Submit</button>
 </div>
 
 <script>
