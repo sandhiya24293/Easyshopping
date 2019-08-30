@@ -89,7 +89,7 @@ func Allproduct(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	Userdata.Pictureurl = "http://176.111.105.86:8085/" + Pictureurl
+	Userdata.Pictureurl = "http://94.237.72.164:8085/" + Pictureurl
 	Db.Addproduct_DB(Userdata)
 
 }
@@ -120,7 +120,7 @@ func AddFoodproduct(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	Userdata.Image = "http://176.111.105.86:8085/" + Pictureurl
+	Userdata.Image = "http://94.237.72.164:8085/" + Pictureurl
 	Db.AddFood_DB(Userdata)
 
 }
@@ -157,7 +157,7 @@ func NonAddproduct(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	Userdata.Pictureurl = "http://176.111.105.86:8085/" + Pictureurl
+	Userdata.Pictureurl = "http://94.237.72.164:8085/" + Pictureurl
 	Db.AddNonproduct_DB(Userdata)
 
 }
@@ -192,7 +192,7 @@ func Editimage(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	Pictureurl = "http://176.111.105.86:8085/" + Pictureurl
+	Pictureurl = "http://94.237.72.164:8085/" + Pictureurl
 
 	Db.Updateimage_DB(getid1, Pictureurl)
 
@@ -218,7 +218,7 @@ func NonEditimage(w http.ResponseWriter, r *http.Request) {
 	defer f.Close()
 
 	io.Copy(f, file)
-	Pictureurl = "http://176.111.105.86:8085/" + Pictureurl
+	Pictureurl = "http://94.237.72.164:8085/" + Pictureurl
 
 	Db.Updatenonimage_DB(getid1, Pictureurl)
 
@@ -299,11 +299,11 @@ func SendVegetable(w http.ResponseWriter, r *http.Request) {
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
-			Data1.Url = "http://176.111.105.86:8085/Vegtables"
+			Data1.Url = "http://94.237.72.164:8085/Vegtables"
 		} else if i == 1 {
-			Data1.Url = "http://176.111.105.86:8085/Leaves"
+			Data1.Url = "http://94.237.72.164:8085/Leaves"
 		} else {
-			Data1.Url = "http://176.111.105.86:8085/Fruits"
+			Data1.Url = "http://94.237.72.164:8085/Fruits"
 
 		}
 		Response = append(Response, Data1)
@@ -329,18 +329,18 @@ func SendFruit(w http.ResponseWriter, r *http.Request) {
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
-			Data1.Url = "http://176.111.105.86:8085/Fruits"
+			Data1.Url = "http://94.237.72.164:8085/Fruits"
 		} else if i == 1 {
-			Data1.Url = "http://176.111.105.86:8085/Fruits1"
+			Data1.Url = "http://94.237.72.164:8085/Fruits1"
 
 		} else if i == 2 {
-			Data1.Url = "http://176.111.105.86:8085/Fruits2"
+			Data1.Url = "http://94.237.72.164:8085/Fruits2"
 
 		} else if i == 3 {
-			Data1.Url = "http://176.111.105.86:8085/Fruits3"
+			Data1.Url = "http://94.237.72.164:8085/Fruits3"
 
 		} else {
-			Data1.Url = "http://176.111.105.86:8085/Fruits4"
+			Data1.Url = "http://94.237.72.164:8085/Fruits4"
 
 		}
 		Response = append(Response, Data1)
@@ -366,7 +366,7 @@ func SendFood(w http.ResponseWriter, r *http.Request) {
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
-			Data1.Url = "http://176.111.105.86:8085/GetOwnfooddeliver"
+			Data1.Url = "http://94.237.72.164:8085/GetOwnfooddeliver"
 		}
 		Response = append(Response, Data1)
 
@@ -391,13 +391,13 @@ func SendNonVeg(w http.ResponseWriter, r *http.Request) {
 	for i, v := range Category {
 		Data1.CategoryName = v
 		if i == 0 {
-			Data1.Url = "http://176.111.105.86:8085/NonVeg"
+			Data1.Url = "http://94.237.72.164:8085/NonVeg"
 
 		} else if i == 1 {
-			Data1.Url = "http://176.111.105.86:8085/Legpiece"
+			Data1.Url = "http://94.237.72.164:8085/Legpiece"
 
 		} else {
-			Data1.Url = "http://176.111.105.86:8085/Seafood"
+			Data1.Url = "http://94.237.72.164:8085/Seafood"
 
 		}
 		Response = append(Response, Data1)

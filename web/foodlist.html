@@ -30,7 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           
            $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/GetOwnfooddeliver",
+               url: "http://94.237.72.164:8085/GetOwnfooddeliver",
                contentType:"application/json; charset=utf-8",
                
          
@@ -106,7 +106,7 @@ function Updaterate(Dyid){
 	}
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Getfoodsingledata",
+      url: "http://94.237.72.164:8085/Getfoodsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
@@ -144,7 +144,7 @@ console.log("sucessfully updated")
 	}
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Changefoodstatus",
+      url: "http://94.237.72.164:8085/Changefoodstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -163,7 +163,7 @@ console.log("sucessfully updated")
 	}
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Changefoodstatus",
+      url: "http://94.237.72.164:8085/Changefoodstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -195,7 +195,7 @@ var Updateproduct ={
 	
 	  $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdatefoodRate",
+      url: "http://94.237.72.164:8085/UpdatefoodRate",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -226,7 +226,7 @@ function Addproduct(){
 	}
 	 $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Addproduct",
+      url: "http://94.237.72.164:8085/Addproduct",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Add),
 
@@ -345,7 +345,7 @@ tbody tr:nth-child(even){
 <div class="content">
 	<div style="display:none;" id="showdiv">
 		 <!-- Form -->
-	   <form action="http://176.111.105.86:8085/AddFoodproduct" method="POST" enctype="multipart/form-data"  >
+	   <form action="http://94.237.72.164:8085/AddFoodproduct" method="POST" enctype="multipart/form-data"  >
        <div>
     	<!-- <div style="visibility:hidden;">
 					<label >Dish Name</label>

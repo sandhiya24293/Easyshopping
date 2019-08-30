@@ -30,7 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           
            $.ajax({
                type: "GET",
-               url: "http://176.111.105.86:8085/Leaves",
+               url: "http://94.237.72.164:8085/Leaves",
                contentType:"application/json; charset=utf-8",
                
          
@@ -106,7 +106,7 @@ function Updaterate(Dyid){
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Getsingledata",
+      url: "http://94.237.72.164:8085/Getsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
@@ -136,7 +136,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Getsingledata",
+      url: "http://94.237.72.164:8085/Getsingledata",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(sendid),
 
@@ -168,7 +168,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateProductstatus",
+      url: "http://94.237.72.164:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -187,7 +187,7 @@ console.log("sucessfully updated")
   }
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateProductstatus",
+      url: "http://94.237.72.164:8085/UpdateProductstatus",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -224,7 +224,7 @@ var Updateproduct ={
   
     $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/UpdateRate",
+      url: "http://94.237.72.164:8085/UpdateRate",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Updateproduct),
 
@@ -255,7 +255,7 @@ function Addproduct(){
   }
    $.ajax({
       type: "POST",
-      url: "http://176.111.105.86:8085/Addproduct",
+      url: "http://94.237.72.164:8085/Addproduct",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(Add),
 
@@ -376,7 +376,7 @@ tbody tr:nth-child(even){
 <div class="content">
   <div style="display:none;" id="showdiv">
      <!-- Form -->
-     <form action="http://176.111.105.86:8085/Addproduct" method="POST" enctype="multipart/form-data"  >
+     <form action="http://94.237.72.164:8085/Addproduct" method="POST" enctype="multipart/form-data"  >
        <div>
       <div style="visibility:hidden;">
           <label >Product Name</label>
@@ -441,7 +441,7 @@ tbody tr:nth-child(even){
       
       <div style="display:none;" id="showdiv1">
      <!-- Form -->
-          <form action="http://176.111.105.86:8085/NonAddproduct" method="POST" enctype="multipart/form-data"  >
+          <form action="http://94.237.72.164:8085/NonAddproduct" method="POST" enctype="multipart/form-data"  >
                 <div >
 
     
@@ -660,7 +660,7 @@ tbody tr:nth-child(even){
       </div>
       <div class="modal-body" style="background-color:brown;color:white">
        <div class="file-field input-field">
-     <form action="http://176.111.105.86:8085/Editimage" method="POST" enctype="multipart/form-data"  >
+     <form action="http://94.237.72.164:8085/Editimage" method="POST" enctype="multipart/form-data"  >
      <div><input  type="text" id="getid" name="getidd" style="display:none"></div>
       <div>
         <label>Upload product Image</label>
